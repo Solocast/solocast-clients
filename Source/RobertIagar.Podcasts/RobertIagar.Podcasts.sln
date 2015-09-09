@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RobertIagar.Podcasts.Backgr
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RobertIagar.Podcasts.Services", "RobertIagar.Podcasts.Services\RobertIagar.Podcasts.Services.csproj", "{FEBEB45E-96A0-4C03-BA66-858010122FB2}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RobertIagar.Podcasts.Tests", "RobertIagar.Podcasts.Tests\RobertIagar.Podcasts.Tests.csproj", "{59171DB4-D228-4314-B0EC-3F12CBA4F681}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -91,6 +93,26 @@ Global
 		{FEBEB45E-96A0-4C03-BA66-858010122FB2}.Release|x64.Build.0 = Release|x64
 		{FEBEB45E-96A0-4C03-BA66-858010122FB2}.Release|x86.ActiveCfg = Release|x86
 		{FEBEB45E-96A0-4C03-BA66-858010122FB2}.Release|x86.Build.0 = Release|x86
+		{59171DB4-D228-4314-B0EC-3F12CBA4F681}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{59171DB4-D228-4314-B0EC-3F12CBA4F681}.Debug|ARM.ActiveCfg = Debug|ARM
+		{59171DB4-D228-4314-B0EC-3F12CBA4F681}.Debug|ARM.Build.0 = Debug|ARM
+		{59171DB4-D228-4314-B0EC-3F12CBA4F681}.Debug|ARM.Deploy.0 = Debug|ARM
+		{59171DB4-D228-4314-B0EC-3F12CBA4F681}.Debug|x64.ActiveCfg = Debug|x64
+		{59171DB4-D228-4314-B0EC-3F12CBA4F681}.Debug|x64.Build.0 = Debug|x64
+		{59171DB4-D228-4314-B0EC-3F12CBA4F681}.Debug|x64.Deploy.0 = Debug|x64
+		{59171DB4-D228-4314-B0EC-3F12CBA4F681}.Debug|x86.ActiveCfg = Debug|x86
+		{59171DB4-D228-4314-B0EC-3F12CBA4F681}.Debug|x86.Build.0 = Debug|x86
+		{59171DB4-D228-4314-B0EC-3F12CBA4F681}.Debug|x86.Deploy.0 = Debug|x86
+		{59171DB4-D228-4314-B0EC-3F12CBA4F681}.Release|Any CPU.ActiveCfg = Release|x86
+		{59171DB4-D228-4314-B0EC-3F12CBA4F681}.Release|ARM.ActiveCfg = Release|ARM
+		{59171DB4-D228-4314-B0EC-3F12CBA4F681}.Release|ARM.Build.0 = Release|ARM
+		{59171DB4-D228-4314-B0EC-3F12CBA4F681}.Release|ARM.Deploy.0 = Release|ARM
+		{59171DB4-D228-4314-B0EC-3F12CBA4F681}.Release|x64.ActiveCfg = Release|x64
+		{59171DB4-D228-4314-B0EC-3F12CBA4F681}.Release|x64.Build.0 = Release|x64
+		{59171DB4-D228-4314-B0EC-3F12CBA4F681}.Release|x64.Deploy.0 = Release|x64
+		{59171DB4-D228-4314-B0EC-3F12CBA4F681}.Release|x86.ActiveCfg = Release|x86
+		{59171DB4-D228-4314-B0EC-3F12CBA4F681}.Release|x86.Build.0 = Release|x86
+		{59171DB4-D228-4314-B0EC-3F12CBA4F681}.Release|x86.Deploy.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
