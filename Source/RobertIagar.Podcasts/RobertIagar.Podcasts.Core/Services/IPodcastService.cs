@@ -12,7 +12,9 @@ namespace RobertIagar.Podcasts.Core.Services
         Task<Podcast> GetPodcastAsync(string feedUrl);
         Task<Podcast> GetPodcastAsync(Uri feedUrl);
         Task<Podcast> GetPodcastAsync(Guid podcastId);
-        Task SavePodcastAsync(Podcast podcast);
+        Task<IEnumerable<Podcast>> SearchPodcast(string searchString);
         Task<IEnumerable<Episode>> GetNewEpisodesAsync(Podcast podcast);
+
+        Task SavePodcastAsync(Podcast podcast);
     }
 }
