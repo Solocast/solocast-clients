@@ -118,7 +118,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Interfaces\IEpisodeDownloaader.cs" />
     <Compile Include="Interfaces\IFeedParser.cs" />
-    <Compile Include="Interfaces\IFileDownloader.cs" />
+    <Compile Include="Interfaces\IFileDownloadManager.cs" />
     <Compile Include="Interfaces\ILocalStorageService.cs" />
     <Compile Include="Interfaces\IPodcastService.cs" />
     <Compile Include="Services\LocalStorageService.cs" />
