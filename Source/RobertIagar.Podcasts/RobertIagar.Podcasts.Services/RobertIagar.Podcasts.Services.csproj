@@ -114,6 +114,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="FeedParser.cs" />
+    <Compile Include="LocalPodcastService.cs" />
     <Compile Include="PodcastService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Content Include="Properties\RobertIagar.Podcasts.Services.rd.xml" />

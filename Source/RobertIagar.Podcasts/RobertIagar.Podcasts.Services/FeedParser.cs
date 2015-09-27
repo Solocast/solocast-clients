@@ -1,5 +1,5 @@
 ﻿using Newtonsoft.Json;
-using RobertIagar.Podcasts.Core.Services;
+using RobertIagar.Podcasts.Core.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,32 +21,59 @@ namespace RobertIagar.Podcasts.Services
             client = new HttpClient();
         }
 
-        public async Task<dynamic> GetFeedAsync(Uri feedUrl)
+        public async Task<dynamic> GetChannelNodeAsync(string feedUrl)
+        {
+            return await GetChannelNodeAsync(new Uri(feedUrl));
+        }
+
+        public async Task<dynamic> GetChannelNodeAsync(Uri feedUrl)
         {
             var xml = await client.GetStringAsync(feedUrl);
             var xDoc = XDocument.Parse(xml);
 
             string json = JsonConvert.SerializeXNode(xDoc);
             dynamic result = JsonConvert.DeserializeObject(json);
-            return result;
+            return result.rss.channel;
         }
 
         public Podcast GetPodcast(dynamic json)
         {
-            string link = json.rss.channel.link.ToString();
-            string title = json.rss.channel.title.ToString();
-            string author = json.rss.channel["itunes:author"].ToString();
-            string summary = json.rss.channel["itunes:summary"].ToString();
-            string description = json.rss.channel.description.ToString();
-            string imageLink = json.rss.channel.image.url ?? json.rss.channel["itunes:image"].href.ToString();
+            string link = json.link.ToString();
+            string title = json.title.ToString();
+            string author = json["itunes:author"].ToString();
+            string summary = json["itunes:summary"].ToString();
+            string description = json.description.ToString();
+            string imageLink = json.image.url ?? json["itunes:image"]["@href"].ToString();
             string podcastDescription = string.Empty;
 
             if (description == null)
                 podcastDescription = summary;
             else if (summary == null)
-                podcastDescription = summary;
+                podcastDescription = description;
 
-            return new Podcast(title, description, author, new Uri(link), new Uri(imageLink), DateTime.Now);
+            var podcast = new Podcast(title, podcastDescription, author, link, imageLink, DateTime.Now);
+
+            var episodes = new List<Episode>();
+
+            var items = json.item;
+
+            foreach (var item in items)
+            {
+                string name = item.title.ToString();
+                string path = item.enclosure["@url"].ToString();
+                author = item["itunes:author"].ToString();
+                summary = item["itunes:summary"].ToString();
+                string pubDate = item.pubDate.ToString();
+                string imageUrl = item["itunes:image"]["@href"].ToString();
+                string guid = item.guid.ToString();
+
+                var episode = new Episode(name, path, author, summary, pubDate, imageUrl, guid);
+                episode.SetPodcast(podcast);
+                episodes.Add(episode);
+            }
+
+            podcast.SetEpisodes(episodes);
+            return podcast;
         }
     }
 }

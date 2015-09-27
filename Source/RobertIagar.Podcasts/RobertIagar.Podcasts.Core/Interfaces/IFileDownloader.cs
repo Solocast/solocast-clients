@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Windows.Storage;
 
-namespace RobertIagar.Podcasts.Core.Services
+namespace RobertIagar.Podcasts.Core.Interfaces
 {
     public interface IFileDownloader
     {

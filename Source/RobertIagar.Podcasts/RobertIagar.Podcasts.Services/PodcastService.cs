@@ -1,4 +1,4 @@
-﻿using RobertIagar.Podcasts.Core.Services;
+﻿using RobertIagar.Podcasts.Core.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,29 +10,53 @@ namespace RobertIagar.Podcasts.Services
 {
     public class PodcastService : IPodcastService
     {
-        public Task<Podcast> GetPodcastAsync(string feedUrl)
+        private IFeedParser feedParser;
+        private ILocalStorageService<Podcast> storageService;
+
+        public PodcastService(IFeedParser feedParser, ILocalStorageService<Podcast> storageService)
         {
-            return GetPodcastAsync(new Uri(feedUrl));
+            this.feedParser = feedParser;
+            this.storageService = storageService;
         }
 
-        public Task<Podcast> GetPodcastAsync(Uri feedUrl)
+        public async Task<Podcast> GetPodcastAsync(string feedUrl)
         {
-            throw new NotImplementedException();
+            dynamic feed = await feedParser.GetChannelNodeAsync(feedUrl);
+            var podcast = feedParser.GetPodcast(feed);
+            return podcast;
         }
 
-        public Task<IEnumerable<Episode>> GetNewEpisodesAsync(Podcast podcast)
+        public async Task<IEnumerable<Podcast>> GetPodcastsAsync()
         {
-            throw new NotImplementedException();
+            var podcasts = await storageService.LoadAsync();
+            return podcasts;
         }
 
-        public Task<Podcast> GetPodcastAsync(Guid podcastId)
+        public async Task<IEnumerable<Episode>> GetNewEpisodesAsync(Podcast podcast)
         {
-            throw new NotImplementedException();
+            dynamic feed = await feedParser.GetChannelNodeAsync(podcast.FeedUrl);
+            Podcast newPodcast = feedParser.GetPodcast(feed);
+            var newEpisodes = new List<Episode>();
+
+            foreach(var episode in newPodcast.Episodes)
+            {
+                if (!podcast.Episodes.Contains(episode))
+                {
+                    newEpisodes.Add(episode);
+                }
+            }
+
+            return newEpisodes;
         }
 
-        public Task SavePodcastAsync(Podcast podcast)
+        public async Task SavePodcastAsync(Podcast podcast)
         {
-            throw new NotImplementedException();
+            await storageService.SaveAsync(podcast);
+        }
+
+        public async Task SavePodcastsAsync(IEnumerable<Podcast> podcasts)
+        {
+            await storageService.SaveAsync(podcasts);
         }
 
         public Task<IEnumerable<Podcast>> SearchPodcast(string searchString)

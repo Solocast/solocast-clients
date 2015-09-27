@@ -2,6 +2,10 @@
 using Microsoft.VisualStudio.TestPlatform.UnitTestFramework;
 using RobertIagar.Podcasts.Services;
 using System.Diagnostics;
+using RobertIagar.Podcasts.Core.Entities;
+using System.Collections.Generic;
+using System.Linq;
+using Windows.Storage;
 
 namespace RobertIagar.Podcasts.Tests
 {
@@ -15,10 +19,84 @@ namespace RobertIagar.Podcasts.Tests
         public void RandomTest()
         {
             var feedParser = new FeedParser();
-            dynamic json = feedParser.GetFeedAsync(new Uri("http://monstercat.com/podcast/feed.xml")).Result;
+            dynamic json = feedParser.GetChannelNodeAsync("http://monstercat.com/podcast/feed.xml").Result;
             var podcast = feedParser.GetPodcast(json);
 
             Assert.AreEqual(true, true);
+        }
+
+        [TestMethod]
+        public void TestFeedParser()
+        {
+            var feedParser = new FeedParser();
+            dynamic channel = feedParser.GetChannelNodeAsync("http://monstercat.com/podcast/feed.xml").Result;
+            string podcastDescription = string.Empty;
+            string summary = channel["itunes:summary"].ToString();
+            string description = channel.description.ToString();
+
+            if (description == null)
+                podcastDescription = summary;
+            else if (summary == null)
+                podcastDescription = description;
+
+
+            Podcast podcast = feedParser.GetPodcast(channel);
+
+            Assert.AreEqual(channel.title.ToString(), podcast.Title);
+            Assert.AreEqual(new Uri(channel.image.url.ToString()), podcast.ImageUrl);
+            Assert.AreEqual(podcastDescription, podcast.Description);
+            Assert.AreEqual(channel["itunes:author"].ToString(), podcast.Author);
+            Assert.AreEqual(new Uri(channel.link.ToString()), podcast.FeedUrl);
+        }
+
+        [TestMethod]
+        public void TestIfPodcastFromFeedIsTheSameAsPodcastFromService()
+        {
+            var feedParser = new FeedParser();
+
+            var podcastService = new PodcastService(feedParser, null);
+            var feed = feedParser.GetChannelNodeAsync("http://monstercat.com/podcast/feed.xml").Result;
+
+            var podcastFromFeed = feedParser.GetPodcast(feed);
+            var podcastFromService = podcastService.GetPodcastAsync("http://monstercat.com/podcast/feed.xml").Result;
+
+            Assert.AreEqual(true, podcastFromService.Equals(podcastFromFeed));
+        }
+
+        [TestMethod]
+        public void TestLocalStorage()
+        {
+            var localStorage = new LocalPodcastService();
+            var feedParser = new FeedParser();
+            var podcastService = new PodcastService(feedParser, localStorage);
+
+            var podcasts = new List<Podcast>();
+            var podcast = podcastService.GetPodcastAsync("http://monstercat.com/podcast/feed.xml").Result;
+            podcasts.Add(podcast);
+
+            podcastService.SavePodcastsAsync(podcasts).Wait();
+
+            var podcastsFromStorage = podcastService.GetPodcastsAsync().Result.ToList();
+            Assert.AreEqual(podcasts.Count, podcastsFromStorage.Count);
+
+            for (int i = 0; i < podcasts.Count; i++)
+            {
+                Assert.AreEqual(true, podcasts[i].Equals(podcastsFromStorage[i]));
+            }
+        }
+
+        [TestCleanup]
+        public void Cleanup()
+        {
+            try {
+                var localFolder = ApplicationData.Current.LocalFolder;
+                var file = localFolder.GetFileAsync("podcast.json").AsTask().Result;
+                file.DeleteAsync().AsTask().Wait();
+            }
+            catch
+            {
+                //file does not exist which is ok;
+            }
         }
     }
 }

@@ -3,17 +3,62 @@ using System;
 
 namespace RobertIagar.Podcasts.Core.Entities
 {
-    public class Episode
+    public class Episode : IEquatable<Episode>
     {
         public string Name { get; set; }
         public string Path { get; set; }
         public string Author { get; set; }
         public string Summary { get; set; }
-        public string Description { get; set; }
+        public string Guid { get; private set; }
         public DateTime Published { get; set; }
         public Uri ImageUrl { get; set; }
 
         [JsonIgnore]
         public virtual Podcast Podcast { get; set; }
+
+        public Episode(string name,
+            string path,
+            string author,
+            string summary,
+            string published,
+            string imageUrl,
+            string guid)
+        {
+            this.Name = name;
+            this.Path = path;
+            this.Author = author;
+            this.Summary = summary;
+            this.Published = published.ToDateTime();
+            this.ImageUrl = new Uri(imageUrl);
+            this.Guid = guid;
+        }
+
+        [Obsolete]
+        public Episode()
+        {
+        }
+
+        public void SetPodcast(Podcast podcast)
+        {
+            this.Podcast = podcast;
+        }
+
+        public bool Equals(Episode other)
+        {
+            return this.Guid == other.Guid;
+        }
+    }
+
+    public static class Extensions
+    {
+        public static DateTime ToDateTime(this string input)
+        {
+            var index = input.LastIndexOf(" ");
+            var stringResult = input.Remove(index).Replace("Thurs", "Thu");
+            var dateResult = DateTime.MinValue;
+            var parsed = DateTime.TryParse(stringResult, out dateResult);
+
+            return dateResult;
+        }
     }
 }

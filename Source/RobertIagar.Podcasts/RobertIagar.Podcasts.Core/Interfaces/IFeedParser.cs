@@ -5,11 +5,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace RobertIagar.Podcasts.Core.Services
+namespace RobertIagar.Podcasts.Core.Interfaces
 {
     public interface IFeedParser
     {
-        Task<dynamic> GetFeedAsync(Uri feedUrl);
+        Task<dynamic> GetChannelNodeAsync(string feedUrl);
+        Task<dynamic> GetChannelNodeAsync(Uri feedUrl);
         Podcast GetPodcast(dynamic json);
     }
 }

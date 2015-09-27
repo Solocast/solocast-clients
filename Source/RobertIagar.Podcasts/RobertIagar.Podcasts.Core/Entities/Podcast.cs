@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace RobertIagar.Podcasts.Core.Entities
 {
-    public class Podcast
+    public class Podcast : IEquatable<Podcast>
     {
-        public string Name { get; set; }
+        public string Title { get; set; }
         public string Description { get; set; }
         public string Author { get; set; }
         public Uri FeedUrl { get; set; }
@@ -20,16 +20,35 @@ namespace RobertIagar.Podcasts.Core.Entities
         public Podcast(string name,
             string description,
             string author,
-            Uri feedUrl,
-            Uri imageUrl,
+            string feedUrl,
+            string imageUrl,
             DateTime dateAdded)
         {
-            this.Name = name;
+            this.Title = name;
             this.Description = description;
             this.Author = author;
-            this.FeedUrl = feedUrl;
-            this.ImageUrl = imageUrl;
+            this.FeedUrl = new Uri(feedUrl);
+            this.ImageUrl = new Uri(imageUrl);
             this.DateAdded = dateAdded;
+        }
+
+        public void SetEpisodes(IEnumerable<Episode> episode)
+        {
+            this.Episodes = episode.ToList();
+        }
+
+        public bool Equals(Podcast other)
+        {
+            //not the best logic, but it will do
+            if (this.FeedUrl == other.FeedUrl)
+            {
+                if (this.Episodes.Count == other.Episodes.Count)
+                {
+                    return true;
+                }
+            }
+
+            return true;
         }
     }
 }
