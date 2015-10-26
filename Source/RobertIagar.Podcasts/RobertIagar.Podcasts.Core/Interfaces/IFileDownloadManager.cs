@@ -11,13 +11,13 @@ namespace RobertIagar.Podcasts.Core.Interfaces
 {
     public interface IFileDownloadManager
     {
-        Task<StorageFile> DonwloadFileAsync(
+        Task<StorageFile> DownloadFileAsync(
             string appFolderName,
             string folderName,
             string fileName,
             string fileUrl,
             Action<DownloadOperation> callback,
-            Action errorCallback = null);
+            Action<Exception> errorCallback = null);
         void PauseDownload(string fileUrl);
         void ResumeDownload(string fielUrl);
         void CancelDownload(string fileUrl);

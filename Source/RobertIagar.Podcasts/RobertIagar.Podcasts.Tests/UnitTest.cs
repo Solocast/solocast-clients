@@ -54,7 +54,7 @@ namespace RobertIagar.Podcasts.Tests
         {
             var feedParser = new FeedParser();
 
-            var podcastService = new PodcastService(feedParser, null);
+            var podcastService = new PodcastService(feedParser, null, null);
             var feed = feedParser.GetChannelNodeAsync("http://monstercat.com/podcast/feed.xml").Result;
 
             var podcastFromFeed = feedParser.GetPodcast(feed);
@@ -68,7 +68,7 @@ namespace RobertIagar.Podcasts.Tests
         {
             var localStorage = new LocalPodcastService();
             var feedParser = new FeedParser();
-            var podcastService = new PodcastService(feedParser, localStorage);
+            var podcastService = new PodcastService(feedParser, localStorage, null);
 
             var podcasts = new List<Podcast>();
             var podcast = podcastService.GetPodcastAsync("http://monstercat.com/podcast/feed.xml").Result;
@@ -85,10 +85,23 @@ namespace RobertIagar.Podcasts.Tests
             }
         }
 
+        [TestMethod]
+        public void TestDownload()
+        {
+            var localStorage = new LocalPodcastService();
+            var feedParser = new FeedParser();
+            var fileManager = new FileDownloadManager();
+            var podcastService = new PodcastService(feedParser, localStorage, fileManager);
+
+            var podcastFromService = podcastService.GetPodcastAsync("http://monstercat.com/podcast/feed.xml").Result;
+            podcastService.DownloadEpisodeAsync(podcastFromService.Episodes.OrderByDescending(e => e.Published).ToList()[0]).Wait();
+        }
+
         [TestCleanup]
         public void Cleanup()
         {
-            try {
+            try
+            {
                 var localFolder = ApplicationData.Current.LocalFolder;
                 var file = localFolder.GetFileAsync("podcast.json").AsTask().Result;
                 file.DeleteAsync().AsTask().Wait();

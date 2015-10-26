@@ -3,8 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.23107.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RobertIagar.Podcasts.WindowsUniversal", "RobertIagar.Podcasts.WindowsUniversal\RobertIagar.Podcasts.WindowsUniversal.csproj", "{48162F40-DD79-4C81-8159-88859102BAC5}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RobertIagar.Podcasts.Core", "RobertIagar.Podcasts.Core\RobertIagar.Podcasts.Core.csproj", "{77332E38-3252-4595-BB9E-8AE06B679E80}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RobertIagar.Podcasts.BackgroundTasks", "RobertIagar.Podcasts.BackgroundTasks\RobertIagar.Podcasts.BackgroundTasks.csproj", "{708974ED-9F0C-4BCD-A024-21D947AB645C}"
@@ -12,6 +10,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RobertIagar.Podcasts.Services", "RobertIagar.Podcasts.Services\RobertIagar.Podcasts.Services.csproj", "{FEBEB45E-96A0-4C03-BA66-858010122FB2}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RobertIagar.Podcasts.Tests", "RobertIagar.Podcasts.Tests\RobertIagar.Podcasts.Tests.csproj", "{59171DB4-D228-4314-B0EC-3F12CBA4F681}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RobertIagar.Podcasts.UWP", "RobertIagar.Podcasts.UWP\RobertIagar.Podcasts.UWP.csproj", "{30F0ABA4-A165-4A77-9544-381352CA3DE3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -25,26 +25,6 @@ Global
 		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{48162F40-DD79-4C81-8159-88859102BAC5}.Debug|Any CPU.ActiveCfg = Debug|x86
-		{48162F40-DD79-4C81-8159-88859102BAC5}.Debug|ARM.ActiveCfg = Debug|ARM
-		{48162F40-DD79-4C81-8159-88859102BAC5}.Debug|ARM.Build.0 = Debug|ARM
-		{48162F40-DD79-4C81-8159-88859102BAC5}.Debug|ARM.Deploy.0 = Debug|ARM
-		{48162F40-DD79-4C81-8159-88859102BAC5}.Debug|x64.ActiveCfg = Debug|x64
-		{48162F40-DD79-4C81-8159-88859102BAC5}.Debug|x64.Build.0 = Debug|x64
-		{48162F40-DD79-4C81-8159-88859102BAC5}.Debug|x64.Deploy.0 = Debug|x64
-		{48162F40-DD79-4C81-8159-88859102BAC5}.Debug|x86.ActiveCfg = Debug|x86
-		{48162F40-DD79-4C81-8159-88859102BAC5}.Debug|x86.Build.0 = Debug|x86
-		{48162F40-DD79-4C81-8159-88859102BAC5}.Debug|x86.Deploy.0 = Debug|x86
-		{48162F40-DD79-4C81-8159-88859102BAC5}.Release|Any CPU.ActiveCfg = Release|x86
-		{48162F40-DD79-4C81-8159-88859102BAC5}.Release|ARM.ActiveCfg = Release|ARM
-		{48162F40-DD79-4C81-8159-88859102BAC5}.Release|ARM.Build.0 = Release|ARM
-		{48162F40-DD79-4C81-8159-88859102BAC5}.Release|ARM.Deploy.0 = Release|ARM
-		{48162F40-DD79-4C81-8159-88859102BAC5}.Release|x64.ActiveCfg = Release|x64
-		{48162F40-DD79-4C81-8159-88859102BAC5}.Release|x64.Build.0 = Release|x64
-		{48162F40-DD79-4C81-8159-88859102BAC5}.Release|x64.Deploy.0 = Release|x64
-		{48162F40-DD79-4C81-8159-88859102BAC5}.Release|x86.ActiveCfg = Release|x86
-		{48162F40-DD79-4C81-8159-88859102BAC5}.Release|x86.Build.0 = Release|x86
-		{48162F40-DD79-4C81-8159-88859102BAC5}.Release|x86.Deploy.0 = Release|x86
 		{77332E38-3252-4595-BB9E-8AE06B679E80}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{77332E38-3252-4595-BB9E-8AE06B679E80}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{77332E38-3252-4595-BB9E-8AE06B679E80}.Debug|ARM.ActiveCfg = Debug|ARM
@@ -113,6 +93,26 @@ Global
 		{59171DB4-D228-4314-B0EC-3F12CBA4F681}.Release|x86.ActiveCfg = Release|x86
 		{59171DB4-D228-4314-B0EC-3F12CBA4F681}.Release|x86.Build.0 = Release|x86
 		{59171DB4-D228-4314-B0EC-3F12CBA4F681}.Release|x86.Deploy.0 = Release|x86
+		{30F0ABA4-A165-4A77-9544-381352CA3DE3}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{30F0ABA4-A165-4A77-9544-381352CA3DE3}.Debug|ARM.ActiveCfg = Debug|ARM
+		{30F0ABA4-A165-4A77-9544-381352CA3DE3}.Debug|ARM.Build.0 = Debug|ARM
+		{30F0ABA4-A165-4A77-9544-381352CA3DE3}.Debug|ARM.Deploy.0 = Debug|ARM
+		{30F0ABA4-A165-4A77-9544-381352CA3DE3}.Debug|x64.ActiveCfg = Debug|x64
+		{30F0ABA4-A165-4A77-9544-381352CA3DE3}.Debug|x64.Build.0 = Debug|x64
+		{30F0ABA4-A165-4A77-9544-381352CA3DE3}.Debug|x64.Deploy.0 = Debug|x64
+		{30F0ABA4-A165-4A77-9544-381352CA3DE3}.Debug|x86.ActiveCfg = Debug|x86
+		{30F0ABA4-A165-4A77-9544-381352CA3DE3}.Debug|x86.Build.0 = Debug|x86
+		{30F0ABA4-A165-4A77-9544-381352CA3DE3}.Debug|x86.Deploy.0 = Debug|x86
+		{30F0ABA4-A165-4A77-9544-381352CA3DE3}.Release|Any CPU.ActiveCfg = Release|x86
+		{30F0ABA4-A165-4A77-9544-381352CA3DE3}.Release|ARM.ActiveCfg = Release|ARM
+		{30F0ABA4-A165-4A77-9544-381352CA3DE3}.Release|ARM.Build.0 = Release|ARM
+		{30F0ABA4-A165-4A77-9544-381352CA3DE3}.Release|ARM.Deploy.0 = Release|ARM
+		{30F0ABA4-A165-4A77-9544-381352CA3DE3}.Release|x64.ActiveCfg = Release|x64
+		{30F0ABA4-A165-4A77-9544-381352CA3DE3}.Release|x64.Build.0 = Release|x64
+		{30F0ABA4-A165-4A77-9544-381352CA3DE3}.Release|x64.Deploy.0 = Release|x64
+		{30F0ABA4-A165-4A77-9544-381352CA3DE3}.Release|x86.ActiveCfg = Release|x86
+		{30F0ABA4-A165-4A77-9544-381352CA3DE3}.Release|x86.Build.0 = Release|x86
+		{30F0ABA4-A165-4A77-9544-381352CA3DE3}.Release|x86.Deploy.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

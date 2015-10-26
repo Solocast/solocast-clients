@@ -47,13 +47,13 @@ namespace RobertIagar.Podcasts.Services
             downloads.Remove(fileUrl);
         }
 
-        public async Task<StorageFile> DonwloadFileAsync(
+        public async Task<StorageFile> DownloadFileAsync(
             string appFolderName,
             string folderName,
             string fileName,
             string fileUrl,
             Action<DownloadOperation> callback,
-            Action errorCallback = null)
+            Action<Exception> errorCallback = null)
         {
             var appFolder = await KnownFolders.MusicLibrary.CreateFolderAsync(appFolderName, CreationCollisionOption.OpenIfExists);
             var podcastFolder = await appFolder.CreateFolderAsync(folderName, CreationCollisionOption.OpenIfExists);
@@ -61,7 +61,7 @@ namespace RobertIagar.Podcasts.Services
             {
                 var uri = new Uri(fileUrl);
                 var extension = uri.AbsolutePath.GetExtension();
-                var file = await podcastFolder.CreateFileAsync(fileName, CreationCollisionOption.ReplaceExisting);
+                var file = await podcastFolder.CreateFileAsync(fileName + extension, CreationCollisionOption.ReplaceExisting);
                 var backgroundDownloader = new BackgroundDownloader();
                 var downloadOperation = backgroundDownloader.CreateDownload(uri, file);
                 var progress = new Progress<DownloadOperation>(callback);
@@ -76,10 +76,10 @@ namespace RobertIagar.Podcasts.Services
                 cancellationTokenSources.Remove(fileUrl);
                 return file;
             }
-            catch
+            catch (Exception ex)
             {
                 if (errorCallback != null)
-                    errorCallback();
+                    errorCallback(ex);
                 return null;
             }
         }

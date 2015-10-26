@@ -15,5 +15,8 @@ namespace RobertIagar.Podcasts.Core.Interfaces
         Task<IEnumerable<Episode>> GetNewEpisodesAsync(Podcast podcast);
         Task SavePodcastAsync(Podcast podcast);
         Task SavePodcastsAsync(IEnumerable<Podcast> podcasts);
+        Task DownloadEpisodeAsync(Episode episode);
+
+        string AppName { get; }
     }
 }
