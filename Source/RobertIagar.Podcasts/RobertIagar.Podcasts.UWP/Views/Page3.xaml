@@ -7,10 +7,43 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
 
+    <Page.Transitions>
+        <TransitionCollection>
+            <NavigationThemeTransition>
+                <NavigationThemeTransition.DefaultNavigationTransitionInfo>
+                    <CommonNavigationTransitionInfo IsStaggeringEnabled="True"/>
+                </NavigationThemeTransition.DefaultNavigationTransitionInfo>
+            </NavigationThemeTransition>
+        </TransitionCollection>
+    </Page.Transitions>
+
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
           EntranceNavigationTransitionInfo.IsTargetElement="True">
-
-        <TextBlock Style="{ThemeResource TitleTextBlockStyle}" HorizontalAlignment="Center" VerticalAlignment="Center" Text="Page 3 Content"/>
-
+        <GridView>
+            <TextBlock CommonNavigationTransitionInfo.IsStaggerElement="True" Width="250" Height="250" Style="{ThemeResource TitleTextBlockStyle}" HorizontalAlignment="Center" VerticalAlignment="Center" Text="Page 3 Content"/>
+            <TextBlock CommonNavigationTransitionInfo.IsStaggerElement="True" Width="250" Height="250" Style="{ThemeResource TitleTextBlockStyle}" HorizontalAlignment="Center" VerticalAlignment="Center" Text="Page 3 Content"/>
+            <TextBlock CommonNavigationTransitionInfo.IsStaggerElement="True" Width="250" Height="250" Style="{ThemeResource TitleTextBlockStyle}" HorizontalAlignment="Center" VerticalAlignment="Center" Text="Page 3 Content"/>
+            <TextBlock CommonNavigationTransitionInfo.IsStaggerElement="True" Width="250" Height="250" Style="{ThemeResource TitleTextBlockStyle}" HorizontalAlignment="Center" VerticalAlignment="Center" Text="Page 3 Content"/>
+            <TextBlock CommonNavigationTransitionInfo.IsStaggerElement="True" Width="250" Height="250" Style="{ThemeResource TitleTextBlockStyle}" HorizontalAlignment="Center" VerticalAlignment="Center" Text="Page 3 Content"/>
+            <TextBlock CommonNavigationTransitionInfo.IsStaggerElement="True" Width="250" Height="250" Style="{ThemeResource TitleTextBlockStyle}" HorizontalAlignment="Center" VerticalAlignment="Center" Text="Page 3 Content"/>
+            <TextBlock CommonNavigationTransitionInfo.IsStaggerElement="True" Width="250" Height="250" Style="{ThemeResource TitleTextBlockStyle}" HorizontalAlignment="Center" VerticalAlignment="Center" Text="Page 3 Content"/>
+            <TextBlock CommonNavigationTransitionInfo.IsStaggerElement="True" Width="250" Height="250" Style="{ThemeResource TitleTextBlockStyle}" HorizontalAlignment="Center" VerticalAlignment="Center" Text="Page 3 Content"/>
+            <TextBlock CommonNavigationTransitionInfo.IsStaggerElement="True" Width="250" Height="250" Style="{ThemeResource TitleTextBlockStyle}" HorizontalAlignment="Center" VerticalAlignment="Center" Text="Page 3 Content"/>
+            <TextBlock CommonNavigationTransitionInfo.IsStaggerElement="True" Width="250" Height="250" Style="{ThemeResource TitleTextBlockStyle}" HorizontalAlignment="Center" VerticalAlignment="Center" Text="Page 3 Content"/>
+            <TextBlock CommonNavigationTransitionInfo.IsStaggerElement="True" Width="250" Height="250" Style="{ThemeResource TitleTextBlockStyle}" HorizontalAlignment="Center" VerticalAlignment="Center" Text="Page 3 Content"/>
+            <TextBlock CommonNavigationTransitionInfo.IsStaggerElement="True" Width="250" Height="250" Style="{ThemeResource TitleTextBlockStyle}" HorizontalAlignment="Center" VerticalAlignment="Center" Text="Page 3 Content"/>
+            <TextBlock CommonNavigationTransitionInfo.IsStaggerElement="True" Width="250" Height="250" Style="{ThemeResource TitleTextBlockStyle}" HorizontalAlignment="Center" VerticalAlignment="Center" Text="Page 3 Content"/>
+            <TextBlock CommonNavigationTransitionInfo.IsStaggerElement="True" Width="250" Height="250" Style="{ThemeResource TitleTextBlockStyle}" HorizontalAlignment="Center" VerticalAlignment="Center" Text="Page 3 Content"/>
+            <TextBlock CommonNavigationTransitionInfo.IsStaggerElement="True" Width="250" Height="250" Style="{ThemeResource TitleTextBlockStyle}" HorizontalAlignment="Center" VerticalAlignment="Center" Text="Page 3 Content"/>
+            <TextBlock CommonNavigationTransitionInfo.IsStaggerElement="True" Width="250" Height="250" Style="{ThemeResource TitleTextBlockStyle}" HorizontalAlignment="Center" VerticalAlignment="Center" Text="Page 3 Content"/>
+            <TextBlock CommonNavigationTransitionInfo.IsStaggerElement="True" Width="250" Height="250" Style="{ThemeResource TitleTextBlockStyle}" HorizontalAlignment="Center" VerticalAlignment="Center" Text="Page 3 Content"/>
+            <TextBlock CommonNavigationTransitionInfo.IsStaggerElement="True" Width="250" Height="250" Style="{ThemeResource TitleTextBlockStyle}" HorizontalAlignment="Center" VerticalAlignment="Center" Text="Page 3 Content"/>
+            <TextBlock CommonNavigationTransitionInfo.IsStaggerElement="True" Width="250" Height="250" Style="{ThemeResource TitleTextBlockStyle}" HorizontalAlignment="Center" VerticalAlignment="Center" Text="Page 3 Content"/>
+            <TextBlock CommonNavigationTransitionInfo.IsStaggerElement="True" Width="250" Height="250" Style="{ThemeResource TitleTextBlockStyle}" HorizontalAlignment="Center" VerticalAlignment="Center" Text="Page 3 Content"/>
+            <TextBlock CommonNavigationTransitionInfo.IsStaggerElement="True" Width="250" Height="250" Style="{ThemeResource TitleTextBlockStyle}" HorizontalAlignment="Center" VerticalAlignment="Center" Text="Page 3 Content"/>
+            <TextBlock CommonNavigationTransitionInfo.IsStaggerElement="True" Width="250" Height="250" Style="{ThemeResource TitleTextBlockStyle}" HorizontalAlignment="Center" VerticalAlignment="Center" Text="Page 3 Content"/>
+            <TextBlock CommonNavigationTransitionInfo.IsStaggerElement="True" Width="250" Height="250" Style="{ThemeResource TitleTextBlockStyle}" HorizontalAlignment="Center" VerticalAlignment="Center" Text="Page 3 Content"/>
+            <TextBlock CommonNavigationTransitionInfo.IsStaggerElement="True" Width="250" Height="250" Style="{ThemeResource TitleTextBlockStyle}" HorizontalAlignment="Center" VerticalAlignment="Center" Text="Page 3 Content"/>
+        </GridView>
     </Grid>
 </Page>

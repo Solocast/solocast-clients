@@ -45,6 +45,7 @@
                     <VisualState.Setters>
                         <Setter Target="RootSplitView.DisplayMode" Value="CompactOverlay"/>
                         <Setter Target="RootSplitView.IsPaneOpen" Value="False"/>
+                        <Setter Target="RootSplitView.Margin" Value="0,0,0,95"/>
                     </VisualState.Setters>
                 </VisualState>
                 <VisualState>
@@ -64,7 +65,7 @@
 
         <!-- Top-level navigation menu + app content -->
         <SplitView x:Name="RootSplitView"
-                   DisplayMode="Inline"
+                   DisplayMode="Overlay"
                    OpenPaneLength="256"
                    IsTabStop="False"
                    Grid.Row="0">
@@ -72,7 +73,7 @@
                 <!-- A custom ListView to display the items in the pane.  The automation Name is set in the ContainerContentChanging event. -->
                 <controls:NavMenuListView x:Name="NavMenuList"
                                           TabIndex="3"
-                                          Margin="0,48,0,95"
+                                          Margin="0,48,0,0"
                                           ContainerContentChanging="NavMenuItemContainerContentChanging"
                                           ItemContainerStyle="{StaticResource NavMenuItemContainerStyle}"
                                           ItemTemplate="{StaticResource NavMenuItemTemplate}"
@@ -142,7 +143,23 @@
                 <TextBlock Text="Monstercat Podcast Ep. 78" Style="{StaticResource TitleTextBlockStyle}"/>
                 <TextBlock Text="Monstercat" Style="{StaticResource SubtitleTextBlockStyle}"/>
             </StackPanel>
-                        
+
+            <Grid Grid.Column="2">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                
+                <Slider Grid.Column="0"
+                        VerticalAlignment="Center"/>
+
+                <StackPanel Grid.Column="1"
+                            Orientation="Horizontal" VerticalAlignment="Center">
+                    <AppBarButton Icon="Play" Label="Play"/>
+                    <AppBarButton Icon="Stop" Label="Stop"/>
+                    <AppBarButton Icon="Next" Label="Next"/>
+                </StackPanel>
+            </Grid>
         </Grid>
 
         <!-- Declared last to have it rendered above everything else, but it needs to be the first item in the tab sequence. -->
