@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace RobertIagar.Podcasts.Core.Interfaces
 {
-    public interface IFeedParser
+    public interface IFeedParaseService
     {
         Task<dynamic> GetChannelNodeAsync(string feedUrl);
         Task<dynamic> GetChannelNodeAsync(Uri feedUrl);

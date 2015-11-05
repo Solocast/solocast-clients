@@ -6,9 +6,9 @@ namespace RobertIagar.Podcasts.UWP.Views
     /// <summary>
     /// An empty page that can be used on its own or navigated to within a Frame.
     /// </summary>
-    public sealed partial class Page2 : Page
+    public sealed partial class NowPlaying : Page
     {
-        public Page2()
+        public NowPlaying()
         {
             this.InitializeComponent();
         }

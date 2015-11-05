@@ -12,11 +12,11 @@ using RobertIagar.Podcasts.Core.Entities;
 
 namespace RobertIagar.Podcasts.Services
 {
-    public class FeedParser : IFeedParser
+    public class FeedParserService : IFeedParaseService
     {
         HttpClient client;
 
-        public FeedParser()
+        public FeedParserService()
         {
             client = new HttpClient();
         }

@@ -1,5 +1,5 @@
 ﻿<Page
-    x:Class="RobertIagar.Podcasts.UWP.Views.Page3"
+    x:Class="RobertIagar.Podcasts.UWP.Views.NowPlaying"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:RobertIagar.Podcasts.UWP.Views"
@@ -11,15 +11,15 @@
         <TransitionCollection>
             <NavigationThemeTransition>
                 <NavigationThemeTransition.DefaultNavigationTransitionInfo>
-                    <CommonNavigationTransitionInfo IsStaggeringEnabled="True"/>
+                    <EntranceNavigationTransitionInfo>
+                    </EntranceNavigationTransitionInfo>
                 </NavigationThemeTransition.DefaultNavigationTransitionInfo>
             </NavigationThemeTransition>
         </TransitionCollection>
     </Page.Transitions>
 
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
-          EntranceNavigationTransitionInfo.IsTargetElement="True">
-        <GridView>
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <GridView EntranceNavigationTransitionInfo.IsTargetElement="True">
             <TextBlock CommonNavigationTransitionInfo.IsStaggerElement="True" Width="250" Height="250" Style="{ThemeResource TitleTextBlockStyle}" HorizontalAlignment="Center" VerticalAlignment="Center" Text="Page 3 Content"/>
             <TextBlock CommonNavigationTransitionInfo.IsStaggerElement="True" Width="250" Height="250" Style="{ThemeResource TitleTextBlockStyle}" HorizontalAlignment="Center" VerticalAlignment="Center" Text="Page 3 Content"/>
             <TextBlock CommonNavigationTransitionInfo.IsStaggerElement="True" Width="250" Height="250" Style="{ThemeResource TitleTextBlockStyle}" HorizontalAlignment="Center" VerticalAlignment="Center" Text="Page 3 Content"/>

@@ -18,7 +18,7 @@ namespace RobertIagar.Podcasts.Tests
         [TestMethod]
         public void RandomTest()
         {
-            var feedParser = new FeedParser();
+            var feedParser = new FeedParserService();
             dynamic json = feedParser.GetChannelNodeAsync("http://monstercat.com/podcast/feed.xml").Result;
             var podcast = feedParser.GetPodcast(json);
 
@@ -28,7 +28,7 @@ namespace RobertIagar.Podcasts.Tests
         [TestMethod]
         public void TestFeedParser()
         {
-            var feedParser = new FeedParser();
+            var feedParser = new FeedParserService();
             dynamic channel = feedParser.GetChannelNodeAsync("http://monstercat.com/podcast/feed.xml").Result;
             string podcastDescription = string.Empty;
             string summary = channel["itunes:summary"].ToString();
@@ -52,7 +52,7 @@ namespace RobertIagar.Podcasts.Tests
         [TestMethod]
         public void TestIfPodcastFromFeedIsTheSameAsPodcastFromService()
         {
-            var feedParser = new FeedParser();
+            var feedParser = new FeedParserService();
 
             var podcastService = new PodcastService(feedParser, null, null);
             var feed = feedParser.GetChannelNodeAsync("http://monstercat.com/podcast/feed.xml").Result;
@@ -67,7 +67,7 @@ namespace RobertIagar.Podcasts.Tests
         public void TestLocalStorage()
         {
             var localStorage = new LocalPodcastService();
-            var feedParser = new FeedParser();
+            var feedParser = new FeedParserService();
             var podcastService = new PodcastService(feedParser, localStorage, null);
 
             var podcasts = new List<Podcast>();
@@ -89,8 +89,8 @@ namespace RobertIagar.Podcasts.Tests
         public void TestDownload()
         {
             var localStorage = new LocalPodcastService();
-            var feedParser = new FeedParser();
-            var fileManager = new FileDownloadManager();
+            var feedParser = new FeedParserService();
+            var fileManager = new FileDownloadService();
             var podcastService = new PodcastService(feedParser, localStorage, fileManager);
 
             var podcastFromService = podcastService.GetPodcastAsync("http://monstercat.com/podcast/feed.xml").Result;

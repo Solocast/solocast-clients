@@ -29,19 +29,19 @@ namespace RobertIagar.Podcasts.UWP
                 {
                     Symbol = Symbol.Library,
                     Label = "Podcasts",
-                    DestinationPage = typeof(Views.Page1)
+                    DestinationPage = typeof(PodcastsPage)
                 },
                 new NavMenuItem()
                 {
                     Symbol = Symbol.Audio,
                     Label = "Episodes",
-                    DestinationPage = typeof(Views.Page2)
+                    DestinationPage = typeof(EpisodesPage)
                 },
                 new NavMenuItem()
                 {
                     Symbol = Symbol.Play,
                     Label = "Now playing",
-                    DestinationPage = typeof(Views.Page3)
+                    DestinationPage = typeof(NowPlaying)
                 }
             });
 

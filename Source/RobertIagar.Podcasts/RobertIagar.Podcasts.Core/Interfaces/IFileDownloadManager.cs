@@ -9,7 +9,7 @@ using Windows.Storage;
 
 namespace RobertIagar.Podcasts.Core.Interfaces
 {
-    public interface IFileDownloadManager
+    public interface IFileDownloadService
     {
         Task<StorageFile> DownloadFileAsync(
             string appFolderName,

@@ -11,12 +11,12 @@ using Windows.Storage;
 
 namespace RobertIagar.Podcasts.Services
 {
-    public class FileDownloadManager : IFileDownloadManager
+    public class FileDownloadService : IFileDownloadService
     {
         private Dictionary<string, DownloadOperation> downloads;
         private Dictionary<string, CancellationTokenSource> cancellationTokenSources;
 
-        public FileDownloadManager()
+        public FileDownloadService()
         {
             downloads = new Dictionary<string, DownloadOperation>();
             cancellationTokenSources = new Dictionary<string, CancellationTokenSource>();
