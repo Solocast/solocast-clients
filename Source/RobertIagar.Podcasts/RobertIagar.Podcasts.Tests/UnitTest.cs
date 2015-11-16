@@ -66,7 +66,7 @@ namespace RobertIagar.Podcasts.Tests
         [TestMethod]
         public void TestLocalStorage()
         {
-            var localStorage = new LocalPodcastService();
+            var localStorage = new LocalPodcastService("podcasts.json");
             var feedParser = new FeedParserService();
             var podcastService = new PodcastService(feedParser, localStorage, null);
 
@@ -88,7 +88,7 @@ namespace RobertIagar.Podcasts.Tests
         [TestMethod]
         public void TestDownload()
         {
-            var localStorage = new LocalPodcastService();
+            var localStorage = new LocalPodcastService("podcasts.json");
             var feedParser = new FeedParserService();
             var fileManager = new FileDownloadService();
             var podcastService = new PodcastService(feedParser, localStorage, fileManager);

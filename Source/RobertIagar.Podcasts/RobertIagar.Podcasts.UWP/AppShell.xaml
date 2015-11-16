@@ -65,7 +65,7 @@
 
         <!-- Top-level navigation menu + app content -->
         <SplitView x:Name="RootSplitView"
-                   DisplayMode="Overlay"
+                   DisplayMode="Inline"
                    OpenPaneLength="256"
                    IsTabStop="False"
                    Grid.Row="0">
@@ -80,24 +80,24 @@
                                           ItemInvoked="NavMenuList_ItemInvoked">
                     <controls:NavMenuListView.Header>
                         <!-- Using this custom back navigation button until the system-provided back button is enabled. -->
-                        <Button x:Name="BackButton"
-                                TabIndex="2"
-                                Style="{StaticResource NavigationBackButtonStyle}"
-                                IsEnabled="{Binding AppFrame.CanGoBack, ElementName=Root}"
-                                Width="{Binding ItemsPanelRoot.Width, ElementName=NavMenuList}"
-                                HorizontalAlignment="{Binding ItemsPanelRoot.HorizontalAlignment, ElementName=NavMenuList}"
-                                Click="BackButton_Click"/>
+                        <StackPanel>
+                            <Button x:Name="BackButton"
+                                    TabIndex="2"
+                                    Style="{StaticResource NavigationBackButtonStyle}"
+                                    IsEnabled="{Binding AppFrame.CanGoBack, ElementName=Root}"
+                                    Width="{Binding ItemsPanelRoot.Width, ElementName=NavMenuList}"
+                                    HorizontalAlignment="{Binding ItemsPanelRoot.HorizontalAlignment, ElementName=NavMenuList}"
+                                    Click="BackButton_Click"/>
+                        </StackPanel>
                     </controls:NavMenuListView.Header>
                     <controls:NavMenuListView.Footer>
-                        <StackPanel>
-                            <Button x:Name="SettingsButton" 
+                        <Button x:Name="SettingsButton" 
                                     ToolTipService.ToolTip="Settings"
                                     TabIndex="4"
                                     Style="{StaticResource NavigationSettingsButtonStyle}"
                                     Width="{Binding ItemsPanelRoot.Width, ElementName=NavMenuList}"
                                     HorizontalAlignment="{Binding ItemsPanelRoot.HorizontalAlignment, ElementName=NavMenuList}"
                                     Click="SettingsButton_Click"/>
-                        </StackPanel>
                     </controls:NavMenuListView.Footer>
                 </controls:NavMenuListView>
             </SplitView.Pane>
@@ -130,7 +130,7 @@
                 <ColumnDefinition Width="512"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            
+
             <Rectangle Grid.Column="0"
                        Height="72"
                        Margin="7"
@@ -149,7 +149,7 @@
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
-                
+
                 <Slider Grid.Column="0"
                         VerticalAlignment="Center"/>
 

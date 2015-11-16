@@ -6,7 +6,40 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
-    DataContext="{Binding Main, Source={StaticResource Locator}}">
+    DataContext="{Binding Podcasts, Source={StaticResource Locator}}">
+    <Page.Resources>
+        <DataTemplate x:Key="PodcastTemplate">
+            <Grid Height="Auto" 
+                              EntranceNavigationTransitionInfo.IsTargetElement="True">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Image Source="{Binding ImageUrl}" VerticalAlignment="Top" Height="128" EntranceNavigationTransitionInfo.IsTargetElement="True"/>
+                <TextBlock Grid.Row="1" Text="{Binding Title}" Width="128" TextWrapping="WrapWholeWords" EntranceNavigationTransitionInfo.IsTargetElement="True"/>
+            </Grid>
+        </DataTemplate>
+        <Flyout x:Key="AddPodcastFlyout">
+            <Grid Width="320">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <TextBlock Text="Add Podcast" Margin="10"/>
+                <TextBox Text="{Binding FeedUrl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                         Margin="10"
+                         Padding="4"
+                         Grid.Row="1"
+                         PlaceholderText="Feed Url"/>
+                <Button Command="{Binding GetPodcastCommand}"
+                        Grid.Row="2"
+                        Margin="10"
+                        Padding="4"
+                        Content="Add"/>
+            </Grid>
+        </Flyout>
+    </Page.Resources>
     <Page.Transitions>
         <TransitionCollection>
             <NavigationThemeTransition>
@@ -19,59 +52,67 @@
     </Page.Transitions>
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
           CommonNavigationTransitionInfo.IsStaggerElement="True">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="Auto"/>
-            <ColumnDefinition Width="*"/>
-        </Grid.ColumnDefinitions>
-        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
-            <Button Content="Get Monstercat Podcast"
-                Command="{Binding GetPodcastCommand}"/>
-            <TextBlock Text="{Binding Podcast.Title}" Style="{StaticResource HeaderTextBlockStyle}"/>
-            <TextBlock Text="{Binding Podcast.Author}" Style="{StaticResource SubheaderTextBlockStyle}"/>
-            <TextBlock Text="{Binding Podcast.FeedUrl}" Style="{StaticResource SubheaderTextBlockStyle}"/>
-            <TextBlock Text="{Binding Podcast.ImageUrl}" Style="{StaticResource SubheaderTextBlockStyle}"/>
-            <Image Source="{Binding Podcast.ImageUrl}" Width="500" Height="500"/>
-        </StackPanel>
-        <Grid Grid.Column="1">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="*"/>
-            </Grid.RowDefinitions>
-            <TextBlock Text="Episodes" Style="{StaticResource HeaderTextBlockStyle}">
-            </TextBlock>
-            <GridView Grid.Row="1" ItemsSource="{Binding Podcast.Episodes}">
-                <GridView.ItemContainerStyle>
-                    <Style TargetType="GridViewItem">
-                        <Setter Property="VerticalContentAlignment" Value="Top"/>
-                        <Setter Property="HorizontalContentAlignment" Value="Left"/>
-                        <Setter Property="CommonNavigationTransitionInfo.IsStaggerElement" Value="True"/>
-                    </Style>
-                </GridView.ItemContainerStyle>
-                <GridView.ItemsPanel>
-                    <ItemsPanelTemplate>
-                        <ItemsWrapGrid Orientation="Horizontal">
-                            <ItemsWrapGrid.ChildrenTransitions>
-                                <TransitionCollection>
-                                    <EntranceThemeTransition IsStaggeringEnabled="True" FromVerticalOffset="3000" FromHorizontalOffset="0"/>
-                                </TransitionCollection>
-                            </ItemsWrapGrid.ChildrenTransitions>
-                        </ItemsWrapGrid>
-                    </ItemsPanelTemplate>
-                </GridView.ItemsPanel>
-                <GridView.ItemTemplate>
-                    <DataTemplate>
-                        <Grid Height="Auto" 
-                              EntranceNavigationTransitionInfo.IsTargetElement="True">
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto"/>
-                                <RowDefinition Height="*"/>
-                            </Grid.RowDefinitions>
-                            <Image Source="{Binding ImageUrl}" VerticalAlignment="Top" Height="128" EntranceNavigationTransitionInfo.IsTargetElement="True"/>
-                            <TextBlock Grid.Row="1" Text="{Binding Name}" Width="128" TextWrapping="WrapWholeWords" EntranceNavigationTransitionInfo.IsTargetElement="True"/>
-                        </Grid>
-                    </DataTemplate>
-                </GridView.ItemTemplate>
-            </GridView>
-        </Grid>
+        <GridView ItemsSource="{Binding Podcasts}"
+                  ItemTemplate="{StaticResource PodcastTemplate}"
+                  Margin="23,23,5,0"
+                  IsActiveView="False" d:IsHidden="True" SelectionMode="None">
+            <GridView.Header>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    
+                    <Grid Grid.Row="1" Visibility="{Binding Podcasts.Count, Converter={StaticResource InvertedCountToVisibilityConverter}}">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="0.5*"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        
+                        <TextBlock Grid.Row="0" Style="{StaticResource SubtitleTextBlockStyle}"
+                                   Text="You haven't added any podcasts yet..."/>
+                        <TextBox Grid.Row="1" 
+                                 Grid.Column="0"
+                                 Text="{Binding FeedUrl, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                                 PlaceholderText="Feed Url"/>
+                        <Button Grid.Row="1" 
+                                Grid.Column="1"
+                                Command="{Binding GetPodcastCommand}"
+                                Content="Add Podcast"/>
+                    </Grid>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="Podcasts" Style="{StaticResource HeaderTextBlockStyle}"/>
+                        <AppBarButton Icon="Add" 
+                                      VerticalAlignment="Center"
+                                      ToolTipService.ToolTip="Add Podcast"
+                                      ToolTipService.Placement="Bottom"
+                                      Visibility="{Binding Podcasts.Length, Converter={StaticResource CountToVisibilityConverter}}"
+                                      Flyout="{StaticResource AddPodcastFlyout}" IsCompact="True"/>
+                    </StackPanel>
+                </Grid>
+            </GridView.Header>
+            <GridView.ItemContainerStyle>
+                <Style TargetType="GridViewItem">
+                    <Setter Property="VerticalContentAlignment" Value="Top"/>
+                    <Setter Property="HorizontalContentAlignment" Value="Left"/>
+                    <Setter Property="CommonNavigationTransitionInfo.IsStaggerElement" Value="True"/>
+                </Style>
+            </GridView.ItemContainerStyle>
+            <GridView.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <ItemsWrapGrid Orientation="Horizontal" AreStickyGroupHeadersEnabled="True">
+                        <ItemsWrapGrid.ChildrenTransitions>
+                            <TransitionCollection>
+                                <EntranceThemeTransition IsStaggeringEnabled="True" FromVerticalOffset="75" FromHorizontalOffset="0"/>
+                            </TransitionCollection>
+                        </ItemsWrapGrid.ChildrenTransitions>
+                    </ItemsWrapGrid>
+                </ItemsPanelTemplate>
+            </GridView.ItemsPanel>
+        </GridView>
     </Grid>
 </Page>

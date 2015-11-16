@@ -10,10 +10,11 @@ namespace RobertIagar.Podcasts.UWP.Infrastructure.Extensions
     {
         public static void ForEach<T>(this IEnumerable<T> enumerable, Action<T> action)
         {
-            foreach(var t in enumerable)
-            {
-                action(t);
-            }
+            if (enumerable != null)
+                foreach (var t in enumerable)
+                {
+                    action(t);
+                }
         }
     }
 }

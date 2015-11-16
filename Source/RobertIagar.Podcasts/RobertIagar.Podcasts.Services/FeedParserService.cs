@@ -64,7 +64,7 @@ namespace RobertIagar.Podcasts.Services
                 author = item["itunes:author"].ToString();
                 summary = item["itunes:summary"].ToString();
                 string pubDate = item.pubDate.ToString();
-                string imageUrl = item["itunes:image"]["@href"].ToString();
+                string imageUrl = item["itunes:image"] != null ? item["itunes:image"]["@href"] : imageLink;
                 string guid = item.guid.ToString();
 
                 var episode = new Episode(name, path, author, summary, pubDate, imageUrl, guid);

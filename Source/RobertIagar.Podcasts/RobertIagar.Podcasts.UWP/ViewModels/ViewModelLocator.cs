@@ -21,16 +21,19 @@ namespace RobertIagar.Podcasts.UWP.ViewModels
             SimpleIoc.Default.Register<IPodcastService, PodcastService>();
             SimpleIoc.Default.Register<IFileDownloadService, FileDownloadService>();
             SimpleIoc.Default.Register<IFeedParaseService, FeedParserService>();
-            SimpleIoc.Default.Register<ILocalStorageService<Podcast>, LocalPodcastService>();
+            SimpleIoc.Default.Register<ILocalPodcastService>(()=>
+            {
+                return new LocalPodcastService("podcasts.json");
+            });
 
-            SimpleIoc.Default.Register<MainViewModel>();
+            SimpleIoc.Default.Register<PodcastsViewModel>();
         }
 
-        public MainViewModel Main
+        public PodcastsViewModel Podcasts
         {
             get
             {
-                return ServiceLocator.Current.GetInstance<MainViewModel>();
+                return ServiceLocator.Current.GetInstance<PodcastsViewModel>();
             }
         }
     }

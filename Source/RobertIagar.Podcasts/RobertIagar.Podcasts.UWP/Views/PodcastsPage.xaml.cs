@@ -1,5 +1,8 @@
-﻿using System;
+﻿using GalaSoft.MvvmLight.Messaging;
+using RobertIagar.Podcasts.UWP.Infrastructure.Messages;
+using System;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Navigation;
 
 namespace RobertIagar.Podcasts.UWP.Views
 {
@@ -11,6 +14,11 @@ namespace RobertIagar.Podcasts.UWP.Views
         public PodcastsPage()
         {
             this.InitializeComponent();
+        }
+
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            Messenger.Default.Send(new LoadPodcastsMessage());
         }
     }
 }
