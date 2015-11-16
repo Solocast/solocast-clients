@@ -68,7 +68,7 @@ namespace RobertIagar.Podcasts.Services
             var file = await fileDownloadManager.DownloadFileAsync(
                 appFolderName: AppName,
                 folderName: episode.Podcast.Title,
-                fileName: string.Format("{0:dd.mm.yyyy} - {1} - {2}", episode.Published, episode.Author, episode.Name),
+                fileName: string.Format("{0:dd.MM.yyyy} - {1} - {2}", episode.Published, episode.Author, episode.Name),
                 fileUrl: episode.Path,
                 callback: c =>
                 {
