@@ -5,6 +5,8 @@
     xmlns:local="using:RobertIagar.Podcasts.UWP.Views"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:Core="using:Microsoft.Xaml.Interactions.Core"
+    xmlns:Interactivity="using:Microsoft.Xaml.Interactivity"
     mc:Ignorable="d"
     DataContext="{Binding Podcasts, Source={StaticResource Locator}}">
     <Page.Resources>
@@ -55,7 +57,15 @@
         <GridView ItemsSource="{Binding Podcasts}"
                   ItemTemplate="{StaticResource PodcastTemplate}"
                   Margin="23,23,5,0"
-                  IsActiveView="False" d:IsHidden="True" SelectionMode="None">
+                  IsActiveView="False" 
+                  SelectionMode="None"
+                  IsItemClickEnabled="True">
+            <Interactivity:Interaction.Behaviors>
+                <Core:EventTriggerBehavior EventName="ItemClick">
+                    <Core:CallMethodAction MethodName="ClickCommand"
+                                           TargetObject="{Binding Mode=OneWay}"/>
+                </Core:EventTriggerBehavior>
+            </Interactivity:Interaction.Behaviors>
             <GridView.Header>
                 <Grid>
                     <Grid.RowDefinitions>
@@ -90,7 +100,7 @@
                                       VerticalAlignment="Center"
                                       ToolTipService.ToolTip="Add Podcast"
                                       ToolTipService.Placement="Bottom"
-                                      Visibility="{Binding Podcasts.Length, Converter={StaticResource CountToVisibilityConverter}}"
+                                      Visibility="{Binding Podcasts.Count, Converter={StaticResource CountToVisibilityConverter}}"
                                       Flyout="{StaticResource AddPodcastFlyout}" IsCompact="True"/>
                     </StackPanel>
                 </Grid>

@@ -13,7 +13,7 @@ namespace RobertIagar.Podcasts.UWP.Infrastructure.Extensions
     {
         public static Podcast ToPodcastModel(this CorePodcast podcast)
         {
-            return new Podcast
+            var podcastModel = new Podcast
             {
                 Author = podcast.Author,
                 DateAdded = podcast.DateAdded,
@@ -22,6 +22,9 @@ namespace RobertIagar.Podcasts.UWP.Infrastructure.Extensions
                 ImageUrl = podcast.ImageUrl,
                 Title = podcast.Title
             };
+            podcast.Episodes.ForEach(e => podcastModel.Episodes.Add(e.ToEpisodeModel()));
+
+            return podcastModel;
         }
 
         public static Episode ToEpisodeModel(this CoreEpisode episode)

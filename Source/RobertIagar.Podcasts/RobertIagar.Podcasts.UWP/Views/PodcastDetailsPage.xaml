@@ -1,0 +1,83 @@
+﻿<Page
+    x:Class="RobertIagar.Podcasts.UWP.Views.PodcastDetailsPage"
+    x:Name="Page"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:RobertIagar.Podcasts.UWP.Views"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:xaml="using:Microsoft.Graphics.Canvas.UI.Xaml"
+    xmlns:Core="using:Microsoft.Xaml.Interactions.Core"
+    xmlns:Interactivity="using:Microsoft.Xaml.Interactivity"
+    mc:Ignorable="d"
+    DataContext="{Binding PodcastDetails,Source={StaticResource Locator}}">
+
+    <Grid Background="{StaticResource AppBarBackgroundThemeBrush}">
+        <!-- when this gets actually good you can use it-->
+        <!--<xaml:CanvasControl x:Name="canvas"
+                            SizeChanged="CanvasSizeChanged"
+                            Draw="Draw"
+                            CreateResources="CreateResources"
+                            Width="Auto"
+                            Height="Auto">
+        </xaml:CanvasControl>-->
+        <RelativePanel Margin="23,23,5,0">
+            <TextBlock x:Name="Title"
+                       Text="{Binding Podcast.Title}"
+                       Style="{StaticResource HeaderTextBlockStyle}"/>
+            <TextBlock x:Name="Author" Margin="10,0,0,0"
+                       Text="{Binding Podcast.Author}"
+                       Style="{StaticResource SubheaderTextBlockStyle}"
+                       RelativePanel.Below="Title"
+                       RelativePanel.RightOf="Image"/>
+            <TextBlock x:Name="Description" Margin="10,0,0,0"
+                       Text="{Binding Podcast.Description}"
+                       Style="{StaticResource BodyTextBlockStyle}"
+                       RelativePanel.Below="Author"
+                       RelativePanel.RightOf="Image"/>
+            <Image x:Name="Image" 
+                   Source="{Binding Podcast.ImageUrl}"
+                   Width="180"
+                   Height="180"
+                   RelativePanel.Below="Title"/>
+            <GridView x:Name="Episodes" 
+                      Margin="10,23,0,0"
+                      ItemsSource="{Binding Podcast.Episodes}">
+                <GridView.Header>
+                    <TextBlock Text="Episodes" Style="{StaticResource HeaderTextBlockStyle}"/>
+                </GridView.Header>
+                <GridView.ItemTemplate>
+                    <DataTemplate>
+                        <Grid Height="Auto" 
+                              EntranceNavigationTransitionInfo.IsTargetElement="True">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+                            <Image Source="{Binding ImageUrl}" VerticalAlignment="Top" Height="128" EntranceNavigationTransitionInfo.IsTargetElement="True"/>
+                            <TextBlock Grid.Row="1" Text="{Binding Name}" Width="128" TextWrapping="WrapWholeWords" EntranceNavigationTransitionInfo.IsTargetElement="True"/>
+                        </Grid>
+                    </DataTemplate>
+                </GridView.ItemTemplate>
+                <GridView.ItemContainerStyle>
+                    <Style TargetType="GridViewItem">
+                        <Setter Property="VerticalContentAlignment" Value="Top"/>
+                        <Setter Property="HorizontalContentAlignment" Value="Left"/>
+                        <Setter Property="CommonNavigationTransitionInfo.IsStaggerElement" Value="True"/>
+                    </Style>
+                </GridView.ItemContainerStyle>
+                <GridView.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <ItemsWrapGrid Orientation="Horizontal" AreStickyGroupHeadersEnabled="True">
+                            <ItemsWrapGrid.ChildrenTransitions>
+                                <TransitionCollection>
+                                    <EntranceThemeTransition IsStaggeringEnabled="True" FromVerticalOffset="75" FromHorizontalOffset="0"/>
+                                </TransitionCollection>
+                            </ItemsWrapGrid.ChildrenTransitions>
+                        </ItemsWrapGrid>
+                    </ItemsPanelTemplate>
+                </GridView.ItemsPanel>
+            </GridView>
+        </RelativePanel>
+    </Grid>
+</Page>

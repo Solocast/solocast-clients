@@ -8,19 +8,23 @@ using GalaSoft.MvvmLight.Command;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using RobertIagar.Podcasts.UWP.Infrastructure.Messages;
+using Windows.UI.Xaml.Controls;
+using GalaSoft.MvvmLight.Views;
 
 namespace RobertIagar.Podcasts.UWP.ViewModels
 {
     public class PodcastsViewModel : ViewModelBase
     {
         private IPodcastService podcastService;
+        private INavigationService navigationService;
         private string feedUrl;
         private ObservableCollection<Podcast> podcasts;
 
-        public PodcastsViewModel(IPodcastService podcastService)
+        public PodcastsViewModel(IPodcastService podcastService, INavigationService navigationService)
             : base()
         {
             this.podcastService = podcastService;
+            this.navigationService = navigationService;
             this.podcasts = new ObservableCollection<Podcast>();
             this.GetPodcastCommand = new RelayCommand(async () => await this.GetPodcastAsync(), () => this.CanGetPodcast());
 
@@ -58,6 +62,12 @@ namespace RobertIagar.Podcasts.UWP.ViewModels
             var podcasts = await podcastService.GetPodcastsAsync();
             podcasts.ForEach(p => this.podcasts.Add(p.ToPodcastModel()));
             MessengerInstance.Unregister(this);
+        }
+
+        public void ClickCommand(object sender, ItemClickEventArgs parameters)
+        {
+            var podcast = parameters.ClickedItem as Podcast;
+            this.navigationService.NavigateTo(nameof(PodcastDetailsViewModel), podcast);
         }
     }
 }
