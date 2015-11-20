@@ -50,6 +50,8 @@ namespace RobertIagar.Podcasts.Services
                 podcastDescription = summary;
             else if (summary == null)
                 podcastDescription = description;
+            else
+                podcastDescription = description;
 
             var podcast = new Podcast(title, podcastDescription, author, link, imageLink, DateTime.Now);
 

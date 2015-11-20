@@ -21,6 +21,10 @@
                             Width="Auto"
                             Height="Auto">
         </xaml:CanvasControl>-->
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
         <RelativePanel Margin="23,23,5,0">
             <TextBlock x:Name="Title"
                        Text="{Binding Podcast.Title}"
@@ -33,6 +37,7 @@
             <TextBlock x:Name="Description" Margin="10,0,0,0"
                        Text="{Binding Podcast.Description}"
                        Style="{StaticResource BodyTextBlockStyle}"
+                       MaxWidth="600"
                        RelativePanel.Below="Author"
                        RelativePanel.RightOf="Image"/>
             <Image x:Name="Image" 
@@ -40,44 +45,43 @@
                    Width="180"
                    Height="180"
                    RelativePanel.Below="Title"/>
-            <GridView x:Name="Episodes" 
-                      Margin="10,23,0,0"
-                      ItemsSource="{Binding Podcast.Episodes}">
-                <GridView.Header>
-                    <TextBlock Text="Episodes" Style="{StaticResource HeaderTextBlockStyle}"/>
-                </GridView.Header>
-                <GridView.ItemTemplate>
-                    <DataTemplate>
-                        <Grid Height="Auto" 
-                              EntranceNavigationTransitionInfo.IsTargetElement="True">
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto"/>
-                                <RowDefinition Height="*"/>
-                            </Grid.RowDefinitions>
-                            <Image Source="{Binding ImageUrl}" VerticalAlignment="Top" Height="128" EntranceNavigationTransitionInfo.IsTargetElement="True"/>
-                            <TextBlock Grid.Row="1" Text="{Binding Name}" Width="128" TextWrapping="WrapWholeWords" EntranceNavigationTransitionInfo.IsTargetElement="True"/>
-                        </Grid>
-                    </DataTemplate>
-                </GridView.ItemTemplate>
-                <GridView.ItemContainerStyle>
-                    <Style TargetType="GridViewItem">
-                        <Setter Property="VerticalContentAlignment" Value="Top"/>
-                        <Setter Property="HorizontalContentAlignment" Value="Left"/>
-                        <Setter Property="CommonNavigationTransitionInfo.IsStaggerElement" Value="True"/>
-                    </Style>
-                </GridView.ItemContainerStyle>
-                <GridView.ItemsPanel>
-                    <ItemsPanelTemplate>
-                        <ItemsWrapGrid Orientation="Horizontal" AreStickyGroupHeadersEnabled="True">
-                            <ItemsWrapGrid.ChildrenTransitions>
-                                <TransitionCollection>
-                                    <EntranceThemeTransition IsStaggeringEnabled="True" FromVerticalOffset="75" FromHorizontalOffset="0"/>
-                                </TransitionCollection>
-                            </ItemsWrapGrid.ChildrenTransitions>
-                        </ItemsWrapGrid>
-                    </ItemsPanelTemplate>
-                </GridView.ItemsPanel>
-            </GridView>
         </RelativePanel>
+        <GridView Grid.Row="1" Margin="23,23,5,95"
+                  ItemsSource="{Binding Podcast.Episodes}">
+            <GridView.Header>
+                <TextBlock Text="Episodes" Style="{StaticResource HeaderTextBlockStyle}"/>
+            </GridView.Header>
+            <GridView.ItemTemplate>
+                <DataTemplate>
+                    <Grid Height="Auto" 
+                              EntranceNavigationTransitionInfo.IsTargetElement="True">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <Image Source="{Binding ImageUrl}" VerticalAlignment="Top" Height="128" EntranceNavigationTransitionInfo.IsTargetElement="True"/>
+                        <TextBlock Grid.Row="1" Text="{Binding Name}" Width="128" TextWrapping="WrapWholeWords" EntranceNavigationTransitionInfo.IsTargetElement="True"/>
+                    </Grid>
+                </DataTemplate>
+            </GridView.ItemTemplate>
+            <GridView.ItemContainerStyle>
+                <Style TargetType="GridViewItem">
+                    <Setter Property="VerticalContentAlignment" Value="Top"/>
+                    <Setter Property="HorizontalContentAlignment" Value="Left"/>
+                    <Setter Property="CommonNavigationTransitionInfo.IsStaggerElement" Value="True"/>
+                </Style>
+            </GridView.ItemContainerStyle>
+            <GridView.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <ItemsWrapGrid Orientation="Horizontal" AreStickyGroupHeadersEnabled="True">
+                        <ItemsWrapGrid.ChildrenTransitions>
+                            <TransitionCollection>
+                                <EntranceThemeTransition IsStaggeringEnabled="True" FromVerticalOffset="75" FromHorizontalOffset="0"/>
+                            </TransitionCollection>
+                        </ItemsWrapGrid.ChildrenTransitions>
+                    </ItemsWrapGrid>
+                </ItemsPanelTemplate>
+            </GridView.ItemsPanel>
+        </GridView>
     </Grid>
 </Page>
