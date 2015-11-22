@@ -1,9 +1,14 @@
 ﻿using System;
+using System.Linq;
+using System.Reflection;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
+using Windows.ApplicationModel.Core;
 using Windows.Foundation.Metadata;
 using Windows.Phone.UI.Input;
+using Windows.UI;
 using Windows.UI.Core;
+using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Navigation;
 
@@ -29,12 +34,12 @@ namespace RobertIagar.Podcasts.UWP
         /// will be used such as when the application is launched to open a specific file.
         /// </summary>
         /// <param name="e">Details about the launch request and process.</param>
-        protected override void OnLaunched(LaunchActivatedEventArgs e)
+        protected override async void OnLaunched(LaunchActivatedEventArgs e)
         {
 #if DEBUG
             if (System.Diagnostics.Debugger.IsAttached)
             {
-                this.DebugSettings.EnableFrameRateCounter = true;
+                //this.DebugSettings.EnableFrameRateCounter = true;
             }
 #endif
 
@@ -70,6 +75,17 @@ namespace RobertIagar.Podcasts.UWP
 
             // Ensure the current window is active
             Window.Current.Activate();
+
+            var t = CoreApplication.GetCurrentView();
+            t.TitleBar.ExtendViewIntoTitleBar = true;
+            try {
+                var s = StatusBar.GetForCurrentView();
+                await s.HideAsync();
+            }
+            catch
+            {
+                //meh no status bar
+            }
         }
 
         /// <summary>

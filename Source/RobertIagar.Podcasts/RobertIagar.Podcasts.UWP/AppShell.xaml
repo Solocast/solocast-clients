@@ -18,7 +18,8 @@
     -->
 
     <Page.Resources>
-        <DataTemplate x:Key="NavMenuItemTemplate" x:DataType="local:NavMenuItem">
+        <DataTemplate x:Key="NavMenuItemTemplate" 
+                      x:DataType="local:NavMenuItem">
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="48" />
@@ -28,8 +29,10 @@
                      It appears when the user hovers over the icon, but not the label which provides
                      value when the SplitView is 'Compact' while reducing the likelihood of showing
                      redundant information when the label is shown.-->
-                <FontIcon x:Name="Glyph" FontSize="16" Glyph="{x:Bind SymbolAsChar}" VerticalAlignment="Center" HorizontalAlignment="Center" ToolTipService.ToolTip="{x:Bind Label}"/>
-                <TextBlock x:Name="Text" Grid.Column="1" Text="{x:Bind Label}" />
+                <FontIcon Grid.Column="0"  
+                          x:Name="Glyph" FontSize="16" Glyph="{x:Bind SymbolAsChar}" VerticalAlignment="Center" HorizontalAlignment="Center" ToolTipService.ToolTip="{x:Bind Label}" Margin="5,0,0,0"/>
+                <TextBlock x:Name="Text" 
+                           Grid.Column="1" Text="{x:Bind Label}" />
             </Grid>
         </DataTemplate>
     </Page.Resources>
@@ -46,7 +49,6 @@
                         <Setter Target="RootSplitView.DisplayMode" Value="CompactOverlay"/>
                         <Setter Target="RootSplitView.IsPaneOpen" Value="False"/>
                         <Setter Target="RootSplitView.Margin" Value="0,0,0,95"/>
-                        <Setter Target="Episodes.(RelativePanel.RightOf)" Value="Title"/>
                     </VisualState.Setters>
                 </VisualState>
                 <VisualState>
@@ -59,7 +61,6 @@
                         <Setter Target="Image.Fill" Value="Blue"/>
                         <Setter Target="NowPlayingGrid.Visibility" Value="Collapsed"/>
                         <Setter Target="NavMenuList.Margin"  Value="0,48,0,0"/>
-                        <Setter Target="Episodes.(RelativePanel.Below)" Value="Image"/>
                     </VisualState.Setters>
                 </VisualState>
             </VisualStateGroup>
@@ -67,7 +68,7 @@
 
         <!-- Top-level navigation menu + app content -->
         <SplitView x:Name="RootSplitView"
-                   DisplayMode="Inline"
+                   DisplayMode="Overlay"
                    OpenPaneLength="256"
                    IsTabStop="False"
                    Grid.Row="0">
@@ -123,7 +124,7 @@
 
         <Grid VerticalAlignment="Bottom"
               Padding="5"
-              Background="{StaticResource SystemControlBackgroundAccentBrush}"
+              Background="{StaticResource SystemControlBackgroundBaseLowBrush}"
               Opacity="1" 
               x:Name="NowPlayingGrid">
             <Grid.ColumnDefinitions>

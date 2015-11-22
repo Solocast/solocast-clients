@@ -21,11 +21,38 @@
                             Width="Auto"
                             Height="Auto">
         </xaml:CanvasControl>-->
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup>
+                <VisualState>
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="720"/>
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="Episodes.Background" Value="Red"/>
+                    </VisualState.Setters>
+                </VisualState>
+                <VisualState>
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="0"/>
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="Episodes.Background" Value="Blue"/>
+                        <Setter Target="Episodes.Margin" Value="23,23,5,0"/>
+                        <Setter Target="Image.Height" Value="100"/>
+                        <Setter Target="Image.Width" Value="100"/>
+                        <Setter Target="Title.Style" Value="{StaticResource TitleTextBlockStyle}"/>
+                        <Setter Target="Author.Style" Value="{StaticResource SubtitleTextBlockStyle}"/>
+                        <Setter Target="EpisodesHeader.Style" Value="{StaticResource TitleTextBlockStyle}"/>
+                        <Setter Target="LayoutRoot.Margin" Value="52,7,5,0"/>
+                    </VisualState.Setters>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <RelativePanel Margin="23,23,5,0">
+        <RelativePanel x:Name="LayoutRoot" Margin="52,7,5,0">
             <TextBlock x:Name="Title"
                        Text="{Binding Podcast.Title}"
                        Style="{StaticResource HeaderTextBlockStyle}"/>
@@ -44,12 +71,14 @@
                    Source="{Binding Podcast.ImageUrl}"
                    Width="180"
                    Height="180"
+                   VerticalAlignment="Center"
                    RelativePanel.Below="Title"/>
         </RelativePanel>
         <GridView Grid.Row="1" Margin="23,23,5,95"
+                  x:Name="Episodes"
                   ItemsSource="{Binding Podcast.Episodes}">
             <GridView.Header>
-                <TextBlock Text="Episodes" Style="{StaticResource HeaderTextBlockStyle}"/>
+                <TextBlock x:Name="EpisodesHeader" Text="Episodes" Style="{StaticResource HeaderTextBlockStyle}"/>
             </GridView.Header>
             <GridView.ItemTemplate>
                 <DataTemplate>

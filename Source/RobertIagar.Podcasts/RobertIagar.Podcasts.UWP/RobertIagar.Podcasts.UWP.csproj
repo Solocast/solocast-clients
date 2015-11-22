@@ -101,9 +101,6 @@
       <DependentUpon>AppShell.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\NavMenuListView.cs" />
-    <Compile Include="Controls\PageHeader.xaml.cs">
-      <DependentUpon>PageHeader.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Converters\BoolToVisibilityConverter.cs" />
     <Compile Include="Converters\InvertedCountToVisibilityConverter.cs" />
     <Compile Include="Converters\CountToVisibilityConverter.cs" />
@@ -162,10 +159,6 @@
     <Page Include="AppShell.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Controls\PageHeader.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Styles\Styles.xaml">
       <SubType>Designer</SubType>
