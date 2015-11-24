@@ -107,6 +107,7 @@
     <Compile Include="Converters\InvertedBoolToVisibilityConverter.cs" />
     <Compile Include="Infrastructure\Extensions\IEnumerableExtension.cs" />
     <Compile Include="Infrastructure\Extensions\ModelExtensions.cs" />
+    <Compile Include="Infrastructure\Extensions\StringExtensions.cs" />
     <Compile Include="Infrastructure\Messages\LoadPodcastsMessage.cs" />
     <Compile Include="Infrastructure\Services\AppShellNavigationService.cs" />
     <Compile Include="Models\Episode.cs" />

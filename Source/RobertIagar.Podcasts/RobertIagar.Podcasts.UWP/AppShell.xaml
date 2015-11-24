@@ -66,6 +66,11 @@
             </VisualStateGroup>
         </VisualStateManager.VisualStateGroups>
 
+        <MediaElement x:Name="MediaPlayer" 
+                      Visibility="Collapsed"
+                      AudioCategory="BackgroundCapableMedia"
+                      AreTransportControlsEnabled="False"/>
+        
         <!-- Top-level navigation menu + app content -->
         <SplitView x:Name="RootSplitView"
                    DisplayMode="Overlay"
@@ -163,6 +168,8 @@
                 </StackPanel>
             </Grid>
         </Grid>
+
+        
 
         <!-- Declared last to have it rendered above everything else, but it needs to be the first item in the tab sequence. -->
         <ToggleButton x:Name="TogglePaneButton"

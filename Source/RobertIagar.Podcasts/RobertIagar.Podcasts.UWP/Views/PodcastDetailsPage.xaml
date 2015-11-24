@@ -76,7 +76,15 @@
         </RelativePanel>
         <GridView Grid.Row="1" Margin="23,23,5,95"
                   x:Name="Episodes"
+                  SelectionMode="None"
+                  IsItemClickEnabled="True"
                   ItemsSource="{Binding Podcast.Episodes}">
+            <Interactivity:Interaction.Behaviors>
+                <Core:EventTriggerBehavior EventName="ItemClick">
+                    <Core:CallMethodAction MethodName="PlayEpisode"
+                                           TargetObject="{Binding Mode=OneWay}"/>
+                </Core:EventTriggerBehavior>
+            </Interactivity:Interaction.Behaviors>
             <GridView.Header>
                 <TextBlock x:Name="EpisodesHeader" Text="Episodes" Style="{StaticResource HeaderTextBlockStyle}"/>
             </GridView.Header>
@@ -88,8 +96,14 @@
                             <RowDefinition Height="Auto"/>
                             <RowDefinition Height="*"/>
                         </Grid.RowDefinitions>
-                        <Image Source="{Binding ImageUrl}" VerticalAlignment="Top" Height="128" EntranceNavigationTransitionInfo.IsTargetElement="True"/>
-                        <TextBlock Grid.Row="1" Text="{Binding Name}" Width="128" TextWrapping="WrapWholeWords" EntranceNavigationTransitionInfo.IsTargetElement="True"/>
+                        <Image Source="{Binding ImageUrl}" 
+                               VerticalAlignment="Top" 
+                               Height="96"
+                               EntranceNavigationTransitionInfo.IsTargetElement="True"/>
+                        <TextBlock Grid.Row="1" Text="{Binding Name}" 
+                                   Width="96" 
+                                   TextWrapping="WrapWholeWords" 
+                                   EntranceNavigationTransitionInfo.IsTargetElement="True"/>
                     </Grid>
                 </DataTemplate>
             </GridView.ItemTemplate>

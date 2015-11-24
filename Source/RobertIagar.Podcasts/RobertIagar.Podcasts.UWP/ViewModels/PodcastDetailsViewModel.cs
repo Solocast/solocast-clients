@@ -12,6 +12,12 @@ using Microsoft.Graphics.Canvas.Effects;
 using Microsoft.Graphics.Canvas;
 using System.Numerics;
 using Windows.UI.Xaml;
+using System.Windows.Input;
+using GalaSoft.MvvmLight.Command;
+using Windows.UI.Xaml.Controls;
+using Windows.UI.Notifications;
+using NotificationsExtensions.Toasts;
+using RobertIagar.Podcasts.UWP.Infrastructure.Extensions;
 
 namespace RobertIagar.Podcasts.UWP.ViewModels
 {
@@ -65,6 +71,39 @@ namespace RobertIagar.Podcasts.UWP.ViewModels
             set { Set(nameof(Podcast), ref podcast, value); }
         }
 
-       
+        public void PlayEpisode(object sender, ItemClickEventArgs parameters)
+        {
+            var episode = parameters.ClickedItem as Episode;
+
+            var content = new ToastContent()
+            {
+                Launch = null,
+                Visual = new ToastVisual()
+                {
+                    TitleText = new ToastText()
+                    {
+                        Text = $"Listening to {episode.Name}"
+                    },
+                    BodyTextLine1 = new ToastText()
+                    {
+                        Text = $"By {episode.Author}"
+                    },
+                    AppLogoOverride = new ToastAppLogo()
+                    {
+                        Crop = ToastImageCrop.None,
+                        Source = new ToastImageSource(episode.ImageUrl.OriginalString)
+                    },
+                }
+            };
+
+            var t = content.GetContent();
+
+            var toast = new ToastNotification(content.GetXml());
+
+            ToastNotificationManager.CreateToastNotifier().Show(toast);
+
+            AppShell.Player.Source = episode.Path.ToUri();
+            AppShell.Player.Play();
+        }
     }
 }
