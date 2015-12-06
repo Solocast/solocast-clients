@@ -5,7 +5,8 @@ namespace RobertIagar.Podcasts.Core.Entities
 {
     public class Episode : IEquatable<Episode>
     {
-        public string Name { get; set; }
+        public string Title { get; set; }
+        public string Subtitle { get; set; }
         public string Path { get; set; }
         public string Author { get; set; }
         public string Summary { get; set; }
@@ -16,7 +17,8 @@ namespace RobertIagar.Podcasts.Core.Entities
         [JsonIgnore]
         public virtual Podcast Podcast { get; set; }
 
-        public Episode(string name,
+        public Episode(string title,
+            string subtitle,
             string path,
             string author,
             string summary,
@@ -24,7 +26,8 @@ namespace RobertIagar.Podcasts.Core.Entities
             string imageUrl,
             string guid)
         {
-            this.Name = name;
+            this.Title = title;
+            this.Subtitle = subtitle;
             this.Path = path;
             this.Author = author;
             this.Summary = summary;

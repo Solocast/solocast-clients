@@ -1,4 +1,5 @@
 ﻿using RobertIagar.Podcasts.Core.Interfaces;
+using RobertIagar.Podcasts.Services.Extensions;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -100,15 +101,6 @@ namespace RobertIagar.Podcasts.Services
             {
                 downloadOperation.Resume();
             }
-        }
-    }
-
-    public static class Extensions
-    {
-        public static string GetExtension(this string input)
-        {
-            var index = input.LastIndexOf('.');
-            return input.Substring(index);
         }
     }
 }

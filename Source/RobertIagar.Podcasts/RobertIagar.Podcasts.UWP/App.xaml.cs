@@ -77,7 +77,7 @@ namespace RobertIagar.Podcasts.UWP
             Window.Current.Activate();
 
             var t = CoreApplication.GetCurrentView();
-            t.TitleBar.ExtendViewIntoTitleBar = true;
+            t.TitleBar.ExtendViewIntoTitleBar = false;
             try {
                 var s = StatusBar.GetForCurrentView();
                 await s.HideAsync();

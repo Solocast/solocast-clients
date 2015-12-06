@@ -7,18 +7,33 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:Core="using:Microsoft.Xaml.Interactions.Core"
     xmlns:Interactivity="using:Microsoft.Xaml.Interactivity"
+    xmlns:Actions="using:RobertIagar.Podcasts.UWP.Infrastructure.Actions"
     mc:Ignorable="d"
     DataContext="{Binding Podcasts, Source={StaticResource Locator}}">
     <Page.Resources>
         <DataTemplate x:Key="PodcastTemplate">
             <Grid Height="Auto" 
-                              EntranceNavigationTransitionInfo.IsTargetElement="True">
+                  EntranceNavigationTransitionInfo.IsTargetElement="True">
+                <Interactivity:Interaction.Behaviors>
+                    <Core:EventTriggerBehavior EventName="RightTapped">
+                        <Actions:OpenMenuFlyoutAction />
+                    </Core:EventTriggerBehavior>
+                    <Core:EventTriggerBehavior EventName="Holding">
+                        <Actions:OpenMenuFlyoutAction />
+                    </Core:EventTriggerBehavior>
+                </Interactivity:Interaction.Behaviors>
+                <FlyoutBase.AttachedFlyout>
+                    <MenuFlyout>
+                        <MenuFlyoutItem Text="Play" Command="{Binding PlayPodcastCommand}"/>
+                        <MenuFlyoutItem Text="Delete" Command="{Binding DeletePodcastCommand}"/>
+                    </MenuFlyout>
+                </FlyoutBase.AttachedFlyout>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
-                <Image Source="{Binding ImageUrl}" VerticalAlignment="Top" Height="128" EntranceNavigationTransitionInfo.IsTargetElement="True"/>
-                <TextBlock Grid.Row="1" Text="{Binding Title}" Width="128" TextWrapping="WrapWholeWords" EntranceNavigationTransitionInfo.IsTargetElement="True"/>
+                <Image Source="{Binding Podcast.ImageUrl}" VerticalAlignment="Top" Height="128" EntranceNavigationTransitionInfo.IsTargetElement="True"/>
+                <TextBlock Grid.Row="1" Text="{Binding Podcast.Title}" Width="128" TextWrapping="WrapWholeWords" EntranceNavigationTransitionInfo.IsTargetElement="True"/>
             </Grid>
         </DataTemplate>
         <Flyout x:Key="AddPodcastFlyout">
@@ -34,7 +49,7 @@
                          Padding="4"
                          Grid.Row="1"
                          PlaceholderText="Feed Url"/>
-                <Button Command="{Binding GetPodcastCommand}"
+                <Button Command="{Binding AddPodcastCommand}"
                         Grid.Row="2"
                         Margin="10"
                         Padding="4"
@@ -56,13 +71,14 @@
           CommonNavigationTransitionInfo.IsStaggerElement="True">
         <GridView ItemsSource="{Binding Podcasts}"
                   ItemTemplate="{StaticResource PodcastTemplate}"
-                  Margin="23,23,5,0"
+                  Margin="23,0,5,0"
                   IsActiveView="False" 
                   SelectionMode="None"
-                  IsItemClickEnabled="True">
+                  IsItemClickEnabled="True"
+                  IsRightTapEnabled="True">
             <Interactivity:Interaction.Behaviors>
                 <Core:EventTriggerBehavior EventName="ItemClick">
-                    <Core:CallMethodAction MethodName="ClickCommand"
+                    <Core:CallMethodAction MethodName="ItemClickCommand"
                                            TargetObject="{Binding Mode=OneWay}"/>
                 </Core:EventTriggerBehavior>
             </Interactivity:Interaction.Behaviors>
@@ -72,7 +88,7 @@
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
-                    
+
                     <Grid Grid.Row="1" Visibility="{Binding Podcasts.Count, Converter={StaticResource InvertedCountToVisibilityConverter}}">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto"/>
@@ -82,16 +98,19 @@
                             <ColumnDefinition Width="0.5*"/>
                             <ColumnDefinition Width="Auto"/>
                         </Grid.ColumnDefinitions>
-                        
-                        <TextBlock Grid.Row="0" Style="{StaticResource SubtitleTextBlockStyle}"
+
+                        <TextBlock Grid.Row="0" 
+                                   Grid.ColumnSpan="2"
+                                   Style="{StaticResource SubtitleTextBlockStyle}"
                                    Text="You haven't added any podcasts yet..."/>
                         <TextBox Grid.Row="1" 
                                  Grid.Column="0"
+                                 Margin="0,5"
                                  Text="{Binding FeedUrl, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                                  PlaceholderText="Feed Url"/>
                         <Button Grid.Row="1" 
                                 Grid.Column="1"
-                                Command="{Binding GetPodcastCommand}"
+                                Command="{Binding AddPodcastCommand}"
                                 Content="Add Podcast"/>
                     </Grid>
                     <StackPanel Orientation="Horizontal">

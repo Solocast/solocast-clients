@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using RobertIagar.Podcasts.Core.Entities;
 using Windows.Storage;
 using System.Diagnostics;
+using RobertIagar.Podcasts.Core.Exceptions;
 
 namespace RobertIagar.Podcasts.Services
 {
@@ -25,9 +26,15 @@ namespace RobertIagar.Podcasts.Services
 
         public async Task<Podcast> GetPodcastAsync(string feedUrl)
         {
-            dynamic feed = await feedParser.GetChannelNodeAsync(feedUrl);
-            var podcast = feedParser.GetPodcast(feed);
-            return podcast;
+            try {
+                dynamic feed = await feedParser.GetChannelNodeAsync(feedUrl);
+                var podcast = feedParser.GetPodcast(feed);
+                return podcast;
+            }
+            catch(Exception ex)
+            {
+                throw new GetPodcastException(feedUrl, ex);
+            }
         }
 
         public async Task<IEnumerable<Podcast>> GetPodcastsAsync()
@@ -68,7 +75,7 @@ namespace RobertIagar.Podcasts.Services
             var file = await fileDownloadManager.DownloadFileAsync(
                 appFolderName: AppName,
                 folderName: episode.Podcast.Title,
-                fileName: string.Format("{0:dd.MM.yyyy} - {1} - {2}", episode.Published, episode.Author, episode.Name),
+                fileName: string.Format("{0:dd.MM.yyyy} - {1} - {2}", episode.Published, episode.Author, episode.Title),
                 fileUrl: episode.Path,
                 callback: c =>
                 {

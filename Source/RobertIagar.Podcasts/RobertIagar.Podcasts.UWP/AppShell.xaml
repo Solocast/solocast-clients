@@ -46,7 +46,7 @@
                         <AdaptiveTrigger MinWindowWidth="720" />
                     </VisualState.StateTriggers>
                     <VisualState.Setters>
-                        <Setter Target="RootSplitView.DisplayMode" Value="CompactOverlay"/>
+                        <Setter Target="RootSplitView.DisplayMode" Value="CompactInline"/>
                         <Setter Target="RootSplitView.IsPaneOpen" Value="False"/>
                         <Setter Target="RootSplitView.Margin" Value="0,0,0,95"/>
                     </VisualState.Setters>
@@ -56,7 +56,7 @@
                         <AdaptiveTrigger MinWindowWidth="0" />
                     </VisualState.StateTriggers>
                     <VisualState.Setters>
-                        <Setter Target="RootSplitView.DisplayMode" Value="Overlay"/>
+                        <Setter Target="RootSplitView.DisplayMode" Value="CompactOverlay"/>
                         <Setter Target="RootSplitView.IsPaneOpen" Value="True"/>
                         <Setter Target="Image.Fill" Value="Blue"/>
                         <Setter Target="NowPlayingGrid.Visibility" Value="Collapsed"/>
@@ -73,7 +73,7 @@
         
         <!-- Top-level navigation menu + app content -->
         <SplitView x:Name="RootSplitView"
-                   DisplayMode="Overlay"
+                   DisplayMode="CompactInline"
                    OpenPaneLength="256"
                    IsTabStop="False"
                    Grid.Row="0">

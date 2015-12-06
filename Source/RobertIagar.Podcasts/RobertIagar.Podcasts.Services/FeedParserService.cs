@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Xml;
 using System.Xml.Linq;
 using RobertIagar.Podcasts.Core.Entities;
+using RobertIagar.Podcasts.Services.Extensions;
 
 namespace RobertIagar.Podcasts.Services
 {
@@ -53,6 +54,8 @@ namespace RobertIagar.Podcasts.Services
             else
                 podcastDescription = description;
 
+            podcastDescription = podcastDescription.RemoveCData();
+
             var podcast = new Podcast(title, podcastDescription, author, link, imageLink, DateTime.Now);
 
             var episodes = new List<Episode>();
@@ -61,7 +64,8 @@ namespace RobertIagar.Podcasts.Services
 
             foreach (var item in items)
             {
-                string name = item.title.ToString();
+                title = item.title.ToString();
+                string subtitle = item["itunes:subtitle"].ToString();
                 string path = item.enclosure["@url"].ToString();
                 author = item["itunes:author"].ToString();
                 summary = item["itunes:summary"].ToString();
@@ -69,7 +73,7 @@ namespace RobertIagar.Podcasts.Services
                 string imageUrl = item["itunes:image"] != null ? item["itunes:image"]["@href"] : imageLink;
                 string guid = item.guid.ToString();
 
-                var episode = new Episode(name, path, author, summary, pubDate, imageUrl, guid);
+                var episode = new Episode(title, subtitle, path, author, summary, pubDate, imageUrl, guid);
                 episode.SetPodcast(podcast);
                 episodes.Add(episode);
             }

@@ -1,15 +1,20 @@
 ﻿using GalaSoft.MvvmLight;
-using RobertIagar.Podcasts.Core.Interfaces;
-using RobertIagar.Podcasts.UWP.Models;
-using RobertIagar.Podcasts.UWP.Infrastructure.Extensions;
-using System.Threading.Tasks;
-using System.Windows.Input;
 using GalaSoft.MvvmLight.Command;
+using GalaSoft.MvvmLight.Views;
+using RobertIagar.Podcasts.Core.Exceptions;
+using RobertIagar.Podcasts.Core.Interfaces;
+using RobertIagar.Podcasts.UWP.Infrastructure.Extensions;
+using RobertIagar.Podcasts.UWP.Infrastructure.Messages;
+using RobertIagar.Podcasts.UWP.Infrastructure.Services;
+using RobertIagar.Podcasts.UWP.Models;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using RobertIagar.Podcasts.UWP.Infrastructure.Messages;
+using System.Linq;
+using System.Threading.Tasks;
+using System.Windows.Input;
+using Windows.UI.Popups;
 using Windows.UI.Xaml.Controls;
-using GalaSoft.MvvmLight.Views;
 
 namespace RobertIagar.Podcasts.UWP.ViewModels
 {
@@ -17,21 +22,26 @@ namespace RobertIagar.Podcasts.UWP.ViewModels
     {
         private IPodcastService podcastService;
         private INavigationService navigationService;
+        private IMessageDialogService dialogService;
         private string feedUrl;
-        private ObservableCollection<Podcast> podcasts;
+        private ObservableCollection<PodcastViewModel> podcasts;
+        private bool loadedPodcasts;
 
-        public PodcastsViewModel(IPodcastService podcastService, INavigationService navigationService)
+        public PodcastsViewModel(IPodcastService podcastService, INavigationService navigationService, IMessageDialogService dialogService)
             : base()
         {
             this.podcastService = podcastService;
             this.navigationService = navigationService;
-            this.podcasts = new ObservableCollection<Podcast>();
-            this.GetPodcastCommand = new RelayCommand(async () => await this.GetPodcastAsync(), () => this.CanGetPodcast());
+            this.dialogService = dialogService;
+            this.podcasts = new ObservableCollection<PodcastViewModel>();
+            this.AddPodcastCommand = new RelayCommand(async () => await this.AddPodcastAsync(), () => this.CanAddPodcast());
+            this.loadedPodcasts = false;
 
-            MessengerInstance.Register<LoadPodcastsMessage>(this, async message => await LoadPodcastsAsync(message));
+            MessengerInstance.Register<LoadPodcastsMessage>(this, async message => await LoadPodcastsAsync());
+            MessengerInstance.Register<DeletePodcastMessage>(this, async message => await DeletePodcastAsync(message));
         }
 
-        public IList<Podcast> Podcasts { get { return podcasts; } }
+        public IList<PodcastViewModel> Podcasts { get { return podcasts; } }
 
         public string FeedUrl
         {
@@ -39,35 +49,88 @@ namespace RobertIagar.Podcasts.UWP.ViewModels
             set
             {
                 Set(nameof(FeedUrl), ref feedUrl, value);
-                ((RelayCommand)GetPodcastCommand).RaiseCanExecuteChanged();
+                ((RelayCommand)AddPodcastCommand).RaiseCanExecuteChanged();
             }
         }
 
-        public ICommand GetPodcastCommand { get; private set; }
+        public ICommand AddPodcastCommand { get; private set; }
 
-        public async Task GetPodcastAsync()
+
+        public async Task AddPodcastAsync()
         {
-            var corePodcast = await podcastService.GetPodcastAsync(feedUrl);
-            podcasts.Add(corePodcast.ToPodcastModel());
-            await podcastService.SavePodcastAsync(corePodcast);
+            try
+            {
+                var corePodcast = await podcastService.GetPodcastAsync(feedUrl);
+                var podcastModel = corePodcast.ToPodcastViewModel();
+
+                if (!podcasts.Contains(podcastModel))
+                {
+                    podcasts.Add(podcastModel);
+                    await podcastService.SavePodcastAsync(corePodcast);
+                }
+                else
+                {
+
+                }
+
+                FeedUrl = string.Empty;
+            }
+            catch (GetPodcastException ex)
+            {
+                var result = await dialogService.ShowDialogAsync(ex.Message, "Error!", new[]
+                {
+                    new UICommand("Retry") { Id = 0 },
+                    new UICommand("Cancel") { Id = 1 }
+                }, 0);
+
+                if ((int)result.Id == 0)
+                {
+                    await AddPodcastAsync();
+                }
+                else
+                {
+                }
+            }
         }
 
-        private bool CanGetPodcast()
+        private bool CanAddPodcast()
         {
-            return !string.IsNullOrEmpty(FeedUrl);
+            Uri uriResult;
+            bool result = Uri.TryCreate(FeedUrl, UriKind.Absolute, out uriResult);
+            return result;
         }
 
-        private async Task LoadPodcastsAsync(LoadPodcastsMessage message)
+        private async Task LoadPodcastsAsync()
         {
-            var podcasts = await podcastService.GetPodcastsAsync();
-            podcasts.ForEach(p => this.podcasts.Add(p.ToPodcastModel()));
-            MessengerInstance.Unregister(this);
+            if (!loadedPodcasts)
+            {
+                var podcasts = await podcastService.GetPodcastsAsync();
+                podcasts.ForEach(p => this.podcasts.Add(p.ToPodcastViewModel()));
+                loadedPodcasts = true;
+            }
         }
 
-        public void ClickCommand(object sender, ItemClickEventArgs parameters)
+        private async Task DeletePodcastAsync(DeletePodcastMessage message)
         {
-            var podcast = parameters.ClickedItem as Podcast;
-            this.navigationService.NavigateTo(nameof(PodcastDetailsViewModel), podcast);
+            var podcastVm = message.PodcastViewModel;
+            var podcast = podcastVm.Podcast;
+            var dialogResult = await dialogService.ShowDialogAsync($"Do you really want to delete {podcast.Title}?", $"Delete {podcast.Title}?", new[]
+            {
+                new UICommand("Yes") { Id = 0 },
+                new UICommand("No") { Id = 1 },
+            }, 0);
+
+            if ((int)dialogResult.Id == 0)
+            {
+                podcasts.Remove(podcastVm);
+                await podcastService.SavePodcastsAsync(podcasts.Select(p => p.Podcast.Core));
+            }
+        }
+
+        public void ItemClickCommand(object sender, ItemClickEventArgs parameters)
+        {
+            var podcastVm = parameters.ClickedItem as PodcastViewModel;
+            this.navigationService.NavigateTo(nameof(PodcastDetailsViewModel), podcastVm.Podcast);
         }
     }
 }

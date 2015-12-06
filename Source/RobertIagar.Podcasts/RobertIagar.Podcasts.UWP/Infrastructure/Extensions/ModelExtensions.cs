@@ -6,39 +6,45 @@ using System.Text;
 using System.Threading.Tasks;
 using CorePodcast = RobertIagar.Podcasts.Core.Entities.Podcast;
 using CoreEpisode = RobertIagar.Podcasts.Core.Entities.Episode;
+using RobertIagar.Podcasts.UWP.ViewModels;
 
 namespace RobertIagar.Podcasts.UWP.Infrastructure.Extensions
 {
     public static class ModelExtensions
     {
-        public static Podcast ToPodcastModel(this CorePodcast podcast)
+        public static PodcastViewModel ToPodcastViewModel(this CorePodcast podcast)
         {
-            var podcastModel = new Podcast
+            var podcastModel = new Podcast()
             {
                 Author = podcast.Author,
                 DateAdded = podcast.DateAdded,
                 Description = podcast.Description,
                 FeedUrl = podcast.FeedUrl,
                 ImageUrl = podcast.ImageUrl,
-                Title = podcast.Title
+                Title = podcast.Title,
+                Core = podcast
             };
             podcast.Episodes.ForEach(e => podcastModel.Episodes.Add(e.ToEpisodeModel()));
 
-            return podcastModel;
+            return new PodcastViewModel(podcastModel);
         }
 
         public static Episode ToEpisodeModel(this CoreEpisode episode)
         {
-            return new Episode
+            var episodeModel = new Episode
             {
                 Author = episode.Author,
                 Guid = episode.Guid,
                 ImageUrl = episode.ImageUrl,
-                Name = episode.Name,
+                Title = episode.Title,
+                Subtitle = episode.Subtitle,
                 Path = episode.Path,
                 Published = episode.Published,
-                Summary = episode.Summary
+                Summary = episode.Summary,
+                Core = episode
             };
+
+            return episodeModel;
         }
     }
 }

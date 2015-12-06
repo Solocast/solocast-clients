@@ -5,6 +5,7 @@
     xmlns:local="using:RobertIagar.Podcasts.UWP"
     xmlns:vm="using:RobertIagar.Podcasts.UWP.ViewModels"
     xmlns:conv="using:RobertIagar.Podcasts.UWP.Converters"
+    xmlns:styleselectors="using:RobertIagar.Podcasts.UWP.Infrastructure.StyleSelectors"
     RequestedTheme="Dark">
 
     <Application.Resources>
@@ -19,6 +20,7 @@
             <conv:InvertedBoolToVisibilityConverter x:Key="InvertedBoolToVisibilityConverter"/>
             <conv:CountToVisibilityConverter x:Key="CountToVisibilityConverter"/>
             <conv:InvertedCountToVisibilityConverter x:Key="InvertedCountToVisibilityConverter"/>
+            <styleselectors:AlternatingColorListViewStyleSelector x:Key="AlternatingColorListViewStyleSelector"/>
         </ResourceDictionary>
     </Application.Resources>
 

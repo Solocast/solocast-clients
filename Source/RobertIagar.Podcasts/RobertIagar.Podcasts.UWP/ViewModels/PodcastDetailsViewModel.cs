@@ -29,7 +29,7 @@ namespace RobertIagar.Podcasts.UWP.ViewModels
         {
             if (IsInDesignMode)
             {
-                Podcast = new Podcast
+                Podcast = new Podcast()
                 {
                     Author = "Monstercat",
                     DateAdded = DateTime.UtcNow,
@@ -44,7 +44,7 @@ namespace RobertIagar.Podcasts.UWP.ViewModels
                     Author = "Monstercat",
                     Guid = "jfkajfkasd",
                     ImageUrl = new Uri("http://www.monstercat.com/podcast/81/cover.jpg"),
-                    Name = "Monstercat Podcast Ep. 081",
+                    Title = "Monstercat Podcast Ep. 081",
                     Path = "path",
                     Podcast = Podcast,
                     Published = DateTime.UtcNow.AddDays(-2),
@@ -55,7 +55,7 @@ namespace RobertIagar.Podcasts.UWP.ViewModels
                     Author = "Monstercat",
                     Guid = "jfkajfkasd",
                     ImageUrl = new Uri("http://www.monstercat.com/podcast/80/cover.jpg"),
-                    Name = "Monstercat Podcast Ep. 080",
+                    Title = "Monstercat Podcast Ep. 080",
                     Path = "path",
                     Podcast = Podcast,
                     Published = DateTime.UtcNow.AddDays(-3),
@@ -82,7 +82,7 @@ namespace RobertIagar.Podcasts.UWP.ViewModels
                 {
                     TitleText = new ToastText()
                     {
-                        Text = $"Listening to {episode.Name}"
+                        Text = $"Listening to {episode.Title}"
                     },
                     BodyTextLine1 = new ToastText()
                     {

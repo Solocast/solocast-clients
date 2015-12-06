@@ -113,6 +113,7 @@
     <None Include="project.json" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Extensions\StringExtensions.cs" />
     <Compile Include="FeedParserService.cs" />
     <Compile Include="FileDownloadService.cs" />
     <Compile Include="LocalPodcastService.cs" />
