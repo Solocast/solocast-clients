@@ -34,7 +34,8 @@ namespace RobertIagar.Podcasts.UWP.Infrastructure.Extensions
 
             if (newCacheUri != null)
             {
-              //cache image to local storage
+                //cache image to local storage
+                await Task.Delay(0);
 
             }
             else
