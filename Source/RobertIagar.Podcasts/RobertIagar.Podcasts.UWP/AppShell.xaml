@@ -58,7 +58,6 @@
                     <VisualState.Setters>
                         <Setter Target="RootSplitView.DisplayMode" Value="CompactOverlay"/>
                         <Setter Target="RootSplitView.IsPaneOpen" Value="True"/>
-                        <Setter Target="Image.Fill" Value="Blue"/>
                         <Setter Target="NowPlayingGrid.Visibility" Value="Collapsed"/>
                         <Setter Target="NavMenuList.Margin"  Value="0,48,0,0"/>
                     </VisualState.Setters>
@@ -138,17 +137,17 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
 
-            <Rectangle Grid.Column="0"
-                       Height="72"
-                       Margin="7"
-                       Fill="White"
-                       x:Name="Image"/>
+            <Image Grid.Column="0"
+                   Height="72"
+                   Margin="7"
+                   Source="{Binding NowPlayingEpisode.ImageUrl}"
+                   x:Name="Image"/>
             <StackPanel Grid.Column="1"
                         Orientation="Vertical" 
                         VerticalAlignment="Center"
                         Margin="5">
-                <TextBlock Text="Monstercat Podcast Ep. 78" Style="{StaticResource TitleTextBlockStyle}"/>
-                <TextBlock Text="Monstercat" Style="{StaticResource SubtitleTextBlockStyle}"/>
+                <TextBlock Text="{Binding NowPlayingEpisode.Title}" Style="{StaticResource TitleTextBlockStyle}"/>
+                <TextBlock Text="{Binding NowPlayingEpisode.Author}" Style="{StaticResource SubtitleTextBlockStyle}"/>
             </StackPanel>
 
             <Grid Grid.Column="2">

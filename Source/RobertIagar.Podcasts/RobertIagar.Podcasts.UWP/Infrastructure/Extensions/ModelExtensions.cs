@@ -24,15 +24,16 @@ namespace RobertIagar.Podcasts.UWP.Infrastructure.Extensions
                 Title = podcast.Title,
                 Core = podcast
             };
-            podcast.Episodes.ForEach(e => podcastModel.Episodes.Add(e.ToEpisodeModel()));
+            podcast.Episodes.ForEach(e => podcastModel.Episodes.Add(e.ToEpisodeModel(podcastModel)));
 
             return new PodcastViewModel(podcastModel);
         }
 
-        public static Episode ToEpisodeModel(this CoreEpisode episode)
+        public static Episode ToEpisodeModel(this CoreEpisode episode, Podcast podcast)
         {
             var episodeModel = new Episode
             {
+                Podcast = podcast,
                 Author = episode.Author,
                 Guid = episode.Guid,
                 ImageUrl = episode.ImageUrl,

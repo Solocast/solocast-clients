@@ -1,4 +1,5 @@
-﻿using System;
+﻿using GalaSoft.MvvmLight.Threading;
+using System;
 using System.Linq;
 using System.Reflection;
 using Windows.ApplicationModel;
@@ -75,7 +76,7 @@ namespace RobertIagar.Podcasts.UWP
 
             // Ensure the current window is active
             Window.Current.Activate();
-
+            DispatcherHelper.Initialize();
             var t = CoreApplication.GetCurrentView();
             t.TitleBar.ExtendViewIntoTitleBar = false;
             try {

@@ -12,6 +12,10 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Navigation;
 using RobertIagar.Podcasts.UWP.Controls;
 using RobertIagar.Podcasts.UWP.Views;
+using Windows.Media;
+using GalaSoft.MvvmLight.Ioc;
+using RobertIagar.Podcasts.UWP.Infrastructure.Services;
+using RobertIagar.Podcasts.UWP.ViewModels;
 
 namespace RobertIagar.Podcasts.UWP
 {
@@ -64,6 +68,15 @@ namespace RobertIagar.Podcasts.UWP
 
                 this.TogglePaneButton.Focus(FocusState.Programmatic);
                 Player = MediaPlayer;
+                SimpleIoc.Default.Register<IPlayService>(() =>
+                {
+                    return new PlayService(SystemMediaTransportControls.GetForCurrentView(), Player);
+                }, true);
+                SimpleIoc.Default.Register<NowPlayingViewModel>();
+
+                var playService = SimpleIoc.Default.GetInstance<IPlayService>();
+                playService.SetupBackgroundAudio();
+                NowPlayingGrid.DataContext = ViewModelLocator.NowPlaying;
             };
 
             SystemNavigationManager.GetForCurrentView().BackRequested += SystemNavigationManager_BackRequested;

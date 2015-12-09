@@ -56,5 +56,10 @@ namespace RobertIagar.Podcasts.UWP.ViewModels
         {
             get { return ServiceLocator.Current.GetInstance<PodcastDetailsViewModel>(); }
         }
+
+        public static NowPlayingViewModel NowPlaying
+        {
+            get { return ServiceLocator.Current.GetInstance<NowPlayingViewModel>(); }
+        }
     }
 }

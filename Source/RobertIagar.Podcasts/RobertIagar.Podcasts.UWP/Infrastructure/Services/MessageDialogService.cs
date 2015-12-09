@@ -8,6 +8,11 @@ using Windows.UI.Popups;
 
 namespace RobertIagar.Podcasts.UWP.Infrastructure.Services
 {
+    public interface IMessageDialogService
+    {
+        Task<IUICommand> ShowDialogAsync(string content, string title, IEnumerable<UICommand> commands, uint defaultCommandIndex);
+    }
+
     public class MessageDialogService : IMessageDialogService
     {
         public async Task<IUICommand> ShowDialogAsync(string content, string title, IEnumerable<UICommand> commands, uint defaultCommandIndex)
@@ -18,10 +23,5 @@ namespace RobertIagar.Podcasts.UWP.Infrastructure.Services
 
             return await showDialog.ShowAsync();
         }
-    }
-
-    public interface IMessageDialogService
-    {
-        Task<IUICommand> ShowDialogAsync(string content, string title, IEnumerable<UICommand> commands, uint defaultCommandIndex);
     }
 }

@@ -111,13 +111,16 @@
     <Compile Include="Infrastructure\Extensions\StringExtensions.cs" />
     <Compile Include="Infrastructure\Messages\DeletePodcastMessage.cs" />
     <Compile Include="Infrastructure\Messages\LoadPodcastsMessage.cs" />
+    <Compile Include="Infrastructure\Messages\PlayEpisodeMessage.cs" />
     <Compile Include="Infrastructure\Services\AppShellNavigationService.cs" />
     <Compile Include="Infrastructure\Services\MessageDialogService.cs" />
+    <Compile Include="Infrastructure\Services\PlayService.cs" />
     <Compile Include="Infrastructure\StyleSelectors\AlternatingColorListViewStyleSelector.cs" />
     <Compile Include="Models\Episode.cs" />
     <Compile Include="Models\Podcast.cs" />
     <Compile Include="NavMenuItem.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ViewModels\NowPlayingViewModel.cs" />
     <Compile Include="ViewModels\PodcastDetailsViewModel.cs" />
     <Compile Include="ViewModels\PodcastsViewModel.cs" />
     <Compile Include="ViewModels\PodcastViewModel.cs" />

@@ -18,14 +18,17 @@ using Windows.UI.Xaml.Controls;
 using Windows.UI.Notifications;
 using NotificationsExtensions.Toasts;
 using RobertIagar.Podcasts.UWP.Infrastructure.Extensions;
+using RobertIagar.Podcasts.UWP.Infrastructure.Services;
+using RobertIagar.Podcasts.UWP.Infrastructure.Messages;
 
 namespace RobertIagar.Podcasts.UWP.ViewModels
 {
     public class PodcastDetailsViewModel : ViewModelBase
     {
+        private IPlayService playService;
         private Podcast podcast;
 
-        public PodcastDetailsViewModel()
+        public PodcastDetailsViewModel(IPlayService nowPlayingService)
         {
             if (IsInDesignMode)
             {
@@ -62,6 +65,8 @@ namespace RobertIagar.Podcasts.UWP.ViewModels
                     Summary = "summary"
                 });
             }
+
+            this.playService = nowPlayingService;
         }
 
 
@@ -102,8 +107,7 @@ namespace RobertIagar.Podcasts.UWP.ViewModels
 
             ToastNotificationManager.CreateToastNotifier().Show(toast);
 
-            AppShell.Player.Source = episode.Path.ToUri();
-            AppShell.Player.Play();
+            MessengerInstance.Send(new PlayEpisodeMessage(episode));
         }
     }
 }

@@ -37,24 +37,29 @@
         </DataTemplate>
         <DataTemplate x:Key="GridEpisodeTemplate">
             <Grid Height="Auto" 
-                              EntranceNavigationTransitionInfo.IsTargetElement="True">
+                  Width="128"
+                  Margin="3"
+                  EntranceNavigationTransitionInfo.IsTargetElement="True">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
                 <Image Source="{Binding ImageUrl}" 
-                               VerticalAlignment="Top" 
-                               Height="96"
-                               EntranceNavigationTransitionInfo.IsTargetElement="True"/>
-                <TextBlock Grid.Row="1" Text="{Binding Title}" 
-                                   Width="96" 
-                                   TextWrapping="WrapWholeWords" 
-                                   EntranceNavigationTransitionInfo.IsTargetElement="True"/>
+                       VerticalAlignment="Center"
+                       Height="128"
+                       EntranceNavigationTransitionInfo.IsTargetElement="True"/>
+                <TextBlock Grid.Row="1"
+                           Margin="0,2"
+                           Text="{Binding Title}" 
+                           Style="{StaticResource BodyTextBlockStyle}"
+                           TextWrapping="WrapWholeWords"
+                           EntranceNavigationTransitionInfo.IsTargetElement="True"/>
             </Grid>
         </DataTemplate>
     </Page.Resources>
 
-    <Grid Background="{StaticResource AppBarBackgroundThemeBrush}">
+    <Grid Background="{StaticResource ApplicationPageBackgroundThemeBrush}"
+          Margin="23,0,5,0">
         <!-- when this gets actually good you can use it-->
         <!--<xaml:CanvasControl x:Name="canvas"
                             SizeChanged="CanvasSizeChanged"
@@ -92,6 +97,13 @@
                 </VisualState>
             </VisualStateGroup>
         </VisualStateManager.VisualStateGroups>
+        <Grid.ChildrenTransitions>
+            <TransitionCollection>
+                <EntranceThemeTransition IsStaggeringEnabled="True" 
+                                         FromHorizontalOffset="0" 
+                                         FromVerticalOffset="75"/>
+            </TransitionCollection>
+        </Grid.ChildrenTransitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
@@ -99,12 +111,14 @@
         <RelativePanel x:Name="LayoutRoot" Margin="0,5">
             <TextBlock x:Name="Title"
                        Text="{Binding Podcast.Title}"
-                       Style="{StaticResource HeaderTextBlockStyle}"/>
+                       Style="{StaticResource HeaderTextBlockStyle}"
+                       CommonNavigationTransitionInfo.IsStaggerElement="True"/>
             <TextBlock x:Name="Author" Margin="10,0,0,0"
                        Text="{Binding Podcast.Author}"
                        Style="{StaticResource SubheaderTextBlockStyle}"
                        RelativePanel.Below="Title"
-                       RelativePanel.RightOf="Image"/>
+                       RelativePanel.RightOf="Image"
+                       CommonNavigationTransitionInfo.IsStaggerElement="True"/>
             <TextBlock x:Name="Description" Margin="10,0,0,0"
                        Text="{Binding Podcast.Description}"
                        Style="{StaticResource BodyTextBlockStyle}"
@@ -113,16 +127,19 @@
                        MaxHeight="200"
                        MaxWidth="600"
                        RelativePanel.Below="Author"
-                       RelativePanel.RightOf="Image"/>
+                       RelativePanel.RightOf="Image"
+                       CommonNavigationTransitionInfo.IsStaggerElement="True"/>
             <Image x:Name="Image" 
                    Source="{Binding Podcast.ImageUrl}"
                    Width="180"
                    Height="180"
                    VerticalAlignment="Center"
                    RelativePanel.AlignVerticalCenterWithPanel="True"
-                   RelativePanel.Below="Title"/>
+                   RelativePanel.Below="Title"
+                   CommonNavigationTransitionInfo.IsStaggerElement="True"/>
         </RelativePanel>
         <ListView Grid.Row="1" Margin="0,5"
+                  EntranceNavigationTransitionInfo.IsTargetElement="True"
                   x:Name="EpisodesList"
                   SelectionMode="None"
                   IsItemClickEnabled="True"
@@ -155,6 +172,7 @@
                   SelectionMode="None"
                   IsItemClickEnabled="True"
                   ItemTemplate="{StaticResource GridEpisodeTemplate}"
+                  EntranceNavigationTransitionInfo.IsTargetElement="True"
                   ItemsSource="{Binding Podcast.Episodes}">
             <Interactivity:Interaction.Behaviors>
                 <Core:EventTriggerBehavior EventName="ItemClick">
@@ -178,6 +196,7 @@
                         <ItemsWrapGrid.ChildrenTransitions>
                             <TransitionCollection>
                                 <EntranceThemeTransition IsStaggeringEnabled="True" FromVerticalOffset="75" FromHorizontalOffset="0"/>
+                                <ContentThemeTransition HorizontalOffset="0" VerticalOffset="75"/>
                             </TransitionCollection>
                         </ItemsWrapGrid.ChildrenTransitions>
                     </ItemsWrapGrid>

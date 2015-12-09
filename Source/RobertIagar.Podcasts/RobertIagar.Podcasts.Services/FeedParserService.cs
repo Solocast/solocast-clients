@@ -41,9 +41,9 @@ namespace RobertIagar.Podcasts.Services
         {
             string link = json.link.ToString();
             string title = json.title.ToString();
-            string author = json["itunes:author"].ToString();
-            string summary = json["itunes:summary"].ToString();
-            string description = json.description.ToString();
+            string author = json["itunes:author"]?.ToString();
+            string summary = json["itunes:summary"]?.ToString();
+            string description = json.description?.ToString();
             string imageLink = json.image.url ?? json["itunes:image"]["@href"].ToString();
             string podcastDescription = string.Empty;
 

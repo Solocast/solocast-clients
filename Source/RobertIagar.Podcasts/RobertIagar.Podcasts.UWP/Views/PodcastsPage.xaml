@@ -13,7 +13,7 @@
     <Page.Resources>
         <DataTemplate x:Key="PodcastTemplate">
             <Grid Height="Auto" 
-                  EntranceNavigationTransitionInfo.IsTargetElement="True">
+                  CommonNavigationTransitionInfo.IsStaggerElement="True">
                 <Interactivity:Interaction.Behaviors>
                     <Core:EventTriggerBehavior EventName="RightTapped">
                         <Actions:OpenMenuFlyoutAction />
@@ -32,8 +32,15 @@
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
-                <Image Source="{Binding Podcast.ImageUrl}" VerticalAlignment="Top" Height="128" EntranceNavigationTransitionInfo.IsTargetElement="True"/>
-                <TextBlock Grid.Row="1" Text="{Binding Podcast.Title}" Width="128" TextWrapping="WrapWholeWords" EntranceNavigationTransitionInfo.IsTargetElement="True"/>
+                <Image Source="{Binding Podcast.ImageUrl}" 
+                       VerticalAlignment="Top"
+                       Height="128"
+                       CommonNavigationTransitionInfo.IsStaggerElement="True"/>
+                <TextBlock Grid.Row="1" 
+                           Text="{Binding Podcast.Title}" 
+                           Width="128" 
+                           TextWrapping="WrapWholeWords" 
+                           CommonNavigationTransitionInfo.IsStaggerElement="True"/>
             </Grid>
         </DataTemplate>
         <Flyout x:Key="AddPodcastFlyout">
@@ -137,6 +144,8 @@
                         <ItemsWrapGrid.ChildrenTransitions>
                             <TransitionCollection>
                                 <EntranceThemeTransition IsStaggeringEnabled="True" FromVerticalOffset="75" FromHorizontalOffset="0"/>
+                                <ContentThemeTransition HorizontalOffset="75" VerticalOffset="0"/>
+                                <AddDeleteThemeTransition/>
                             </TransitionCollection>
                         </ItemsWrapGrid.ChildrenTransitions>
                     </ItemsWrapGrid>
