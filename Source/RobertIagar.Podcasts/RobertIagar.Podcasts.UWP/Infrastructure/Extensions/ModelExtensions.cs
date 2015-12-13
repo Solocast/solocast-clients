@@ -7,6 +7,9 @@ using System.Threading.Tasks;
 using CorePodcast = RobertIagar.Podcasts.Core.Entities.Podcast;
 using CoreEpisode = RobertIagar.Podcasts.Core.Entities.Episode;
 using RobertIagar.Podcasts.UWP.ViewModels;
+using Microsoft.Practices.ServiceLocation;
+using RobertIagar.Podcasts.Core.Interfaces;
+using RobertIagar.Podcasts.UWP.Infrastructure.Services;
 
 namespace RobertIagar.Podcasts.UWP.Infrastructure.Extensions
 {
@@ -46,6 +49,15 @@ namespace RobertIagar.Podcasts.UWP.Infrastructure.Extensions
             };
 
             return episodeModel;
+        }
+
+        public static EpisodeViewModel ToEpisodeViewModel(this CoreEpisode episode, Podcast podcast)
+        {
+            var episodeModel = episode.ToEpisodeModel(podcast);
+            var episodeViewModel = new EpisodeViewModel(ServiceLocator.Current.GetInstance<IFileDownloadService>(), ServiceLocator.Current.GetInstance<IMessageDialogService>());
+            episodeViewModel.Episode = episodeModel;
+
+            return episodeViewModel;
         }
     }
 }

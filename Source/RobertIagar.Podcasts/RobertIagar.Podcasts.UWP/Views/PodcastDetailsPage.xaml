@@ -9,29 +9,48 @@
     xmlns:xaml="using:Microsoft.Graphics.Canvas.UI.Xaml"
     xmlns:Core="using:Microsoft.Xaml.Interactions.Core"
     xmlns:Interactivity="using:Microsoft.Xaml.Interactivity"
+    xmlns:Actions="using:RobertIagar.Podcasts.UWP.Infrastructure.Actions"
     mc:Ignorable="d"
     DataContext="{Binding PodcastDetails,Source={StaticResource Locator}}">
     <Page.Resources>
+        <MenuFlyout x:Key="Flyout">
+            <MenuFlyoutItem Text="Play" Command="{Binding PlayCommand}"/>
+            <MenuFlyoutItem Text="Download" Command="{Binding DownloadCommand}"/>
+        </MenuFlyout>
         <DataTemplate x:Key="ListEpisodeTemplate">
-            <Grid Height="Auto" Margin="0,9">
+            <Grid Height="Auto" Margin="0,9"
+                  FlyoutBase.AttachedFlyout="{StaticResource Flyout}">
+                <Interactivity:Interaction.Behaviors>
+                    <Core:EventTriggerBehavior EventName="RightTapped">
+                        <Actions:OpenMenuFlyoutAction />
+                    </Core:EventTriggerBehavior>
+                    <Core:EventTriggerBehavior EventName="Holding">
+                        <Actions:OpenMenuFlyoutAction />
+                    </Core:EventTriggerBehavior>
+                </Interactivity:Interaction.Behaviors>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="48"/>
                     <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
-                <Image Source="{Binding ImageUrl}" 
-                       VerticalAlignment="Top" 
-                       Height="48"
-                       CommonNavigationTransitionInfo.IsStaggerElement="True"/>
+                <StackPanel>
+                    <Image Source="{Binding Episode.ImageUrl}"
+                           VerticalAlignment="Top" 
+                           Height="48"
+                           CommonNavigationTransitionInfo.IsStaggerElement="True"/>
+                    <ProgressBar Value="{Binding Percent}"
+                                 Width="Auto"/>
+                </StackPanel>
                 <RelativePanel Grid.Column="1" Margin="6,0,0,0">
                     <TextBlock x:Name="Title"
                                TextWrapping="WrapWholeWords" 
                                CommonNavigationTransitionInfo.IsStaggerElement="True"
-                               Text="{Binding Title}"/>
+                               Text="{Binding Episode.Title}"/>
                     <TextBlock x:Name="Subtitle"
-                               Text="{Binding Subtitle}" 
+                               Text="{Binding Episode.Subtitle}" 
                                RelativePanel.Below="Title"
                                TextWrapping="WrapWholeWords" 
                                CommonNavigationTransitionInfo.IsStaggerElement="True"/>
+
                 </RelativePanel>
             </Grid>
         </DataTemplate>
@@ -39,18 +58,30 @@
             <Grid Height="Auto" 
                   Width="128"
                   Margin="3"
-                  EntranceNavigationTransitionInfo.IsTargetElement="True">
+                  EntranceNavigationTransitionInfo.IsTargetElement="True"
+                  FlyoutBase.AttachedFlyout="{StaticResource Flyout}">
+                <Interactivity:Interaction.Behaviors>
+                    <Core:EventTriggerBehavior EventName="RightTapped">
+                        <Actions:OpenMenuFlyoutAction />
+                    </Core:EventTriggerBehavior>
+                    <Core:EventTriggerBehavior EventName="Holding">
+                        <Actions:OpenMenuFlyoutAction />
+                    </Core:EventTriggerBehavior>
+                </Interactivity:Interaction.Behaviors>
                 <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
-                <Image Source="{Binding ImageUrl}" 
+                <Image Source="{Binding Episode.ImageUrl}"
                        VerticalAlignment="Center"
                        Height="128"
                        EntranceNavigationTransitionInfo.IsTargetElement="True"/>
-                <TextBlock Grid.Row="1"
+                <ProgressBar Grid.Row="1"
+                             Value="{Binding Percent}"/>
+                <TextBlock Grid.Row="2"
                            Margin="0,2"
-                           Text="{Binding Title}" 
+                           Text="{Binding Episode.Title}" 
                            Style="{StaticResource BodyTextBlockStyle}"
                            TextWrapping="WrapWholeWords"
                            EntranceNavigationTransitionInfo.IsTargetElement="True"/>
@@ -58,8 +89,7 @@
         </DataTemplate>
     </Page.Resources>
 
-    <Grid Background="{StaticResource ApplicationPageBackgroundThemeBrush}"
-          Margin="23,0,5,0">
+    <Grid Background="{StaticResource ApplicationPageBackgroundThemeBrush}">
         <!-- when this gets actually good you can use it-->
         <!--<xaml:CanvasControl x:Name="canvas"
                             SizeChanged="CanvasSizeChanged"
@@ -91,7 +121,7 @@
                         <Setter Target="Title.Style" Value="{StaticResource TitleTextBlockStyle}"/>
                         <Setter Target="Author.Style" Value="{StaticResource SubtitleTextBlockStyle}"/>
                         <Setter Target="EpisodesListHeader.Style" Value="{StaticResource TitleTextBlockStyle}"/>
-                        <Setter Target="LayoutRoot.Margin" Value="0,5"/>
+                        <Setter Target="LayoutRoot.Margin" Value="5"/>
                         <Setter Target="Description.MaxHeight" Value="110"/>
                     </VisualState.Setters>
                 </VisualState>
@@ -108,19 +138,19 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <RelativePanel x:Name="LayoutRoot" Margin="0,5">
+        <RelativePanel x:Name="LayoutRoot" Margin="5">
             <TextBlock x:Name="Title"
-                       Text="{Binding Podcast.Title}"
+                       Text="{Binding Podcast.Podcast.Title}"
                        Style="{StaticResource HeaderTextBlockStyle}"
                        CommonNavigationTransitionInfo.IsStaggerElement="True"/>
             <TextBlock x:Name="Author" Margin="10,0,0,0"
-                       Text="{Binding Podcast.Author}"
+                       Text="{Binding Podcast.Podcast.Author}"
                        Style="{StaticResource SubheaderTextBlockStyle}"
                        RelativePanel.Below="Title"
                        RelativePanel.RightOf="Image"
                        CommonNavigationTransitionInfo.IsStaggerElement="True"/>
             <TextBlock x:Name="Description" Margin="10,0,0,0"
-                       Text="{Binding Podcast.Description}"
+                       Text="{Binding Podcast.Podcast.Description}"
                        Style="{StaticResource BodyTextBlockStyle}"
                        TextWrapping="Wrap"
                        TextTrimming="CharacterEllipsis"
@@ -130,7 +160,7 @@
                        RelativePanel.RightOf="Image"
                        CommonNavigationTransitionInfo.IsStaggerElement="True"/>
             <Image x:Name="Image" 
-                   Source="{Binding Podcast.ImageUrl}"
+                   Source="{Binding Podcast.Podcast.ImageUrl}"
                    Width="180"
                    Height="180"
                    VerticalAlignment="Center"
@@ -153,7 +183,7 @@
                 </Core:EventTriggerBehavior>
             </Interactivity:Interaction.Behaviors>
             <ListView.Header>
-                <TextBlock x:Name="EpisodesListHeader" Text="Episodes" Style="{StaticResource HeaderTextBlockStyle}"/>
+                <TextBlock Margin="5,0" x:Name="EpisodesListHeader" Text="Episodes" Style="{StaticResource HeaderTextBlockStyle}"/>
             </ListView.Header>
             <ListView.ItemsPanel>
                 <ItemsPanelTemplate>
@@ -181,7 +211,7 @@
                 </Core:EventTriggerBehavior>
             </Interactivity:Interaction.Behaviors>
             <GridView.Header>
-                <TextBlock x:Name="EpisodesGridHeader" Text="Episodes" Style="{StaticResource HeaderTextBlockStyle}"/>
+                <TextBlock Margin="5,0" x:Name="EpisodesGridHeader" Text="Episodes" Style="{StaticResource HeaderTextBlockStyle}"/>
             </GridView.Header>
             <GridView.ItemContainerStyle>
                 <Style TargetType="GridViewItem">

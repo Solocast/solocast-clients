@@ -39,6 +39,7 @@ namespace RobertIagar.Podcasts.UWP.ViewModels
 
             MessengerInstance.Register<LoadPodcastsMessage>(this, async message => await LoadPodcastsAsync());
             MessengerInstance.Register<DeletePodcastMessage>(this, async message => await DeletePodcastAsync(message));
+            MessengerInstance.Register<SavePodcastsMessage>(this, async message => await SavePodcastsAsync());
         }
 
         public IList<PodcastViewModel> Podcasts { get { return podcasts; } }
@@ -62,6 +63,7 @@ namespace RobertIagar.Podcasts.UWP.ViewModels
             {
                 var corePodcast = await podcastService.GetPodcastAsync(feedUrl);
                 var podcastModel = corePodcast.ToPodcastViewModel();
+                podcastModel.LoadEpisodeViewModels();
 
                 if (!podcasts.Contains(podcastModel))
                 {
@@ -106,6 +108,7 @@ namespace RobertIagar.Podcasts.UWP.ViewModels
             {
                 var podcasts = await podcastService.GetPodcastsAsync();
                 podcasts.ForEach(p => this.podcasts.Add(p.ToPodcastViewModel()));
+                this.podcasts.ForEach(p => p.LoadEpisodeViewModels());
                 loadedPodcasts = true;
             }
         }
@@ -127,10 +130,15 @@ namespace RobertIagar.Podcasts.UWP.ViewModels
             }
         }
 
+        private async Task SavePodcastsAsync()
+        {
+            await podcastService.SavePodcastsAsync(podcasts.Select(p => p.Podcast.Core));
+        }
+
         public void ItemClickCommand(object sender, ItemClickEventArgs parameters)
         {
             var podcastVm = parameters.ClickedItem as PodcastViewModel;
-            this.navigationService.NavigateTo(nameof(PodcastDetailsViewModel), podcastVm.Podcast);
+            this.navigationService.NavigateTo(nameof(PodcastDetailsViewModel), podcastVm);
         }
     }
 }

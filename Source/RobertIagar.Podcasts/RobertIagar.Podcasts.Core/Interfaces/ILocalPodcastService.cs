@@ -7,10 +7,10 @@ using System.Threading.Tasks;
 
 namespace RobertIagar.Podcasts.Core.Interfaces
 {
-    public interface ILocalPodcastService
+    public interface ILocalStorageService<T>
     {
-        Task SaveAsync(Podcast entity);
-        Task SaveAsync(IEnumerable<Podcast> entities);
-        Task<IList<Podcast>> LoadAsync();
+        Task SaveAsync(T entity);
+        Task SaveAsync(IEnumerable<T> entities);
+        Task<IList<T>> LoadAsync();
     }
 }

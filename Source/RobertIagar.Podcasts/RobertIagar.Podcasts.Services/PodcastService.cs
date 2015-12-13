@@ -14,10 +14,10 @@ namespace RobertIagar.Podcasts.Services
     public class PodcastService : IPodcastService
     {
         private IFeedParaseService feedParser;
-        private ILocalPodcastService storageService;
+        private ILocalStorageService<Podcast> storageService;
         private IFileDownloadService fileDownloadManager;
 
-        public PodcastService(IFeedParaseService feedParser, ILocalPodcastService storageService, IFileDownloadService fileDownloadManager)
+        public PodcastService(IFeedParaseService feedParser, ILocalStorageService<Podcast> storageService, IFileDownloadService fileDownloadManager)
         {
             this.feedParser = feedParser;
             this.storageService = storageService;

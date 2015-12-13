@@ -26,11 +26,10 @@ namespace RobertIagar.Podcasts.UWP.ViewModels
             SimpleIoc.Default.Register<IFileDownloadService, FileDownloadService>();
             SimpleIoc.Default.Register<IFeedParaseService, FeedParserService>();
             SimpleIoc.Default.Register<IMessageDialogService, MessageDialogService>();
-            SimpleIoc.Default.Register<ILocalPodcastService>(() =>
+            SimpleIoc.Default.Register<ILocalStorageService<Podcast>>(() =>
             {
                 return new LocalPodcastService("podcasts.json");
             });
-
             //navigation service
             SimpleIoc.Default.Register<INavigationService>(() =>
             {

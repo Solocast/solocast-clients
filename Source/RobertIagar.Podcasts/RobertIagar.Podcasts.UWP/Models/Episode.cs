@@ -1,6 +1,7 @@
 ﻿using GalaSoft.MvvmLight;
 using System;
 using RobertIagar.Podcasts.Core.Entities;
+using Windows.Networking.BackgroundTransfer;
 
 namespace RobertIagar.Podcasts.UWP.Models
 {

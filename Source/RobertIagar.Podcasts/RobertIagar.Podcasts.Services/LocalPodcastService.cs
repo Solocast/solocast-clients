@@ -10,7 +10,7 @@ using Windows.Storage;
 
 namespace RobertIagar.Podcasts.Services
 {
-    public class LocalPodcastService : ILocalPodcastService
+    public class LocalPodcastService : ILocalStorageService<Podcast>
     {
         private string filename;
         private IStorageFolder localFolder;

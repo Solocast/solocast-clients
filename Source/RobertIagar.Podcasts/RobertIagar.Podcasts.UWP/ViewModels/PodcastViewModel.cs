@@ -9,26 +9,33 @@ using RobertIagar.Podcasts.UWP.Models;
 using System.Windows.Input;
 using GalaSoft.MvvmLight.Command;
 using RobertIagar.Podcasts.UWP.Infrastructure.Messages;
+using System.Collections.ObjectModel;
+using RobertIagar.Podcasts.UWP.Infrastructure.Extensions;
 
 namespace RobertIagar.Podcasts.UWP.ViewModels
 {
     public class PodcastViewModel : ViewModelBase, IEquatable<PodcastViewModel>
     {
+        private ObservableCollection<EpisodeViewModel> episodes;
+
         public PodcastViewModel(Podcast podcast)
         {
             Podcast = podcast;
             DeletePodcastCommand = new RelayCommand(DeletePodcast);
             PlayPodcastCommand = new RelayCommand(PlayPodcast, CanPlayPodcast);
+            this.episodes = new ObservableCollection<EpisodeViewModel>();
         }
 
-        public Podcast Podcast { get; private set; }
-        public ICommand DeletePodcastCommand { get; private set; }
-        public ICommand PlayPodcastCommand { get; private set; }
+        public Podcast Podcast { get; }
+        public ICommand DeletePodcastCommand { get; }
+        public ICommand PlayPodcastCommand { get; }
 
         public bool Equals(PodcastViewModel other)
         {
             return Podcast.Equals(other.Podcast);
         }
+
+        public IList<EpisodeViewModel> Episodes { get { return episodes; } }
 
         private void DeletePodcast()
         {
@@ -52,6 +59,14 @@ namespace RobertIagar.Podcasts.UWP.ViewModels
             }
 
             return true;
+        }
+
+        public void LoadEpisodeViewModels()
+        {
+            Podcast.Episodes.ForEach(e =>
+            {
+                Episodes.Add(e.Core.ToEpisodeViewModel(e.Podcast));
+            });
         }
     }
 }

@@ -65,6 +65,7 @@ namespace RobertIagar.Podcasts.Services
                 var file = await podcastFolder.CreateFileAsync(fileName + extension, CreationCollisionOption.ReplaceExisting);
                 var backgroundDownloader = new BackgroundDownloader();
                 var downloadOperation = backgroundDownloader.CreateDownload(uri, file);
+
                 var progress = new Progress<DownloadOperation>(callback);
                 downloads.Add(fileUrl, downloadOperation);
 
@@ -77,12 +78,19 @@ namespace RobertIagar.Podcasts.Services
                 cancellationTokenSources.Remove(fileUrl);
                 return file;
             }
+            catch (NullReferenceException ex)
+            {
+                if (errorCallback != null)
+                    errorCallback(ex);
+                return null;
+            }
             catch (Exception ex)
             {
                 if (errorCallback != null)
                     errorCallback(ex);
                 return null;
             }
+            
         }
 
         public void PauseDownload(string fileUrl)

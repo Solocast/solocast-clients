@@ -42,7 +42,7 @@ namespace RobertIagar.Podcasts.UWP.Views
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            var parameter = e.Parameter as Podcast;
+            var parameter = e.Parameter as PodcastViewModel;
             if (this.DataContext != null)
             {
                 (this.DataContext as PodcastDetailsViewModel).Podcast = parameter;
@@ -59,7 +59,7 @@ namespace RobertIagar.Podcasts.UWP.Views
 
         async Task CreateResourcesAsync(CanvasControl sender)
         {
-            bitmap = await CanvasBitmap.LoadAsync(sender, (this.DataContext as PodcastDetailsViewModel).Podcast.ImageUrl);
+            bitmap = await CanvasBitmap.LoadAsync(sender, (this.DataContext as PodcastDetailsViewModel).Podcast.Podcast.ImageUrl);
 
             effect = CreateEffect();
         }
