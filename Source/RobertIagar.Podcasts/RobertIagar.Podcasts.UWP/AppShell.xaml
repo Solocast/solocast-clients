@@ -69,7 +69,7 @@
                       Visibility="Collapsed"
                       AudioCategory="BackgroundCapableMedia"
                       AreTransportControlsEnabled="False"/>
-        
+
         <!-- Top-level navigation menu + app content -->
         <SplitView x:Name="RootSplitView"
                    DisplayMode="CompactInline"
@@ -157,18 +157,21 @@
                 </Grid.ColumnDefinitions>
 
                 <Slider Grid.Column="0"
-                        VerticalAlignment="Center"/>
+                        VerticalAlignment="Center"
+                        Value="{Binding Progress, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                        Maximum="100"
+                        Minimum="0"/>
 
                 <StackPanel Grid.Column="1"
                             Orientation="Horizontal" VerticalAlignment="Center">
-                    <AppBarButton Icon="Play" Label="Play"/>
-                    <AppBarButton Icon="Stop" Label="Stop"/>
-                    <AppBarButton Icon="Next" Label="Next"/>
+                    <AppBarButton Icon="{Binding PlayPauseIcon}" Label="{Binding PlayPauseLabel}" Command="{Binding PlayPauseCommand}"/>
+                    <AppBarButton Icon="Stop" Label="Stop" Command="{Binding StopCommand}"/>
+                    <AppBarButton Icon="Next" Label="Next" Command="{Binding NextCommand}"/>
                 </StackPanel>
             </Grid>
         </Grid>
 
-        
+
 
         <!-- Declared last to have it rendered above everything else, but it needs to be the first item in the tab sequence. -->
         <ToggleButton x:Name="TogglePaneButton"

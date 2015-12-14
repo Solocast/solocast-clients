@@ -11,6 +11,7 @@ using Windows.Media;
 using Windows.Storage;
 using Windows.Storage.Streams;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Media;
 
 namespace RobertIagar.Podcasts.UWP.Infrastructure.Services
 {
@@ -22,6 +23,11 @@ namespace RobertIagar.Podcasts.UWP.Infrastructure.Services
         Task ResumeAsync();
         void SetupBackgroundAudio();
         void UpdateSystemControls(Episode episode);
+        void GoToTime(double progress);
+
+        TimeSpan Position { get; }
+        TimeSpan TotalTime { get; }
+        MediaElementState CurrentState { get; }
     }
 
     public class PlayService : IPlayService
@@ -149,6 +155,30 @@ namespace RobertIagar.Podcasts.UWP.Infrastructure.Services
             systemControls.DisplayUpdater.MusicProperties.Title = episode.Title;
             systemControls.DisplayUpdater.Update();
             systemControls.PlaybackStatus = MediaPlaybackStatus.Playing;
+        }
+
+        public void GoToTime(double progress)
+        {
+            if (progress != 0)
+            {
+                var newPosition = (player.NaturalDuration.TimeSpan.TotalSeconds * progress) / 100;
+                player.Position = TimeSpan.FromSeconds(newPosition);
+            }
+        }
+
+        public TimeSpan Position
+        {
+            get { return player.Position; }
+        }
+
+        public TimeSpan TotalTime
+        {
+            get { return player.NaturalDuration.TimeSpan; }
+        }
+
+        public MediaElementState CurrentState
+        {
+            get { return player.CurrentState; }
         }
     }
 }

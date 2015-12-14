@@ -41,7 +41,12 @@ namespace RobertIagar.Podcasts.UWP.ViewModels
 
         public float Percent
         {
-            get { return percent; }
+            get
+            {
+                if (episode.Path.IsLocalPath())
+                    return 100;
+                return percent;
+            }
             set { Set(nameof(Percent), ref percent, value); }
         }
 
