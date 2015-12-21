@@ -183,7 +183,7 @@ namespace RobertIagar.Podcasts.UWP.ViewModels
             {
                 Next();
             }
-            catch (NotImplementedException ex)
+            catch (NotImplementedException)
             {
                 return false;
             }
