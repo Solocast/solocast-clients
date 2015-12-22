@@ -11,6 +11,6 @@ namespace RobertIagar.Podcasts.Core.Interfaces
     {
         Task<dynamic> GetChannelNodeAsync(string feedUrl);
         Task<dynamic> GetChannelNodeAsync(Uri feedUrl);
-        Podcast GetPodcast(dynamic json);
+        Podcast GetPodcast(dynamic json, string feedUrl);
     }
 }

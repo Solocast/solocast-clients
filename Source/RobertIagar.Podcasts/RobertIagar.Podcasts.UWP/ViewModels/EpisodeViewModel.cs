@@ -65,8 +65,10 @@ namespace RobertIagar.Podcasts.UWP.ViewModels
 
             if (file != null)
             {
-                episode.Core.Path = file.Path;
+                Episode.Core.Path = file.Path;
+                Episode.Path = file.Path;
                 MessengerInstance.Send(new SavePodcastsMessage());
+                (DownloadCommand as RelayCommand).RaiseCanExecuteChanged();
             }
         }
 

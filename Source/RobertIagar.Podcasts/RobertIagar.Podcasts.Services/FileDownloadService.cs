@@ -62,7 +62,7 @@ namespace RobertIagar.Podcasts.Services
             {
                 var uri = new Uri(fileUrl);
                 var extension = uri.AbsolutePath.GetExtension();
-                var file = await podcastFolder.CreateFileAsync(fileName + extension, CreationCollisionOption.ReplaceExisting);
+                var file = await podcastFolder.CreateFileAsync((fileName + extension).RemoveIllegalPathChars(), CreationCollisionOption.ReplaceExisting);
                 var backgroundDownloader = new BackgroundDownloader();
                 var downloadOperation = backgroundDownloader.CreateDownload(uri, file);
 

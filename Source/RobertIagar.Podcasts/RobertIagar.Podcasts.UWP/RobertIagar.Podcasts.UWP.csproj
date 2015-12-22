@@ -112,6 +112,7 @@
     <Compile Include="Infrastructure\Extensions\IEnumerableExtension.cs" />
     <Compile Include="Infrastructure\Extensions\ModelExtensions.cs" />
     <Compile Include="Infrastructure\Extensions\StringExtensions.cs" />
+    <Compile Include="Infrastructure\Messages\CheckForNewEpsiodesMessage.cs" />
     <Compile Include="Infrastructure\Messages\DeletePodcastMessage.cs" />
     <Compile Include="Infrastructure\Messages\LoadPodcastsMessage.cs" />
     <Compile Include="Infrastructure\Messages\PlayEpisodeMessage.cs" />

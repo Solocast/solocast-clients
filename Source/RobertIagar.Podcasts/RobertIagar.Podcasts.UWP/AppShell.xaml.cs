@@ -16,6 +16,7 @@ using Windows.Media;
 using GalaSoft.MvvmLight.Ioc;
 using RobertIagar.Podcasts.UWP.Infrastructure.Services;
 using RobertIagar.Podcasts.UWP.ViewModels;
+using RobertIagar.Podcasts.Core.Interfaces;
 
 namespace RobertIagar.Podcasts.UWP
 {
@@ -70,12 +71,11 @@ namespace RobertIagar.Podcasts.UWP
                 Player = MediaPlayer;
                 SimpleIoc.Default.Register<IPlayService>(() =>
                 {
-                    return new PlayService(SystemMediaTransportControls.GetForCurrentView(), Player);
+                    return new PlayService(SimpleIoc.Default.GetInstance<IBackgroundMediaPlayerMediator>());
                 }, true);
                 SimpleIoc.Default.Register<NowPlayingViewModel>();
 
                 var playService = SimpleIoc.Default.GetInstance<IPlayService>();
-                playService.SetupBackgroundAudio();
                 NowPlayingGrid.DataContext = ViewModelLocator.NowPlaying;
             };
 

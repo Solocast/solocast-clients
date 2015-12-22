@@ -35,8 +35,8 @@ namespace RobertIagar.Podcasts.UWP.ViewModels
             this.timer.Interval = TimeSpan.FromSeconds(1);
             this.timer.Tick += TimerTick;
 
-            this.StopCommand = new RelayCommand(async () => await StopAsync());
-            this.PlayPauseCommand = new RelayCommand(async () => await PlayPauseAsync(), CanPlayPause);
+            this.StopCommand = new RelayCommand(Stop);
+            this.PlayPauseCommand = new RelayCommand(PlayPause, CanPlayPause);
             this.NextCommand = new RelayCommand(Next, CanNext);
             MessengerInstance.Register<PlayEpisodeMessage>(this, message => PlayEpisode(message.Episode));
         }
@@ -103,23 +103,23 @@ namespace RobertIagar.Podcasts.UWP.ViewModels
         {
             switch (playService.CurrentState)
             {
-                case MediaElementState.Closed:
+                case Windows.Media.Playback.MediaPlayerState.Closed:
                     break;
-                case MediaElementState.Opening:
+                case Windows.Media.Playback.MediaPlayerState.Opening:
                     break;
-                case MediaElementState.Buffering:
+                case Windows.Media.Playback.MediaPlayerState.Buffering:
                     break;
-                case MediaElementState.Playing:
+                case Windows.Media.Playback.MediaPlayerState.Playing:
                     PlayPauseIcon = new SymbolIcon(Symbol.Pause);
                     PlayPauseLabel = "Pause";
                     canPlayPause = true;
                     break;
-                case MediaElementState.Paused:
+                case Windows.Media.Playback.MediaPlayerState.Paused:
                     PlayPauseIcon = new SymbolIcon(Symbol.Play);
                     PlayPauseLabel = "Resume";
                     canPlayPause = true;
                     break;
-                case MediaElementState.Stopped:
+                case Windows.Media.Playback.MediaPlayerState.Stopped:
                     break;
                 default:
                     break;
@@ -139,23 +139,23 @@ namespace RobertIagar.Podcasts.UWP.ViewModels
             (PlayPauseCommand as RelayCommand).RaiseCanExecuteChanged();
         }
 
-        private async Task PlayPauseAsync()
+        private void PlayPause()
         {
             switch (playService.CurrentState)
             {
-                case MediaElementState.Closed:
+                case Windows.Media.Playback.MediaPlayerState.Closed:
                     break;
-                case MediaElementState.Opening:
+                case Windows.Media.Playback.MediaPlayerState.Opening:
                     break;
-                case MediaElementState.Buffering:
+                case Windows.Media.Playback.MediaPlayerState.Buffering:
                     break;
-                case MediaElementState.Playing:
-                    await playService.PauseAsync();
+                case Windows.Media.Playback.MediaPlayerState.Playing:
+                    playService.Pause();
                     break;
-                case MediaElementState.Paused:
-                    await playService.ResumeAsync();
+                case Windows.Media.Playback.MediaPlayerState.Paused:
+                    playService.Resume();
                     break;
-                case MediaElementState.Stopped:
+                case Windows.Media.Playback.MediaPlayerState.Stopped:
                     break;
                 default:
                     break;
@@ -167,9 +167,9 @@ namespace RobertIagar.Podcasts.UWP.ViewModels
             return canPlayPause;
         }
 
-        private async Task StopAsync()
+        private void Stop()
         {
-            await playService.StopAsync();
+            playService.Stop();
         }
 
         private void Next()

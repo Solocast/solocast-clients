@@ -1,5 +1,7 @@
 ﻿using GalaSoft.MvvmLight.Messaging;
 using GalaSoft.MvvmLight.Threading;
+using RobertIagar.Podcasts.Core.Interfaces;
+using RobertIagar.Podcasts.Services.Extensions;
 using RobertIagar.Podcasts.UWP.Infrastructure.Messages;
 using RobertIagar.Podcasts.UWP.Models;
 using System;
@@ -8,6 +10,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Windows.Media;
+using Windows.Media.Playback;
 using Windows.Storage;
 using Windows.Storage.Streams;
 using Windows.UI.Xaml.Controls;
@@ -18,167 +21,68 @@ namespace RobertIagar.Podcasts.UWP.Infrastructure.Services
     public interface IPlayService
     {
         Task PlayEpisodeAsync(Episode episode);
-        Task PauseAsync();
-        Task StopAsync();
-        Task ResumeAsync();
-        void SetupBackgroundAudio();
-        void UpdateSystemControls(Episode episode);
+        void Pause();
+        void Stop();
+        void Resume();
         void GoToTime(double progress);
 
         TimeSpan Position { get; }
         TimeSpan TotalTime { get; }
-        MediaElementState CurrentState { get; }
+        MediaPlayerState CurrentState { get; }
     }
 
     public class PlayService : IPlayService
     {
-        private MediaElement player;
-        private SystemMediaTransportControls systemControls;
+        private IBackgroundMediaPlayerMediator mediator;
 
-        public PlayService(SystemMediaTransportControls systemControls, MediaElement player)
+        public PlayService(IBackgroundMediaPlayerMediator mediator)
         {
-            this.systemControls = systemControls;
-            this.player = player;
+            this.mediator = mediator;
             Messenger.Default.Register<PlayEpisodeMessage>(this, async message => await PlayEpisodeAsync(message.Episode));
         }
 
-        public async Task PauseAsync()
+        public void Pause()
         {
-            await DispatcherHelper.RunAsync(() =>
-            {
-                player.Pause();
-                systemControls.PlaybackStatus = MediaPlaybackStatus.Paused;
-            });
+            mediator.Pause();
         }
 
         public async Task PlayEpisodeAsync(Episode episode)
         {
-            if (systemControls.PlaybackStatus == MediaPlaybackStatus.Playing)
-                player.Stop();
-
-            if (episode.Path.StartsWith("http://") ||
-                episode.Path.StartsWith("https://"))
-                PlayFromNetwork(episode);
-            else
-                await PlayLocalEpisodeAsync(episode);
-
-            UpdateSystemControls(episode);
+            await mediator.SendMessageToBackgroundAsync(episode.Core);
         }
 
-        public void SetupBackgroundAudio()
+        public void Stop()
         {
-            systemControls.IsPlayEnabled = true;
-            systemControls.IsPauseEnabled = true;
-            systemControls.IsStopEnabled = true;
-            systemControls.IsEnabled = true;
-            systemControls.DisplayUpdater.Type = MediaPlaybackType.Music;
-            systemControls.ButtonPressed += SystemControlsButtonPressed;
+            mediator.Stop();
         }
 
-        private async void SystemControlsButtonPressed(SystemMediaTransportControls sender, SystemMediaTransportControlsButtonPressedEventArgs args)
+        public void Resume()
         {
-            switch (args.Button)
-            {
-                case SystemMediaTransportControlsButton.Play:
-                    await ResumeAsync();
-                    break;
-                case SystemMediaTransportControlsButton.Pause:
-                    await PauseAsync();
-                    break;
-                case SystemMediaTransportControlsButton.Stop:
-                    await StopAsync();
-                    break;
-                case SystemMediaTransportControlsButton.Record:
-                    break;
-                case SystemMediaTransportControlsButton.FastForward:
-                    break;
-                case SystemMediaTransportControlsButton.Rewind:
-                    break;
-                case SystemMediaTransportControlsButton.Next:
-                    break;
-                case SystemMediaTransportControlsButton.Previous:
-                    break;
-                case SystemMediaTransportControlsButton.ChannelUp:
-                    break;
-                case SystemMediaTransportControlsButton.ChannelDown:
-                    break;
-                default:
-                    break;
-            }
-        }
-
-        public async Task StopAsync()
-        {
-            await DispatcherHelper.RunAsync(() =>
-            {
-                player.Stop();
-            });
-        }
-
-        private async Task PlayLocalEpisodeAsync(Episode episode)
-        {
-            try
-            {
-                var file = await StorageFile.GetFileFromPathAsync(episode.Path);
-                IRandomAccessStream stream = await file.OpenAsync(FileAccessMode.Read);
-                player.SetSource(stream, file.ContentType);
-            }
-            catch (Exception ex)
-            {
-                if (ex is FormatException)
-                {
-                    ;
-                }
-            }
-        }
-
-        private void PlayFromNetwork(Episode episode)
-        {
-            player.Source = new Uri(episode.Path);
-            player.Play();
-        }
-
-        public async Task ResumeAsync()
-        {
-            await DispatcherHelper.RunAsync(() =>
-            {
-                player.Play();
-                systemControls.PlaybackStatus = MediaPlaybackStatus.Playing;
-            });
-        }
-
-        public void UpdateSystemControls(Episode episode)
-        {
-            systemControls.DisplayUpdater.Thumbnail = RandomAccessStreamReference.CreateFromUri(episode.ImageUrl);
-            systemControls.DisplayUpdater.MusicProperties.AlbumArtist = episode.Podcast.Author;
-            systemControls.DisplayUpdater.MusicProperties.Artist = episode.Author;
-            systemControls.DisplayUpdater.MusicProperties.Title = episode.Title;
-            systemControls.DisplayUpdater.Update();
-            systemControls.PlaybackStatus = MediaPlaybackStatus.Playing;
+            mediator.Resume();
         }
 
         public void GoToTime(double progress)
         {
             if (progress != 0)
             {
-                var newPosition = (player.NaturalDuration.TimeSpan.TotalSeconds * progress) / 100;
-                player.Position = TimeSpan.FromSeconds(newPosition);
+                var newPosition = (mediator.TotalTime.TotalSeconds * progress) / 100;
+                mediator.Position = TimeSpan.FromSeconds(newPosition);
             }
         }
 
         public TimeSpan Position
         {
-            get { return player.Position; }
+            get { return mediator.Position; }
         }
 
         public TimeSpan TotalTime
         {
-            get { return player.NaturalDuration.TimeSpan; }
+            get { return mediator.TotalTime; }
         }
 
-        public MediaElementState CurrentState
+        public MediaPlayerState CurrentState
         {
-            get { return player.CurrentState; }
+            get { return mediator.CurrentState; }
         }
     }
 }

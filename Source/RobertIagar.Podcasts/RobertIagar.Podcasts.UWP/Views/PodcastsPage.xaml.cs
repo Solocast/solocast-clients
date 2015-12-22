@@ -19,6 +19,7 @@ namespace RobertIagar.Podcasts.UWP.Views
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             Messenger.Default.Send(new LoadPodcastsMessage());
+            Messenger.Default.Send(new CheckForNewEpsiodesMessage());
         }
     }
 }

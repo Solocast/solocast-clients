@@ -21,7 +21,7 @@
         <uap:SplashScreen Image="Assets\SplashScreen.png" />
       </uap:VisualElements>
       <Extensions>
-        <Extension Category="windows.backgroundTasks" EntryPoint="RobertIagar.Podcasts.UWP">
+        <Extension Category="windows.backgroundTasks" EntryPoint="RobertIagar.Podcasts.BackgroundTasks.AudioBackgroundTask">
           <BackgroundTasks>
             <Task Type="audio" />
           </BackgroundTasks>

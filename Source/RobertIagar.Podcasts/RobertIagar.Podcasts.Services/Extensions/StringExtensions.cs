@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -25,6 +26,13 @@ namespace RobertIagar.Podcasts.Services.Extensions
         {
             var index = input.LastIndexOf('.');
             return input.Substring(index);
+        }
+
+        public static string RemoveIllegalPathChars(this string input)
+        {
+            string regexSearch = new string(Path.GetInvalidFileNameChars()) + new string(Path.GetInvalidPathChars());
+            Regex r = new Regex(string.Format("[{0}]", Regex.Escape(regexSearch)));
+            return r.Replace(input, "");
         }
     }
 }

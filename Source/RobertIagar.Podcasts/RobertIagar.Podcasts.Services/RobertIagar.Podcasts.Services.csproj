@@ -113,7 +113,9 @@
     <None Include="project.json" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BackgroundMediaPlayerMediator.cs" />
     <Compile Include="Extensions\StringExtensions.cs" />
+    <Compile Include="Extensions\ValueSetExtensions.cs" />
     <Compile Include="FeedParserService.cs" />
     <Compile Include="FileDownloadService.cs" />
     <Compile Include="LocalPodcastService.cs" />

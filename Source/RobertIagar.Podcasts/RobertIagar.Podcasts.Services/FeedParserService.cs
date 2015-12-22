@@ -37,9 +37,9 @@ namespace RobertIagar.Podcasts.Services
             return result.rss.channel;
         }
 
-        public Podcast GetPodcast(dynamic json)
+        public Podcast GetPodcast(dynamic json, string feedUrl)
         {
-            string link = json.link.ToString();
+            string link = feedUrl;
             string title = json.title.ToString();
             string author = json["itunes:author"]?.ToString();
             string summary = json["itunes:summary"]?.ToString();

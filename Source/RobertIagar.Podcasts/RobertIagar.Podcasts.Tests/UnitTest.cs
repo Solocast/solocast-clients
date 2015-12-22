@@ -20,7 +20,7 @@ namespace RobertIagar.Podcasts.Tests
         {
             var feedParser = new FeedParserService();
             dynamic json = feedParser.GetChannelNodeAsync("http://monstercat.com/podcast/feed.xml").Result;
-            var podcast = feedParser.GetPodcast(json);
+            var podcast = feedParser.GetPodcast(json, "http://monstercat.com/podcast/feed.xml");
 
             Assert.AreEqual(true, true);
         }
@@ -40,7 +40,7 @@ namespace RobertIagar.Podcasts.Tests
                 podcastDescription = description;
 
 
-            Podcast podcast = feedParser.GetPodcast(channel);
+            Podcast podcast = feedParser.GetPodcast(channel, "http://monstercat.com/podcast/feed.xml");
 
             Assert.AreEqual(channel.title.ToString(), podcast.Title);
             Assert.AreEqual(new Uri(channel.image.url.ToString()), podcast.ImageUrl);
@@ -57,7 +57,7 @@ namespace RobertIagar.Podcasts.Tests
             var podcastService = new PodcastService(feedParser, null, null);
             var feed = feedParser.GetChannelNodeAsync("http://monstercat.com/podcast/feed.xml").Result;
 
-            var podcastFromFeed = feedParser.GetPodcast(feed);
+            var podcastFromFeed = feedParser.GetPodcast(feed, "http://monstercat.com/podcast/feed.xml");
             var podcastFromService = podcastService.GetPodcastAsync("http://monstercat.com/podcast/feed.xml").Result;
 
             Assert.AreEqual(true, podcastFromService.Equals(podcastFromFeed));
