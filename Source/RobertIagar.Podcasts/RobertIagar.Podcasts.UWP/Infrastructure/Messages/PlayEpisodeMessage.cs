@@ -1,4 +1,5 @@
-﻿using RobertIagar.Podcasts.UWP.Models;
+﻿using RobertIagar.Podcasts.Core.Contracts;
+using RobertIagar.Podcasts.UWP.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;

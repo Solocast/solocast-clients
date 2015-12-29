@@ -2,7 +2,7 @@
 using GalaSoft.MvvmLight.Ioc;
 using GalaSoft.MvvmLight.Views;
 using Microsoft.Practices.ServiceLocation;
-using RobertIagar.Podcasts.Core.Entities;
+using RobertIagar.Podcasts.Core.Contracts;
 using RobertIagar.Podcasts.Core.Interfaces;
 using RobertIagar.Podcasts.Services;
 using RobertIagar.Podcasts.UWP.Infrastructure.Services;

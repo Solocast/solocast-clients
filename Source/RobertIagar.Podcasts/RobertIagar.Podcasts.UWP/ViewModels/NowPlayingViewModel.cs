@@ -1,5 +1,6 @@
 ﻿using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
+using RobertIagar.Podcasts.Core.Contracts;
 using RobertIagar.Podcasts.UWP.Infrastructure.Messages;
 using RobertIagar.Podcasts.UWP.Infrastructure.Services;
 using RobertIagar.Podcasts.UWP.Models;

@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml;
 using System.Xml.Linq;
-using RobertIagar.Podcasts.Core.Entities;
+using RobertIagar.Podcasts.Core.Contracts;
 using RobertIagar.Podcasts.Services.Extensions;
 
 namespace RobertIagar.Podcasts.Services

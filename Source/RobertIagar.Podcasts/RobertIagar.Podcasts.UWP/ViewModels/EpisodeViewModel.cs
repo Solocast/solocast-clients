@@ -1,6 +1,7 @@
 ﻿using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Threading;
+using RobertIagar.Podcasts.Core.Contracts;
 using RobertIagar.Podcasts.Core.Interfaces;
 using RobertIagar.Podcasts.UWP.Infrastructure.Extensions;
 using RobertIagar.Podcasts.UWP.Infrastructure.Messages;
@@ -24,12 +25,13 @@ namespace RobertIagar.Podcasts.UWP.ViewModels
         private IMessageDialogService messageDialogService;
         private float percent;
 
-        public EpisodeViewModel(IFileDownloadService fileDownloadService, IMessageDialogService messageDialogService)
+        public EpisodeViewModel(IFileDownloadService fileDownloadService, IMessageDialogService messageDialogService, Episode episode)
         {
             this.fileDownloadService = fileDownloadService;
             this.messageDialogService = messageDialogService;
             this.DownloadCommand = new RelayCommand(async () => await DownloadEpisodeAsync(), CanDownloadEpisode);
             this.PlayCommand = new RelayCommand(PlayEpisode, CanPlayEpisode);
+            this.Episode = episode;
         }
 
 
@@ -65,7 +67,6 @@ namespace RobertIagar.Podcasts.UWP.ViewModels
 
             if (file != null)
             {
-                Episode.Core.Path = file.Path;
                 Episode.Path = file.Path;
                 MessengerInstance.Send(new SavePodcastsMessage());
                 (DownloadCommand as RelayCommand).RaiseCanExecuteChanged();

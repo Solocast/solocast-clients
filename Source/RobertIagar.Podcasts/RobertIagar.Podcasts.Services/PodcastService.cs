@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using RobertIagar.Podcasts.Core.Entities;
+using RobertIagar.Podcasts.Core.Contracts;
 using Windows.Storage;
 using System.Diagnostics;
 using RobertIagar.Podcasts.Core.Exceptions;

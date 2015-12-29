@@ -113,8 +113,8 @@
     <None Include="project.json" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Entities\Episode.cs" />
-    <Compile Include="Entities\Podcast.cs" />
+    <Compile Include="Contracts\Episode.cs" />
+    <Compile Include="Contracts\Podcast.cs" />
     <Compile Include="Exceptions\GetPodcastException.cs" />
     <Compile Include="Interfaces\IBackgroundMediaPlayerMediator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

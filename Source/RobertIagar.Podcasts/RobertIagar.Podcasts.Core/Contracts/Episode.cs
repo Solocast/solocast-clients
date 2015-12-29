@@ -1,7 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System;
 
-namespace RobertIagar.Podcasts.Core.Entities
+namespace RobertIagar.Podcasts.Core.Contracts
 {
     public class Episode : IEquatable<Episode>
     {

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace RobertIagar.Podcasts.Core.Entities
+namespace RobertIagar.Podcasts.Core.Contracts
 {
     public class Podcast : IEquatable<Podcast>
     {

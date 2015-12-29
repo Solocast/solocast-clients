@@ -63,8 +63,7 @@ namespace RobertIagar.Podcasts.UWP.ViewModels
             try
             {
                 var corePodcast = await podcastService.GetPodcastAsync(feedUrl);
-                var podcastModel = corePodcast.ToPodcastViewModel();
-                podcastModel.LoadEpisodeViewModels();
+                var podcastModel = new PodcastViewModel(corePodcast);
 
                 if (!podcasts.Contains(podcastModel))
                 {
@@ -108,8 +107,7 @@ namespace RobertIagar.Podcasts.UWP.ViewModels
             if (!loadedPodcasts)
             {
                 var podcasts = await podcastService.GetPodcastsAsync();
-                podcasts.ForEach(p => this.podcasts.Add(p.ToPodcastViewModel()));
-                this.podcasts.ForEach(p => p.LoadEpisodeViewModels());
+                podcasts.ForEach(p => this.podcasts.Add(new PodcastViewModel(p)));
                 loadedPodcasts = true;
             }
         }
@@ -127,13 +125,13 @@ namespace RobertIagar.Podcasts.UWP.ViewModels
             if ((int)dialogResult.Id == 0)
             {
                 podcasts.Remove(podcastVm);
-                await podcastService.SavePodcastsAsync(podcasts.Select(p => p.Podcast.Core));
+                await podcastService.SavePodcastsAsync(podcasts.Select(p => p.Podcast));
             }
         }
 
         private async Task SavePodcastsAsync()
         {
-            await podcastService.SavePodcastsAsync(podcasts.Select(p => p.Podcast.Core));
+            await podcastService.SavePodcastsAsync(podcasts.Select(p => p.Podcast));
         }
 
         //private async Task CheckForNewEpisodesAsync()

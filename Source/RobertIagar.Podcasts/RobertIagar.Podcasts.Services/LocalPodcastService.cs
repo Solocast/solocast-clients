@@ -1,5 +1,5 @@
 ﻿using Newtonsoft.Json;
-using RobertIagar.Podcasts.Core.Entities;
+using RobertIagar.Podcasts.Core.Contracts;
 using RobertIagar.Podcasts.Core.Interfaces;
 using System;
 using System.Collections.Generic;

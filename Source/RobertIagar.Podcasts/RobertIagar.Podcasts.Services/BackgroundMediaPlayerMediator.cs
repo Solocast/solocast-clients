@@ -1,4 +1,4 @@
-﻿using RobertIagar.Podcasts.Core.Entities;
+﻿using RobertIagar.Podcasts.Core.Contracts;
 using RobertIagar.Podcasts.Core.Interfaces;
 using RobertIagar.Podcasts.Services.Extensions;
 using System;

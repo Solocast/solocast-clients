@@ -11,6 +11,11 @@ using GalaSoft.MvvmLight.Command;
 using RobertIagar.Podcasts.UWP.Infrastructure.Messages;
 using System.Collections.ObjectModel;
 using RobertIagar.Podcasts.UWP.Infrastructure.Extensions;
+using RobertIagar.Podcasts.Core.Contracts;
+using Microsoft.Practices.ServiceLocation;
+using GalaSoft.MvvmLight.Ioc;
+using RobertIagar.Podcasts.Core.Interfaces;
+using RobertIagar.Podcasts.UWP.Infrastructure.Services;
 
 namespace RobertIagar.Podcasts.UWP.ViewModels
 {
@@ -23,7 +28,13 @@ namespace RobertIagar.Podcasts.UWP.ViewModels
             Podcast = podcast;
             DeletePodcastCommand = new RelayCommand(DeletePodcast);
             PlayPodcastCommand = new RelayCommand(PlayPodcast, CanPlayPodcast);
-            this.episodes = new ObservableCollection<EpisodeViewModel>();
+            podcast.Episodes.ForEach(e => e.Podcast = podcast);
+            this.episodes = new ObservableCollection<EpisodeViewModel>(podcast.Episodes.Select(
+                ep =>
+                new EpisodeViewModel(SimpleIoc.Default.GetInstance<IFileDownloadService>(),
+                SimpleIoc.Default.GetInstance<IMessageDialogService>(),
+                ep)
+                ));
         }
 
         public Podcast Podcast { get; }
@@ -59,14 +70,6 @@ namespace RobertIagar.Podcasts.UWP.ViewModels
             }
 
             return true;
-        }
-
-        public void LoadEpisodeViewModels()
-        {
-            Podcast.Episodes.ForEach(e =>
-            {
-                Episodes.Add(e.Core.ToEpisodeViewModel(e.Podcast));
-            });
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using GalaSoft.MvvmLight.Messaging;
 using GalaSoft.MvvmLight.Threading;
+using RobertIagar.Podcasts.Core.Contracts;
 using RobertIagar.Podcasts.Core.Interfaces;
 using RobertIagar.Podcasts.Services.Extensions;
 using RobertIagar.Podcasts.UWP.Infrastructure.Messages;
@@ -48,7 +49,7 @@ namespace RobertIagar.Podcasts.UWP.Infrastructure.Services
 
         public async Task PlayEpisodeAsync(Episode episode)
         {
-            await mediator.SendMessageToBackgroundAsync(episode.Core);
+            await mediator.SendMessageToBackgroundAsync(episode);
         }
 
         public void Stop()
