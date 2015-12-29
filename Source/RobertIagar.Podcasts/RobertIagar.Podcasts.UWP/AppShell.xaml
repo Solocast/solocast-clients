@@ -143,13 +143,19 @@
                    Margin="7"
                    Source="{Binding ImageUrl, UpdateSourceTrigger=PropertyChanged}"
                    x:Name="Image"/>
-            <StackPanel Grid.Column="1"
-                        Orientation="Vertical" 
-                        VerticalAlignment="Center"
-                        Margin="5">
-                <TextBlock Text="{Binding Title, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource TitleTextBlockStyle}"/>
-                <TextBlock Text="{Binding Author, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource SubtitleTextBlockStyle}"/>
-            </StackPanel>
+            <Viewbox Grid.Column="1"
+                     Stretch="Uniform"
+                     HorizontalAlignment="Left">
+                <StackPanel Orientation="Vertical" 
+                            VerticalAlignment="Center"
+                            HorizontalAlignment="Center"
+                            Margin="5">
+                    <TextBlock Text="{Binding Title, UpdateSourceTrigger=PropertyChanged}" 
+                               Style="{StaticResource TitleTextBlockStyle}"/>
+                    <TextBlock Text="{Binding Author, UpdateSourceTrigger=PropertyChanged}" 
+                               Style="{StaticResource SubtitleTextBlockStyle}"/>
+                </StackPanel>
+            </Viewbox>
 
             <Grid Grid.Column="2">
                 <Grid.ColumnDefinitions>
