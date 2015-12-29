@@ -31,6 +31,11 @@ namespace RobertIagar.Podcasts.UWP.ViewModels
             {
                 return new LocalPodcastService("podcasts.json");
             });
+            SimpleIoc.Default.Register<IPlayService>(() =>
+            {
+                return new PlayService(SimpleIoc.Default.GetInstance<IBackgroundMediaPlayerMediator>());
+            });
+
             //navigation service
             SimpleIoc.Default.Register<INavigationService>(() =>
             {
@@ -43,6 +48,7 @@ namespace RobertIagar.Podcasts.UWP.ViewModels
 
 
             //view models
+            SimpleIoc.Default.Register<NowPlayingViewModel>();
             SimpleIoc.Default.Register<PodcastsViewModel>();
             SimpleIoc.Default.Register<PodcastDetailsViewModel>();
         }

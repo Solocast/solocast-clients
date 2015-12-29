@@ -1,9 +1,10 @@
-﻿using Newtonsoft.Json;
+﻿using GalaSoft.MvvmLight;
+using Newtonsoft.Json;
 using System;
 
 namespace RobertIagar.Podcasts.Core.Contracts
 {
-    public class Episode : IEquatable<Episode>
+    public class Episode : ObservableObject, IEquatable<Episode>
     {
         public string Title { get; set; }
         public string Subtitle { get; set; }
