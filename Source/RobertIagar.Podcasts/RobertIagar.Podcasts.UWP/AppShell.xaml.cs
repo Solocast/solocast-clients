@@ -52,8 +52,6 @@ namespace RobertIagar.Podcasts.UWP
 
         public static AppShell Current = null;
 
-        public static MediaElement Player = null;
-
         /// <summary>
         /// Initializes a new instance of the AppShell, sets the static 'Current' reference,
         /// adds callbacks for Back requests and changes in the SplitView's DisplayMode, and
@@ -68,15 +66,6 @@ namespace RobertIagar.Podcasts.UWP
                 Current = this;
 
                 this.TogglePaneButton.Focus(FocusState.Programmatic);
-                Player = MediaPlayer;
-                SimpleIoc.Default.Register<IPlayService>(() =>
-                {
-                    return new PlayService(SimpleIoc.Default.GetInstance<IBackgroundMediaPlayerMediator>());
-                }, true);
-                SimpleIoc.Default.Register<NowPlayingViewModel>();
-
-                var playService = SimpleIoc.Default.GetInstance<IPlayService>();
-                NowPlayingGrid.DataContext = ViewModelLocator.NowPlaying;
             };
 
             SystemNavigationManager.GetForCurrentView().BackRequested += SystemNavigationManager_BackRequested;

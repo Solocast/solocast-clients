@@ -19,7 +19,6 @@ namespace RobertIagar.Podcasts.UWP.ViewModels
     public class NowPlayingViewModel : ViewModelBase
     {
         private IPlayService playService;
-        private Episode nowPlayingEpisode;
         private DispatcherTimer timer;
         private int absvalue;
         private TimeSpan elapsedTime;
@@ -28,6 +27,9 @@ namespace RobertIagar.Podcasts.UWP.ViewModels
         private string playPauseLabel;
         private IconElement playPauseIcon;
         private bool canPlayPause = false;
+        private string author;
+        private string title;
+        private Uri imageUrl;
 
         public NowPlayingViewModel(IPlayService playService)
         {
@@ -54,16 +56,6 @@ namespace RobertIagar.Podcasts.UWP.ViewModels
             set { Set(nameof(PlayPauseIcon), ref playPauseIcon, value); }
         }
 
-        public Episode NowPlayingEpisode
-        {
-            get { return nowPlayingEpisode; }
-            set
-            {
-                Set(nameof(NowPlayingEpisode), ref nowPlayingEpisode, value);
-                (PlayPauseCommand as RelayCommand).RaiseCanExecuteChanged();
-            }
-        }
-
         public TimeSpan ElapsedTime
         {
             get { return elapsedTime; }
@@ -84,6 +76,24 @@ namespace RobertIagar.Podcasts.UWP.ViewModels
                 Set(nameof(Progress), ref progress, value);
                 playService.GoToTime(value);
             }
+        }
+
+        public string Author
+        {
+            get { return author; }
+            set { Set(nameof(Author), ref author, value); }
+        }
+
+        public string Title
+        {
+            get { return title; }
+            set { Set(nameof(Title), ref title, value); }
+        }
+
+        public Uri ImageUrl
+        {
+            get { return imageUrl; }
+            set { Set(nameof(ImageUrl), ref imageUrl, value); }
         }
 
         public ICommand StopCommand { get; }
@@ -129,7 +139,10 @@ namespace RobertIagar.Podcasts.UWP.ViewModels
 
         private void PlayEpisode(Episode episode)
         {
-            NowPlayingEpisode = episode;
+            Title = episode.Title;
+            Author = episode.Author;
+            ImageUrl = episode.ImageUrl;
+
             if (timer.IsEnabled)
                 timer.Stop();
 
@@ -137,7 +150,6 @@ namespace RobertIagar.Podcasts.UWP.ViewModels
 
             PlayPauseLabel = "Pause";
             canPlayPause = true;
-            (PlayPauseCommand as RelayCommand).RaiseCanExecuteChanged();
         }
 
         private void PlayPause()
