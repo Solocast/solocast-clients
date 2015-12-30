@@ -27,8 +27,10 @@ namespace RobertIagar.Podcasts.UWP.ViewModels
         private string playPauseLabel;
         private IconElement playPauseIcon;
         private bool canPlayPause = false;
-        private string author;
-        private string title;
+        private string author = nameof(Author);
+        private string title = nameof(Title);
+        private string description = nameof(Description);
+        private string subtitle = nameof(Subtitle);
         private Uri imageUrl;
 
         public NowPlayingViewModel(IPlayService playService)
@@ -90,6 +92,18 @@ namespace RobertIagar.Podcasts.UWP.ViewModels
             set { Set(nameof(Title), ref title, value); }
         }
 
+        public string Description
+        {
+            get { return description; }
+            set { Set(nameof(Description), ref description, value); }
+        }
+
+        public string Subtitle
+        {
+            get { return subtitle; }
+            set { Set(nameof(subtitle), ref subtitle, value); }
+        }
+
         public Uri ImageUrl
         {
             get { return imageUrl; }
@@ -99,6 +113,7 @@ namespace RobertIagar.Podcasts.UWP.ViewModels
         public ICommand StopCommand { get; }
         public ICommand PlayPauseCommand { get; }
         public ICommand NextCommand { get; }
+
 
         private void TimerTick(object sender, object e)
         {
@@ -142,6 +157,8 @@ namespace RobertIagar.Podcasts.UWP.ViewModels
             Title = episode.Title;
             Author = episode.Author;
             ImageUrl = episode.ImageUrl;
+            Description = episode.Summary;
+            Subtitle = episode.Subtitle;
 
             if (timer.IsEnabled)
                 timer.Stop();

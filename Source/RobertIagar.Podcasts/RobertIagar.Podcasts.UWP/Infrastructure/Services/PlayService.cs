@@ -64,7 +64,7 @@ namespace RobertIagar.Podcasts.UWP.Infrastructure.Services
 
         public void GoToTime(double progress)
         {
-            if (progress != 0)
+            if (progress != 0 && !double.IsNaN(progress))
             {
                 var newPosition = (mediator.TotalTime.TotalSeconds * progress) / 100;
                 mediator.Position = TimeSpan.FromSeconds(newPosition);
