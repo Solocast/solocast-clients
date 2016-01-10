@@ -19,48 +19,9 @@ namespace RobertIagar.Podcasts.Tests
         public void RandomTest()
         {
             var feedParser = new FeedParserService();
-            dynamic json = feedParser.GetChannelNodeAsync("http://monstercat.com/podcast/feed.xml").Result;
-            var podcast = feedParser.GetPodcast(json, "http://monstercat.com/podcast/feed.xml");
+            var podcast = feedParser.GetPodcastAsync("http://monstercat.com/podcast/feed.xml").Result;
 
             Assert.AreEqual(true, true);
-        }
-
-        [TestMethod]
-        public void TestFeedParser()
-        {
-            var feedParser = new FeedParserService();
-            dynamic channel = feedParser.GetChannelNodeAsync("http://monstercat.com/podcast/feed.xml").Result;
-            string podcastDescription = string.Empty;
-            string summary = channel["itunes:summary"].ToString();
-            string description = channel.description.ToString();
-
-            if (description == null)
-                podcastDescription = summary;
-            else if (summary == null)
-                podcastDescription = description;
-
-
-            Podcast podcast = feedParser.GetPodcast(channel, "http://monstercat.com/podcast/feed.xml");
-
-            Assert.AreEqual(channel.title.ToString(), podcast.Title);
-            Assert.AreEqual(new Uri(channel.image.url.ToString()), podcast.ImageUrl);
-            Assert.AreEqual(podcastDescription, podcast.Description);
-            Assert.AreEqual(channel["itunes:author"].ToString(), podcast.Author);
-            Assert.AreEqual(new Uri(channel.link.ToString()), podcast.FeedUrl);
-        }
-
-        [TestMethod]
-        public void TestIfPodcastFromFeedIsTheSameAsPodcastFromService()
-        {
-            var feedParser = new FeedParserService();
-
-            var podcastService = new PodcastService(feedParser, null, null);
-            var feed = feedParser.GetChannelNodeAsync("http://monstercat.com/podcast/feed.xml").Result;
-
-            var podcastFromFeed = feedParser.GetPodcast(feed, "http://monstercat.com/podcast/feed.xml");
-            var podcastFromService = podcastService.GetPodcastAsync("http://monstercat.com/podcast/feed.xml").Result;
-
-            Assert.AreEqual(true, podcastFromService.Equals(podcastFromFeed));
         }
 
         [TestMethod]

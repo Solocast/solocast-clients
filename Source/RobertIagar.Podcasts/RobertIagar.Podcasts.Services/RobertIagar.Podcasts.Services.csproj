@@ -121,6 +121,7 @@
     <Compile Include="LocalPodcastService.cs" />
     <Compile Include="PodcastService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="XmlFeedParserService.cs" />
     <Content Include="Properties\RobertIagar.Podcasts.Services.rd.xml" />
   </ItemGroup>
   <ItemGroup>

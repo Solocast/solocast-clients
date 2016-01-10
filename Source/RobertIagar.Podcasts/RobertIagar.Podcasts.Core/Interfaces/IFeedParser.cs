@@ -9,8 +9,6 @@ namespace RobertIagar.Podcasts.Core.Interfaces
 {
     public interface IFeedParaseService
     {
-        Task<dynamic> GetChannelNodeAsync(string feedUrl);
-        Task<dynamic> GetChannelNodeAsync(Uri feedUrl);
-        Podcast GetPodcast(dynamic json, string feedUrl);
+        Task<Podcast> GetPodcastAsync(string feedUrl);
     }
 }

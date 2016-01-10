@@ -22,12 +22,12 @@ namespace RobertIagar.Podcasts.Services
             client = new HttpClient();
         }
 
-        public async Task<dynamic> GetChannelNodeAsync(string feedUrl)
+        private async Task<dynamic> GetChannelNodeAsync(string feedUrl)
         {
             return await GetChannelNodeAsync(new Uri(feedUrl));
         }
 
-        public async Task<dynamic> GetChannelNodeAsync(Uri feedUrl)
+        private async Task<dynamic> GetChannelNodeAsync(Uri feedUrl)
         {
             var xml = await client.GetStringAsync(feedUrl);
             var xDoc = XDocument.Parse(xml);
@@ -37,8 +37,10 @@ namespace RobertIagar.Podcasts.Services
             return result.rss.channel;
         }
 
-        public Podcast GetPodcast(dynamic json, string feedUrl)
+        public async Task<Podcast> GetPodcastAsync(string feedUrl)
         {
+            var json = await GetChannelNodeAsync(feedUrl);
+
             string link = feedUrl;
             string title = json.title.ToString();
             string author = json["itunes:author"]?.ToString();

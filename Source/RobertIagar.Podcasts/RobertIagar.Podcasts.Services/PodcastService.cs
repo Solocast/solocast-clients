@@ -27,8 +27,7 @@ namespace RobertIagar.Podcasts.Services
         public async Task<Podcast> GetPodcastAsync(string feedUrl)
         {
             try {
-                dynamic feed = await feedParser.GetChannelNodeAsync(feedUrl);
-                var podcast = feedParser.GetPodcast(feed, feedUrl);
+                var podcast = await feedParser.GetPodcastAsync(feedUrl);
                 return podcast;
             }
             catch(Exception ex)
@@ -45,8 +44,7 @@ namespace RobertIagar.Podcasts.Services
 
         public async Task<IEnumerable<Episode>> GetNewEpisodesAsync(Podcast podcast)
         {
-            dynamic feed = await feedParser.GetChannelNodeAsync(podcast.FeedUrl);
-            Podcast newPodcast = feedParser.GetPodcast(feed, podcast.FeedUrl.ToString());
+            Podcast newPodcast = await feedParser.GetPodcastAsync(podcast.FeedUrl.ToString());
             var newEpisodes = new List<Episode>();
 
             foreach (var episode in newPodcast.Episodes)
