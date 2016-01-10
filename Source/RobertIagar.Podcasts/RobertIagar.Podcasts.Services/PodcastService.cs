@@ -26,11 +26,12 @@ namespace RobertIagar.Podcasts.Services
 
         public async Task<Podcast> GetPodcastAsync(string feedUrl)
         {
-            try {
+            try
+            {
                 var podcast = await feedParser.GetPodcastAsync(feedUrl);
                 return podcast;
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 throw new GetPodcastException(feedUrl, ex);
             }
@@ -39,6 +40,10 @@ namespace RobertIagar.Podcasts.Services
         public async Task<IEnumerable<Podcast>> GetPodcastsAsync()
         {
             var podcasts = await storageService.LoadAsync();
+            foreach (var podcast in podcasts)
+            {
+                podcast.Episodes = podcast.Episodes.OrderByDescending(e => e.Published).ToList();
+            }
             return podcasts;
         }
 
@@ -55,7 +60,7 @@ namespace RobertIagar.Podcasts.Services
                 }
             }
 
-            return newEpisodes;
+            return newEpisodes.OrderBy(e => e.Published);
         }
 
         public async Task SavePodcastAsync(Podcast podcast)

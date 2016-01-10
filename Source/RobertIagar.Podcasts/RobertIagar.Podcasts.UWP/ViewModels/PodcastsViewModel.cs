@@ -40,7 +40,7 @@ namespace RobertIagar.Podcasts.UWP.ViewModels
             MessengerInstance.Register<LoadPodcastsMessage>(this, async message => await LoadPodcastsAsync());
             MessengerInstance.Register<DeletePodcastMessage>(this, async message => await DeletePodcastAsync(message));
             MessengerInstance.Register<SavePodcastsMessage>(this, async message => await SavePodcastsAsync());
-            //MessengerInstance.Register<CheckForNewEpsiodesMessage>(this, async message => await CheckForNewEpisodesAsync());
+            MessengerInstance.Register<CheckForNewEpsiodesMessage>(this, async message => await CheckForNewEpisodesAsync());
         }
 
         public IList<PodcastViewModel> Podcasts { get { return podcasts; } }
@@ -134,17 +134,21 @@ namespace RobertIagar.Podcasts.UWP.ViewModels
             await podcastService.SavePodcastsAsync(podcasts.Select(p => p.Podcast));
         }
 
-        //private async Task CheckForNewEpisodesAsync()
-        //{
-        //    foreach (var podcast in podcasts)
-        //    {
-        //        var newEpisodes = await podcastService.GetNewEpisodesAsync(podcast.Podcast.Core);
-        //        newEpisodes.ForEach(e => podcast.Episodes.Add(e.ToEpisodeViewModel(podcast.Podcast)));
-        //        podcasts.ForEach(p => p.LoadEpisodeViewModels());
-        //    }
+        private async Task CheckForNewEpisodesAsync()
+        {
+            foreach (var podcast in podcasts)
+            {
+                var newEpisodes = await podcastService.GetNewEpisodesAsync(podcast.Podcast);
+                var episodes = newEpisodes.Select(e => new EpisodeViewModel(e));
+                episodes.ForEach(e =>
+                {
+                    podcast.Episodes.Insert(0, e);
+                    podcast.Podcast.Episodes.Insert(0, e.Episode);
+                });
+            }
 
-        //    await SavePodcastsAsync();
-        //}
+            await SavePodcastsAsync();
+        }
 
 
         public void ItemClickCommand(object sender, ItemClickEventArgs parameters)

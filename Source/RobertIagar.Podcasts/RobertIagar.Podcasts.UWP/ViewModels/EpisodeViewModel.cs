@@ -1,6 +1,7 @@
 ﻿using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Threading;
+using Microsoft.Practices.ServiceLocation;
 using RobertIagar.Podcasts.Core.Contracts;
 using RobertIagar.Podcasts.Core.Interfaces;
 using RobertIagar.Podcasts.UWP.Infrastructure.Extensions;
@@ -25,15 +26,15 @@ namespace RobertIagar.Podcasts.UWP.ViewModels
         private IMessageDialogService messageDialogService;
         private float percent;
 
-        public EpisodeViewModel(IFileDownloadService fileDownloadService, IMessageDialogService messageDialogService, Episode episode)
+        public EpisodeViewModel(Episode episode)
         {
-            this.fileDownloadService = fileDownloadService;
-            this.messageDialogService = messageDialogService;
+            this.fileDownloadService = ServiceLocator.Current.GetInstance<IFileDownloadService>();
+            this.messageDialogService = ServiceLocator.Current.GetInstance<IMessageDialogService>();
             this.DownloadCommand = new RelayCommand(async () => await DownloadEpisodeAsync(), CanDownloadEpisode);
+
             this.PlayCommand = new RelayCommand(PlayEpisode, CanPlayEpisode);
             this.Episode = episode;
         }
-
 
         public Episode Episode
         {
