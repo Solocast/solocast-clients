@@ -10,7 +10,7 @@ This application will be an entire rewrite of the exists Podcasts App in Windows
 ## Features
 These features will be ticked off as I implement them in the app:
 * [ ] Search for podcasts (audio and video)
-* [ ] Subscribe to podcasts
+* [X] Subscribe to podcasts
 * [ ] Favorite podcasts
 * [ ] Shared podcasts and episodes
 * [ ] Secondary tiles with podcasts episodes
