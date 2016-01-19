@@ -38,6 +38,7 @@
                            Height="48"
                            CommonNavigationTransitionInfo.IsStaggerElement="True"/>
                     <ProgressBar Value="{Binding Percent}"
+                                 Visibility="{Binding IsLocal, Converter={StaticResource InvertedBoolToVisibilityConverter}}"
                                  Width="Auto"/>
                 </StackPanel>
                 <RelativePanel Grid.Column="1" Margin="6,0,0,0">
@@ -78,6 +79,7 @@
                        Height="128"
                        EntranceNavigationTransitionInfo.IsTargetElement="True"/>
                 <ProgressBar Grid.Row="1"
+                             Visibility="{Binding IsLocal, Converter={StaticResource InvertedBoolToVisibilityConverter}}"
                              Value="{Binding Percent}"/>
                 <TextBlock Grid.Row="2"
                            Margin="0,2"

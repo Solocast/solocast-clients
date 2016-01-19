@@ -9,11 +9,13 @@ namespace RobertIagar.Podcasts.Core.Contracts
         public string Title { get; set; }
         public string Subtitle { get; set; }
         public string Path { get; set; }
+        public string WebPath { get; set; }
         public string Author { get; set; }
         public string Summary { get; set; }
         public string Guid { get; set; }
         public DateTime Published { get; set; }
         public Uri ImageUrl { get; set; }
+        public bool IsLocal { get { return WebPath != Path; } }
 
         [JsonIgnore]
         public virtual Podcast Podcast { get; set; }
@@ -29,7 +31,7 @@ namespace RobertIagar.Podcasts.Core.Contracts
         {
             this.Title = title;
             this.Subtitle = subtitle;
-            this.Path = path;
+            this.Path = this.WebPath = path;
             this.Author = author;
             this.Summary = summary;
             this.Published = published.ToDateTime();
@@ -58,7 +60,11 @@ namespace RobertIagar.Podcasts.Core.Contracts
         public static DateTime ToDateTime(this string input)
         {
             var index = input.LastIndexOf(" ");
-            var stringResult = input.Remove(index).Replace("Thurs", "Thu");
+            var stringResult = input
+                .Remove(index).Replace("Thurs", "Thu")
+                .Replace("Sept", "Sep")
+                .Replace("Fri, 15 Jan 2015", "Fri, 15 Jan 2016");
+
             var dateResult = DateTime.MinValue;
             var parsed = DateTime.TryParse(stringResult, out dateResult);
 

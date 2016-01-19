@@ -105,9 +105,11 @@
     </Compile>
     <Compile Include="Controls\NavMenuListView.cs" />
     <Compile Include="Converters\BoolToVisibilityConverter.cs" />
+    <Compile Include="Converters\PercentToVisibilityConverter.cs" />
     <Compile Include="Converters\InvertedCountToVisibilityConverter.cs" />
     <Compile Include="Converters\CountToVisibilityConverter.cs" />
     <Compile Include="Converters\InvertedBoolToVisibilityConverter.cs" />
+    <Compile Include="Converters\SecondsToTimeSpanTextConverter.cs" />
     <Compile Include="Infrastructure\Actions\OpenMenuFlyoutAction.cs" />
     <Compile Include="Infrastructure\Extensions\IEnumerableExtension.cs" />
     <Compile Include="Infrastructure\Extensions\StringExtensions.cs" />

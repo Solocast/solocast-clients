@@ -80,7 +80,7 @@ namespace RobertIagar.Podcasts.Services
                 episodes.Add(episode);
             }
 
-            podcast.SetEpisodes(episodes);
+            podcast.SetEpisodes(episodes.OrderByDescending(e=>e.Published));
             return podcast;
         }
     }

@@ -12,14 +12,5 @@ namespace RobertIagar.Podcasts.UWP.Infrastructure.Extensions
         {
             return new Uri(uriString);
         }
-
-        public static bool IsLocalPath(this string pathString)
-        {
-            if (pathString.StartsWith("http://") ||
-                pathString.StartsWith("https://"))
-                return false;
-
-            return true;
-        }
     }
 }

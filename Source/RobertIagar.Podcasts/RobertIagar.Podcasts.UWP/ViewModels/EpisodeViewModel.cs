@@ -42,11 +42,16 @@ namespace RobertIagar.Podcasts.UWP.ViewModels
             set { Set(nameof(Episode), ref episode, value); }
         }
 
+        public bool IsLocal
+        {
+            get { return episode.IsLocal; }
+        }
+
         public float Percent
         {
             get
             {
-                if (episode.Path.IsLocalPath())
+                if (episode.IsLocal)
                     return 100;
                 return percent;
             }
@@ -55,6 +60,7 @@ namespace RobertIagar.Podcasts.UWP.ViewModels
 
         public ICommand DownloadCommand { get; }
         public ICommand PlayCommand { get; }
+        public ICommand DeleteCommand { get; }
 
         private async Task DownloadEpisodeAsync()
         {
@@ -69,6 +75,7 @@ namespace RobertIagar.Podcasts.UWP.ViewModels
             if (file != null)
             {
                 Episode.Path = file.Path;
+                RaisePropertyChanged(nameof(IsLocal));
                 MessengerInstance.Send(new SavePodcastsMessage());
                 (DownloadCommand as RelayCommand).RaiseCanExecuteChanged();
             }
@@ -76,7 +83,7 @@ namespace RobertIagar.Podcasts.UWP.ViewModels
 
         private bool CanDownloadEpisode()
         {
-            if (Episode.Path.IsLocalPath())
+            if (Episode.IsLocal)
                 return false;
 
             return true;
@@ -90,6 +97,16 @@ namespace RobertIagar.Podcasts.UWP.ViewModels
         private bool CanPlayEpisode()
         {
             return true;
+        }
+
+        private void DeleteEpisode()
+        {
+            
+        }
+
+        private bool CanDeleteEpisode()
+        {
+            return false;
         }
 
         public async void ReportProgress(DownloadOperation operation)

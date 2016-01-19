@@ -25,7 +25,7 @@ namespace RobertIagar.Podcasts.UWP.Infrastructure.Services
         void Pause();
         void Stop();
         void Resume();
-        void GoToTime(double progress);
+        void GoToTime(int seconds);
 
         TimeSpan Position { get; }
         TimeSpan TotalTime { get; }
@@ -62,13 +62,9 @@ namespace RobertIagar.Podcasts.UWP.Infrastructure.Services
             mediator.Resume();
         }
 
-        public void GoToTime(double progress)
+        public void GoToTime(int seconds)
         {
-            if (progress != 0 && !double.IsNaN(progress))
-            {
-                var newPosition = (mediator.TotalTime.TotalSeconds * progress) / 100;
-                mediator.Position = TimeSpan.FromSeconds(newPosition);
-            }
+            mediator.Position = TimeSpan.FromSeconds(seconds);
         }
 
         public TimeSpan Position

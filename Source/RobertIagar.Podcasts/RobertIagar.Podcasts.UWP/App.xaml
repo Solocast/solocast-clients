@@ -19,7 +19,9 @@
             <conv:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter"/>
             <conv:InvertedBoolToVisibilityConverter x:Key="InvertedBoolToVisibilityConverter"/>
             <conv:CountToVisibilityConverter x:Key="CountToVisibilityConverter"/>
+            <conv:PercentToVisibilityConverter x:Key="PercentToVisibilityConverter"/>
             <conv:InvertedCountToVisibilityConverter x:Key="InvertedCountToVisibilityConverter"/>
+            <conv:SecondsToTimeSpanTextConverter x:Key="SecondsToTimeSpanTextConverter"/>
             <styleselectors:AlternatingColorListViewStyleSelector x:Key="AlternatingColorListViewStyleSelector"/>
         </ResourceDictionary>
     </Application.Resources>

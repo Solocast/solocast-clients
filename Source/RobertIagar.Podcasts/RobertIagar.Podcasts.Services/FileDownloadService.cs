@@ -58,11 +58,13 @@ namespace RobertIagar.Podcasts.Services
         {
             var appFolder = await KnownFolders.MusicLibrary.CreateFolderAsync(appFolderName, CreationCollisionOption.OpenIfExists);
             var podcastFolder = await appFolder.CreateFolderAsync(folderName, CreationCollisionOption.OpenIfExists);
+            var uri = new Uri(fileUrl);
+            var extension = uri.AbsolutePath.GetExtension();
+            var filename = (fileName + extension).RemoveIllegalPathChars();
+
             try
             {
-                var uri = new Uri(fileUrl);
-                var extension = uri.AbsolutePath.GetExtension();
-                var file = await podcastFolder.CreateFileAsync((fileName + extension).RemoveIllegalPathChars(), CreationCollisionOption.ReplaceExisting);
+                var file = await podcastFolder.CreateFileAsync(filename, CreationCollisionOption.FailIfExists);
                 var backgroundDownloader = new BackgroundDownloader();
                 var downloadOperation = backgroundDownloader.CreateDownload(uri, file);
 
@@ -84,13 +86,21 @@ namespace RobertIagar.Podcasts.Services
                     errorCallback(ex);
                 return null;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                if (errorCallback != null)
-                    errorCallback(ex);
-                return null;
+                try
+                {
+                    var file = await podcastFolder.GetFileAsync(filename);
+                    return file;
+                }
+                catch (Exception ex)
+                {
+                    if (errorCallback != null)
+                        errorCallback(ex);
+                    return null;
+                }
             }
-            
+
         }
 
         public void PauseDownload(string fileUrl)

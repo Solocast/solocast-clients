@@ -326,5 +326,10 @@ namespace RobertIagar.Podcasts.UWP
                 args.ItemContainer.ClearValue(AutomationProperties.NameProperty);
             }
         }
+
+        private void Slider_ManipulationCompleted(object sender, ManipulationCompletedRoutedEventArgs e)
+        {
+
+        }
     }
 }

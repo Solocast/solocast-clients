@@ -6,6 +6,8 @@
       xmlns:controls="using:RobertIagar.Podcasts.UWP.Controls"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:Core="using:Microsoft.Xaml.Interactions.Core"
+      xmlns:Interactivity="using:Microsoft.Xaml.Interactivity"
       DataContext="{Binding NowPlaying, Source={StaticResource Locator}}"
       Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
       KeyDown="AppShell_KeyDown"
@@ -128,6 +130,7 @@
         </SplitView>
 
         <Grid VerticalAlignment="Bottom"
+              x:Name="NowPlayingGrid"
               Padding="5"
               Background="{StaticResource SystemControlBackgroundBaseLowBrush}"
               Opacity="1" 
@@ -165,9 +168,11 @@
 
                 <Slider Grid.Column="0"
                         VerticalAlignment="Center"
-                        Value="{Binding Progress, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                        Maximum="100"
-                        Minimum="0" TickFrequency="10" StepFrequency="0"/>
+                        Value="{Binding ElapsedSeconds, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                        Maximum="{Binding TotalTime.TotalSeconds}" 
+                        StepFrequency="1"
+                        Minimum="0"
+                        ThumbToolTipValueConverter="{StaticResource SecondsToTimeSpanTextConverter}"/>
 
                 <StackPanel Grid.Column="1"
                             Orientation="Horizontal" VerticalAlignment="Center">

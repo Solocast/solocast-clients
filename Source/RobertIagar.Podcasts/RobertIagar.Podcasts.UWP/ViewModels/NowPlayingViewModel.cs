@@ -6,12 +6,14 @@ using RobertIagar.Podcasts.UWP.Infrastructure.Services;
 using RobertIagar.Podcasts.UWP.Models;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 
 namespace RobertIagar.Podcasts.UWP.ViewModels
@@ -20,10 +22,8 @@ namespace RobertIagar.Podcasts.UWP.ViewModels
     {
         private IPlayService playService;
         private DispatcherTimer timer;
-        private int absvalue;
-        private TimeSpan elapsedTime;
+        private int elapsedSeconds;
         private TimeSpan totalTime;
-        private double progress;
         private string playPauseLabel;
         private IconElement playPauseIcon;
         private bool canPlayPause = false;
@@ -37,7 +37,7 @@ namespace RobertIagar.Podcasts.UWP.ViewModels
         {
             this.playService = playService;
             this.timer = new DispatcherTimer();
-            this.timer.Interval = TimeSpan.FromSeconds(1);
+            this.timer.Interval = TimeSpan.FromMilliseconds(500);
             this.timer.Tick += TimerTick;
 
             this.StopCommand = new RelayCommand(Stop);
@@ -58,10 +58,16 @@ namespace RobertIagar.Podcasts.UWP.ViewModels
             set { Set(nameof(PlayPauseIcon), ref playPauseIcon, value); }
         }
 
-        public TimeSpan ElapsedTime
+        public int ElapsedSeconds
         {
-            get { return elapsedTime; }
-            set { Set(nameof(ElapsedTime), ref elapsedTime, value); }
+            get { return elapsedSeconds; }
+            set
+            {
+                timer.Stop();
+                playService.GoToTime(value);
+                Set(nameof(ElapsedSeconds), ref elapsedSeconds, value);
+                timer.Start();
+            }
         }
 
         public TimeSpan TotalTime
@@ -70,15 +76,6 @@ namespace RobertIagar.Podcasts.UWP.ViewModels
             set { Set(nameof(TotalTime), ref totalTime, value); }
         }
 
-        public double Progress
-        {
-            get { return progress; }
-            set
-            {
-                Set(nameof(Progress), ref progress, value);
-                playService.GoToTime(value);
-            }
-        }
 
         public string Author
         {
@@ -114,14 +111,13 @@ namespace RobertIagar.Podcasts.UWP.ViewModels
         public ICommand PlayPauseCommand { get; }
         public ICommand NextCommand { get; }
 
-
         private void TimerTick(object sender, object e)
         {
-            absvalue = (int)Math.Round(playService.TotalTime.TotalSeconds, MidpointRounding.AwayFromZero);
-            ElapsedTime = playService.Position;
-            TotalTime = TimeSpan.FromSeconds(absvalue);
-            progress = (ElapsedTime.TotalSeconds * 100) / TotalTime.TotalSeconds;
-            RaisePropertyChanged(nameof(Progress));
+            TotalTime = playService.TotalTime;
+            elapsedSeconds = (int)playService.Position.TotalSeconds;
+            RaisePropertyChanged(nameof(ElapsedSeconds));
+            var appview = Windows.UI.ViewManagement.ApplicationView.GetForCurrentView();
+            appview.Title = TimeSpan.FromSeconds(elapsedSeconds).ToString("c");
             UpdatePlayPauseLabelAndIcon();
         }
 
