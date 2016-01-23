@@ -1,5 +1,4 @@
-﻿using GalaSoft.MvvmLight;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -7,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace RobertIagar.Podcasts.Core.Contracts
 {
-    public class Podcast : ObservableObject, IEquatable<Podcast>
+    public class Podcast : IEquatable<Podcast>
     {
         public string Title { get; set; }
         public string Description { get; set; }
