@@ -3,7 +3,6 @@ using GalaSoft.MvvmLight.Command;
 using RobertIagar.Podcasts.Core.Contracts;
 using RobertIagar.Podcasts.UWP.Infrastructure.Messages;
 using RobertIagar.Podcasts.UWP.Infrastructure.Services;
-using RobertIagar.Podcasts.UWP.Models;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -13,8 +12,6 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
 
 namespace RobertIagar.Podcasts.UWP.ViewModels
 {
@@ -23,7 +20,7 @@ namespace RobertIagar.Podcasts.UWP.ViewModels
         private IPlayService playService;
         private DispatcherTimer timer;
         private int elapsedSeconds;
-        private TimeSpan totalTime;
+        private int totalSeconds;
         private string playPauseLabel;
         private IconElement playPauseIcon;
         private bool canPlayPause = false;
@@ -70,10 +67,10 @@ namespace RobertIagar.Podcasts.UWP.ViewModels
             }
         }
 
-        public TimeSpan TotalTime
+        public int TotalSeconds
         {
-            get { return totalTime; }
-            set { Set(nameof(TotalTime), ref totalTime, value); }
+            get { return totalSeconds; }
+            set { Set(nameof(TotalSeconds), ref totalSeconds, value); }
         }
 
 
@@ -113,8 +110,8 @@ namespace RobertIagar.Podcasts.UWP.ViewModels
 
         private void TimerTick(object sender, object e)
         {
-            TotalTime = playService.TotalTime;
-            elapsedSeconds = (int)playService.Position.TotalSeconds;
+            TotalSeconds = playService.TotalSeconds;
+            elapsedSeconds = playService.Position;
             RaisePropertyChanged(nameof(ElapsedSeconds));
             var appview = Windows.UI.ViewManagement.ApplicationView.GetForCurrentView();
             appview.Title = TimeSpan.FromSeconds(elapsedSeconds).ToString("c");
@@ -146,6 +143,8 @@ namespace RobertIagar.Podcasts.UWP.ViewModels
                 default:
                     break;
             }
+
+            (PlayPauseCommand as RelayCommand).RaiseCanExecuteChanged();
         }
 
         private void PlayEpisode(Episode episode)

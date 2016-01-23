@@ -169,7 +169,7 @@
                 <Slider Grid.Column="0"
                         VerticalAlignment="Center"
                         Value="{Binding ElapsedSeconds, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                        Maximum="{Binding TotalTime.TotalSeconds}" 
+                        Maximum="{Binding TotalSeconds}" 
                         StepFrequency="1"
                         Minimum="0"
                         ThumbToolTipValueConverter="{StaticResource SecondsToTimeSpanTextConverter}"/>

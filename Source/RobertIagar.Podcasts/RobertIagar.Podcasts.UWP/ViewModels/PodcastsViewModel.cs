@@ -39,7 +39,6 @@ namespace RobertIagar.Podcasts.UWP.ViewModels
 
             MessengerInstance.Register<LoadPodcastsMessage>(this, async message => await LoadPodcastsAsync());
             MessengerInstance.Register<DeletePodcastMessage>(this, async message => await DeletePodcastAsync(message));
-            MessengerInstance.Register<SavePodcastsMessage>(this, async message => await SavePodcastsAsync());
             MessengerInstance.Register<CheckForNewEpsiodesMessage>(this, async message => await CheckForNewEpisodesAsync());
         }
 
@@ -125,13 +124,7 @@ namespace RobertIagar.Podcasts.UWP.ViewModels
             if ((int)dialogResult.Id == 0)
             {
                 podcasts.Remove(podcastVm);
-                await podcastService.SavePodcastsAsync(podcasts.Select(p => p.Podcast));
             }
-        }
-
-        private async Task SavePodcastsAsync()
-        {
-            await podcastService.SavePodcastsAsync(podcasts.Select(p => p.Podcast));
         }
 
         private async Task CheckForNewEpisodesAsync()
@@ -146,8 +139,6 @@ namespace RobertIagar.Podcasts.UWP.ViewModels
                     podcast.Podcast.Episodes.Insert(0, e.Episode);
                 });
             }
-
-            await SavePodcastsAsync();
         }
 
 

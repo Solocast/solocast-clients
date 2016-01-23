@@ -1,5 +1,9 @@
 ﻿using GalaSoft.MvvmLight.Threading;
+using Microsoft.Practices.ServiceLocation;
+using RobertIagar.Podcasts.Core.Contracts;
+using RobertIagar.Podcasts.Core.Interfaces;
 using RobertIagar.Podcasts.Services;
+using RobertIagar.Podcasts.UWP.ViewModels;
 using System;
 using System.Linq;
 using System.Reflection;
@@ -80,7 +84,8 @@ namespace RobertIagar.Podcasts.UWP
             DispatcherHelper.Initialize();
             var t = CoreApplication.GetCurrentView();
             t.TitleBar.ExtendViewIntoTitleBar = false;
-            try {
+            try
+            {
                 var s = StatusBar.GetForCurrentView();
                 await s.HideAsync();
             }
@@ -107,10 +112,15 @@ namespace RobertIagar.Podcasts.UWP
         /// </summary>
         /// <param name="sender">The source of the suspend request.</param>
         /// <param name="e">Details about the suspend request.</param>
-        private void OnSuspending(object sender, SuspendingEventArgs e)
+        private async void OnSuspending(object sender, SuspendingEventArgs e)
         {
             var deferral = e.SuspendingOperation.GetDeferral();
             //TODO: Save application state and stop any background activity
+            var podcastsVm = ServiceLocator.Current.GetInstance<PodcastsViewModel>();
+            var podcastsService = ServiceLocator.Current.GetInstance<ILocalStorageService<Podcast>>();
+
+            await podcastsService.SaveAsync(podcastsVm.Podcasts.Select(p => p.Podcast));
+
             deferral.Complete();
         }
     }

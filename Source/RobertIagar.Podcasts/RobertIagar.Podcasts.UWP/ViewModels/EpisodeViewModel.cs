@@ -76,7 +76,6 @@ namespace RobertIagar.Podcasts.UWP.ViewModels
             {
                 Episode.Path = file.Path;
                 RaisePropertyChanged(nameof(IsLocal));
-                MessengerInstance.Send(new SavePodcastsMessage());
                 (DownloadCommand as RelayCommand).RaiseCanExecuteChanged();
             }
         }

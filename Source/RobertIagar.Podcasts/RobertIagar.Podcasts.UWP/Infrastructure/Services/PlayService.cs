@@ -27,8 +27,8 @@ namespace RobertIagar.Podcasts.UWP.Infrastructure.Services
         void Resume();
         void GoToTime(int seconds);
 
-        TimeSpan Position { get; }
-        TimeSpan TotalTime { get; }
+        int Position { get; }
+        int TotalSeconds { get; }
         MediaPlayerState CurrentState { get; }
     }
 
@@ -67,14 +67,14 @@ namespace RobertIagar.Podcasts.UWP.Infrastructure.Services
             mediator.Position = TimeSpan.FromSeconds(seconds);
         }
 
-        public TimeSpan Position
+        public int Position
         {
-            get { return mediator.Position; }
+            get { return (int)mediator.Position.TotalSeconds; }
         }
 
-        public TimeSpan TotalTime
+        public int TotalSeconds
         {
-            get { return mediator.TotalTime; }
+            get { return (int)mediator.TotalTime.TotalSeconds; }
         }
 
         public MediaPlayerState CurrentState
