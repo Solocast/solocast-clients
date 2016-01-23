@@ -34,7 +34,7 @@ namespace RobertIagar.Podcasts.Core.Contracts
 
         public void SetEpisodes(IEnumerable<Episode> episode)
         {
-            this.Episodes = episode.ToList();
+            this.Episodes = episode.OrderByDescending(e => e.Published).ToList();
         }
 
         public bool Equals(Podcast other)
