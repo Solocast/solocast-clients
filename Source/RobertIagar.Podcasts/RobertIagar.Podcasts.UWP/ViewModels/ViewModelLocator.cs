@@ -48,7 +48,7 @@ namespace RobertIagar.Podcasts.UWP.ViewModels
 
 
             //view models
-            SimpleIoc.Default.Register<NowPlayingViewModel>();
+            SimpleIoc.Default.Register<NowPlayingViewModel>(true);
             SimpleIoc.Default.Register<PodcastsViewModel>();
             SimpleIoc.Default.Register<PodcastDetailsViewModel>();
         }

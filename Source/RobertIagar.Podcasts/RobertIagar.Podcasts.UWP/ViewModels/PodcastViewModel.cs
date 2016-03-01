@@ -26,6 +26,9 @@ namespace RobertIagar.Podcasts.UWP.ViewModels
 
         public PodcastViewModel(Podcast podcast)
         {
+            if (podcast == null)
+                throw new ArgumentNullException("podcast");
+
             Podcast = podcast;
             DeletePodcastCommand = new RelayCommand(DeletePodcast);
             PlayPodcastCommand = new RelayCommand(PlayPodcast, CanPlayPodcast);

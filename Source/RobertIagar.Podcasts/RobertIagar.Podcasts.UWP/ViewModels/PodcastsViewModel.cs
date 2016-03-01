@@ -131,13 +131,20 @@ namespace RobertIagar.Podcasts.UWP.ViewModels
         {
             foreach (var podcast in podcasts)
             {
-                var newEpisodes = await podcastService.GetNewEpisodesAsync(podcast.Podcast);
-                var episodes = newEpisodes.Select(e => new EpisodeViewModel(e));
-                episodes.ForEach(e =>
+                try
                 {
-                    podcast.Episodes.Insert(0, e);
-                    podcast.Podcast.Episodes.Insert(0, e.Episode);
-                });
+                    var newEpisodes = await podcastService.GetNewEpisodesAsync(podcast.Podcast);
+                    var episodes = newEpisodes.Select(e => new EpisodeViewModel(e));
+                    episodes.ForEach(e =>
+                    {
+                        podcast.Episodes.Insert(0, e);
+                        podcast.Podcast.Episodes.Insert(0, e.Episode);
+                    });
+                }
+                catch(GetPodcastException ex)
+                {
+                    //would be a nice idea to log this
+                }
             }
         }
 

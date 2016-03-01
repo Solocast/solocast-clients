@@ -49,18 +49,25 @@ namespace RobertIagar.Podcasts.Services
 
         public async Task<IEnumerable<Episode>> GetNewEpisodesAsync(Podcast podcast)
         {
-            Podcast newPodcast = await feedParser.GetPodcastAsync(podcast.FeedUrl.ToString());
-            var newEpisodes = new List<Episode>();
-
-            foreach (var episode in newPodcast.Episodes)
+            try
             {
-                if (!podcast.Episodes.Contains(episode))
-                {
-                    newEpisodes.Add(episode);
-                }
-            }
+                Podcast newPodcast = await feedParser.GetPodcastAsync(podcast.FeedUrl.ToString());
+                var newEpisodes = new List<Episode>();
 
-            return newEpisodes.OrderBy(e => e.Published);
+                foreach (var episode in newPodcast.Episodes)
+                {
+                    if (!podcast.Episodes.Contains(episode))
+                    {
+                        newEpisodes.Add(episode);
+                    }
+                }
+
+                return newEpisodes.OrderBy(e => e.Published);
+            }
+            catch (Exception ex)
+            {
+                throw new GetPodcastException(podcast.FeedUrl.ToString(), ex);
+            }
         }
 
         public async Task SavePodcastAsync(Podcast podcast)
