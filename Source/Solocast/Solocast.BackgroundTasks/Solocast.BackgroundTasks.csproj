@@ -123,7 +123,7 @@
       <Project>{77332e38-3252-4595-bb9e-8ae06b679e80}</Project>
       <Name>Solocast.Core</Name>
     </ProjectReference>
-    <ProjectReference Include="..\RobertIagar.Podcasts.Services\Solocast.Services.csproj">
+    <ProjectReference Include="..\Solocast.Services\Solocast.Services.csproj">
       <Project>{febeb45e-96a0-4c03-ba66-858010122fb2}</Project>
       <Name>Solocast.Services</Name>
     </ProjectReference>
