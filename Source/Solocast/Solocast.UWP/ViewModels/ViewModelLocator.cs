@@ -50,6 +50,7 @@ namespace Solocast.UWP.ViewModels
             SimpleIoc.Default.Register<NowPlayingViewModel>(true);
             SimpleIoc.Default.Register<PodcastsViewModel>();
             SimpleIoc.Default.Register<PodcastDetailsViewModel>();
+            SimpleIoc.Default.Register<EpisodesViewModel>();
         }
 
         public PodcastsViewModel Podcasts
@@ -66,5 +67,7 @@ namespace Solocast.UWP.ViewModels
         {
             get { return ServiceLocator.Current.GetInstance<NowPlayingViewModel>(); }
         }
+
+        public EpisodesViewModel Episodes => SimpleIoc.Default.GetInstance<EpisodesViewModel>();
     }
 }

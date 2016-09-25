@@ -1,5 +1,8 @@
-﻿using System;
+﻿using GalaSoft.MvvmLight.Messaging;
+using Solocast.UWP.Infrastructure.Messages;
+using System;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Navigation;
 
 namespace Solocast.UWP.Views
 {
@@ -11,6 +14,11 @@ namespace Solocast.UWP.Views
         public EpisodesPage()
         {
             this.InitializeComponent();
+        }
+
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            Messenger.Default.Send(new LoadEpisodesMessage());
         }
     }
 }

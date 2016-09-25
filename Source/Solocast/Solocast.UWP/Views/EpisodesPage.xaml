@@ -5,6 +5,10 @@
     xmlns:local="using:Solocast.UWP.Views"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:Core="using:Microsoft.Xaml.Interactions.Core"
+    xmlns:Interactivity="using:Microsoft.Xaml.Interactivity"
+    xmlns:Actions="using:Solocast.UWP.Infrastructure.Actions"
+    DataContext="{Binding Episodes, Source={StaticResource Locator}}"
     mc:Ignorable="d">
     <Page.Transitions>
         <TransitionCollection>
@@ -15,10 +19,180 @@
             </NavigationThemeTransition>
         </TransitionCollection>
     </Page.Transitions>
+    <Page.Resources>
+        <MenuFlyout x:Key="Flyout">
+            <MenuFlyoutItem Text="Play" Command="{Binding PlayCommand}"/>
+            <MenuFlyoutItem Text="Download" Command="{Binding DownloadCommand}"/>
+        </MenuFlyout>
+        <DataTemplate x:Key="ListEpisodeTemplate">
+            <Grid Height="Auto" Margin="0,9"
+                  FlyoutBase.AttachedFlyout="{StaticResource Flyout}">
+                <Interactivity:Interaction.Behaviors>
+                    <Core:EventTriggerBehavior EventName="RightTapped">
+                        <Actions:OpenMenuFlyoutAction />
+                    </Core:EventTriggerBehavior>
+                    <Core:EventTriggerBehavior EventName="Holding">
+                        <Actions:OpenMenuFlyoutAction />
+                    </Core:EventTriggerBehavior>
+                </Interactivity:Interaction.Behaviors>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="48"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <StackPanel>
+                    <Image Source="{Binding Episode.ImageUrl}"
+                           VerticalAlignment="Top" 
+                           Height="48"
+                           CommonNavigationTransitionInfo.IsStaggerElement="True"/>
+                    <ProgressBar Value="{Binding Percent}"
+                                 Visibility="{Binding IsLocal, Converter={StaticResource InvertedBoolToVisibilityConverter}}"
+                                 Width="Auto"/>
+                </StackPanel>
+                <RelativePanel Grid.Column="1" Margin="6,0,0,0">
+                    <TextBlock x:Name="Title"
+                               TextWrapping="WrapWholeWords" 
+                               CommonNavigationTransitionInfo.IsStaggerElement="True"
+                               Text="{Binding Episode.Title}"/>
+                    <TextBlock x:Name="Subtitle"
+                               Text="{Binding Episode.Subtitle}" 
+                               RelativePanel.Below="Title"
+                               TextWrapping="WrapWholeWords" 
+                               CommonNavigationTransitionInfo.IsStaggerElement="True"/>
+
+                </RelativePanel>
+            </Grid>
+        </DataTemplate>
+        <DataTemplate x:Key="GridEpisodeTemplate">
+            <Grid Height="Auto" 
+                  Width="128"
+                  Margin="3"
+                  EntranceNavigationTransitionInfo.IsTargetElement="True"
+                  FlyoutBase.AttachedFlyout="{StaticResource Flyout}">
+                <Interactivity:Interaction.Behaviors>
+                    <Core:EventTriggerBehavior EventName="RightTapped">
+                        <Actions:OpenMenuFlyoutAction />
+                    </Core:EventTriggerBehavior>
+                    <Core:EventTriggerBehavior EventName="Holding">
+                        <Actions:OpenMenuFlyoutAction />
+                    </Core:EventTriggerBehavior>
+                </Interactivity:Interaction.Behaviors>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Image Source="{Binding Episode.ImageUrl}"
+                       VerticalAlignment="Center"
+                       Height="128"
+                       EntranceNavigationTransitionInfo.IsTargetElement="True"/>
+                <ProgressBar Grid.Row="1"
+                             Visibility="{Binding IsLocal, Converter={StaticResource InvertedBoolToVisibilityConverter}}"
+                             Value="{Binding Percent}"/>
+                <TextBlock Grid.Row="2"
+                           Margin="0,2"
+                           Text="{Binding Episode.Title}" 
+                           Style="{StaticResource BodyTextBlockStyle}"
+                           TextWrapping="WrapWholeWords"
+                           EntranceNavigationTransitionInfo.IsTargetElement="True"/>
+            </Grid>
+        </DataTemplate>
+    </Page.Resources>
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
           EntranceNavigationTransitionInfo.IsTargetElement="True">
-
-        <TextBlock Style="{ThemeResource TitleTextBlockStyle}" HorizontalAlignment="Center" VerticalAlignment="Center" Text="Episodes will be loaded here"/>
-
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup>
+                <VisualState>
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="720"/>
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="EpisodesList.Visibility" Value="Collapsed"/>
+                        <Setter Target="EpisodesGrid.Visibility" Value="Visible"/>
+                    </VisualState.Setters>
+                </VisualState>
+                <VisualState>
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="0"/>
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="EpisodesList.Visibility" Value="Visible"/>
+                        <Setter Target="EpisodesGrid.Visibility" Value="Collapsed"/>
+                        <Setter Target="EpisodesListHeader.Style" Value="{StaticResource TitleTextBlockStyle}"/>
+                    </VisualState.Setters>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
+        <Grid.ChildrenTransitions>
+            <TransitionCollection>
+                <EntranceThemeTransition IsStaggeringEnabled="True" 
+                                         FromHorizontalOffset="0" 
+                                         FromVerticalOffset="75"/>
+            </TransitionCollection>
+        </Grid.ChildrenTransitions>
+        <ListView Grid.Row="1" Margin="0,5"
+                  EntranceNavigationTransitionInfo.IsTargetElement="True"
+                  x:Name="EpisodesList"
+                  SelectionMode="None"
+                  IsItemClickEnabled="True"
+                  ItemTemplate="{StaticResource ListEpisodeTemplate}"
+                  ItemContainerStyleSelector="{StaticResource AlternatingColorListViewStyleSelector}"
+                  ItemsSource="{Binding Episodes}">
+            <Interactivity:Interaction.Behaviors>
+                <Core:EventTriggerBehavior EventName="ItemClick">
+                    <Core:CallMethodAction MethodName="PlayEpisode"
+                                           TargetObject="{Binding Mode=OneWay}"/>
+                </Core:EventTriggerBehavior>
+            </Interactivity:Interaction.Behaviors>
+            <ListView.Header>
+                <TextBlock Margin="5,0" x:Name="EpisodesListHeader" Text="Episodes" Style="{StaticResource HeaderTextBlockStyle}"/>
+            </ListView.Header>
+            <ListView.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <ItemsStackPanel AreStickyGroupHeadersEnabled="True">
+                        <ItemsStackPanel.ChildrenTransitions>
+                            <TransitionCollection>
+                                <EntranceThemeTransition IsStaggeringEnabled="True" FromVerticalOffset="75" FromHorizontalOffset="0"/>
+                            </TransitionCollection>
+                        </ItemsStackPanel.ChildrenTransitions>
+                    </ItemsStackPanel>
+                </ItemsPanelTemplate>
+            </ListView.ItemsPanel>
+        </ListView>
+        <GridView Grid.Row="1" Margin="0,5"
+                  x:Name="EpisodesGrid"
+                  SelectionMode="None"
+                  IsItemClickEnabled="True"
+                  ItemTemplate="{StaticResource GridEpisodeTemplate}"
+                  EntranceNavigationTransitionInfo.IsTargetElement="True"
+                  ItemsSource="{Binding Episodes}">
+            <Interactivity:Interaction.Behaviors>
+                <Core:EventTriggerBehavior EventName="ItemClick">
+                    <Core:CallMethodAction MethodName="PlayEpisode"
+                                           TargetObject="{Binding Mode=OneWay}"/>
+                </Core:EventTriggerBehavior>
+            </Interactivity:Interaction.Behaviors>
+            <GridView.Header>
+                <TextBlock Margin="5,0" x:Name="EpisodesGridHeader" Text="Episodes" Style="{StaticResource HeaderTextBlockStyle}"/>
+            </GridView.Header>
+            <GridView.ItemContainerStyle>
+                <Style TargetType="GridViewItem">
+                    <Setter Property="VerticalContentAlignment" Value="Top"/>
+                    <Setter Property="HorizontalContentAlignment" Value="Left"/>
+                    <Setter Property="CommonNavigationTransitionInfo.IsStaggerElement" Value="True"/>
+                </Style>
+            </GridView.ItemContainerStyle>
+            <GridView.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <ItemsWrapGrid Orientation="Horizontal" AreStickyGroupHeadersEnabled="True">
+                        <ItemsWrapGrid.ChildrenTransitions>
+                            <TransitionCollection>
+                                <EntranceThemeTransition IsStaggeringEnabled="True" FromVerticalOffset="75" FromHorizontalOffset="0"/>
+                                <ContentThemeTransition HorizontalOffset="0" VerticalOffset="75"/>
+                            </TransitionCollection>
+                        </ItemsWrapGrid.ChildrenTransitions>
+                    </ItemsWrapGrid>
+                </ItemsPanelTemplate>
+            </GridView.ItemsPanel>
+        </GridView>
     </Grid>
 </Page>
