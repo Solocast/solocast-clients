@@ -19,36 +19,37 @@
         </TransitionCollection>
     </Page.Transitions>
 
-    <RelativePanel Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-        <TextBlock x:Name="Title" 
-                   Margin="0,10,0,0"
-                   Text="{Binding Title}"
-                   Style="{StaticResource HeaderTextBlockStyle}"
-                   CommonNavigationTransitionInfo.IsStaggerElement="True"/>
-        <TextBlock x:Name="Author" Margin="10,0,0,0"
-                   Text="{Binding Author}"
-                   Style="{StaticResource SubheaderTextBlockStyle}"
-                   RelativePanel.Below="Title"
-                   RelativePanel.RightOf="Image"
-                   CommonNavigationTransitionInfo.IsStaggerElement="True"/>
-        <TextBlock x:Name="Subtitle" Margin="10,0,0,0"
-                   Text="{Binding Subtitle}"
-                   Style="{StaticResource SubheaderTextBlockStyle}"
-                   RelativePanel.Below="Author"
-                   RelativePanel.RightOf="Image"
-                   CommonNavigationTransitionInfo.IsStaggerElement="True"/>
-        <TextBlock x:Name="Description" Margin="10,0,0,0"
-                   Text="{Binding Description}"
-                   Style="{StaticResource BodyTextBlockStyle}"
-                   RelativePanel.Below="Subtitle"
-                   RelativePanel.RightOf="Image"
-                   CommonNavigationTransitionInfo.IsStaggerElement="True"/>
-        <Image x:Name="Image" 
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Image Grid.RowSpan="2"
                Source="{Binding ImageUrl}"
-               Width="320"
-               Height="320"
-               VerticalAlignment="Center"
-               RelativePanel.Below="Title"
-               CommonNavigationTransitionInfo.IsStaggerElement="True"/>
-    </RelativePanel>
+               Opacity="0.75"/>
+        <RelativePanel Grid.Row="1"
+                       VerticalAlignment="Bottom"
+                       Margin="21,9,3,9">
+            <TextBlock x:Name="Title" 
+                       Margin="0,10,0,0"
+                       Text="{Binding Title}"
+                       Style="{StaticResource HeaderTextBlockStyle}"
+                       CommonNavigationTransitionInfo.IsStaggerElement="True"/>
+            <TextBlock x:Name="Author" Margin="10,0,0,0"
+                       Text="{Binding Author}"
+                       Style="{StaticResource SubheaderTextBlockStyle}"
+                       RelativePanel.Below="Title"
+                       CommonNavigationTransitionInfo.IsStaggerElement="True"/>
+            <TextBlock x:Name="Subtitle" Margin="10,0,0,0"
+                       Text="{Binding Subtitle}"
+                       Style="{StaticResource SubheaderTextBlockStyle}"
+                       RelativePanel.Below="Author"
+                       CommonNavigationTransitionInfo.IsStaggerElement="True"/>
+            <!--<TextBlock x:Name="Description" Margin="10,0,0,0"
+                       Text="{Binding Description}"
+                       Style="{StaticResource BodyTextBlockStyle}"
+                       RelativePanel.Below="Subtitle"
+                       CommonNavigationTransitionInfo.IsStaggerElement="True"/>-->
+        </RelativePanel>
+    </Grid>
 </Page>
