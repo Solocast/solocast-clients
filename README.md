@@ -18,7 +18,7 @@ These features will be ticked off as I implement them in the app:
 [![Build status](https://ci.appveyor.com/api/projects/status/4cdjy9o9jijx49nq?svg=true)](https://ci.appveyor.com/project/robertiagar/podcasts-windowsuniversal)
 
 ## Issue Stats
-[![Stories in Done](https://badge.waffle.io/robertiagar/Podcasts-WindowsUniversal.svg?label=done&title=Done)](http://waffle.io/robertiagar/Podcasts-WindowsUniversal) 
+[![Stories in Ready](https://badge.waffle.io/Solocast/solocast-clients.svg?label=ready&title=Ready)](http://waffle.io/Solocast/solocast-clients)
 
-[![Stories in Progress](https://badge.waffle.io/robertiagar/Podcasts-WindowsUniversal.svg?label=in%20progress&title=In%20Progress)](http://waffle.io/robertiagar/Podcasts-WindowsUniversal)
+[![Stories in Progress](https://badge.waffle.io/Solocast/solocast-clients.svg?label=in%20progress&title=In%20Progress)](http://waffle.io/Solocast/solocast-clients)
 
