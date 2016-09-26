@@ -21,6 +21,3 @@ These features will be ticked off as I implement them in the app:
 [![Stories in Done](https://badge.waffle.io/robertiagar/Podcasts-WindowsUniversal.svg?label=done&title=Done)](http://waffle.io/robertiagar/Podcasts-WindowsUniversal) 
 
 [![Stories in Progress](https://badge.waffle.io/robertiagar/Podcasts-WindowsUniversal.svg?label=in%20progress&title=In%20Progress)](http://waffle.io/robertiagar/Podcasts-WindowsUniversal)
-
-## How-to
-This app is part of a how to series on my blog. You can find the first part [here](http://www.robertiagar.com/2015/07/08/recreating-the-windows-phone-podcasts-app-as-an-universal-windows-app-part-i/).
