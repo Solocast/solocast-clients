@@ -1,9 +1,6 @@
 # Podcasts-WindowsUniversal
 The long await rewrite of the Windows Podcasts App.
 
-[![Issue Stats](http://issuestats.com/github/robertiagar/Podcasts-WindowsUniversal/badge/pr?style=flat-square)](http://issuestats.com/github/robertiagar/Podcasts-WindowsUniversal)
-[![Issue Stats](http://issuestats.com/github/robertiagar/Podcasts-WindowsUniversal/badge/issue?style=flat-square)](http://issuestats.com/github/robertiagar/Podcasts-WindowsUniversal)
-
 ## Overview
 This application will be an entire rewrite of the exists Podcasts App in Windows 8.1. It will have most of the features that that one has, but it will be built for the Windows Universal Platform.
 
@@ -25,5 +22,3 @@ These features will be ticked off as I implement them in the app:
 
 [![Stories in Progress](https://badge.waffle.io/robertiagar/Podcasts-WindowsUniversal.svg?label=in%20progress&title=In%20Progress)](http://waffle.io/robertiagar/Podcasts-WindowsUniversal)
 
-## How-to
-This app is part of a how to series on my blog. You can find the first part [here](http://www.robertiagar.com/2015/07/08/recreating-the-windows-phone-podcasts-app-as-an-universal-windows-app-part-i/).
