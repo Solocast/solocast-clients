@@ -3,6 +3,7 @@ using Microsoft.VisualStudio.TestPlatform.UnitTestFramework;
 using Solocast.Services;
 using System.Diagnostics;
 using Solocast.Core.Contracts;
+using Solocast.DAL;
 using System.Collections.Generic;
 using System.Linq;
 using Windows.Storage;
