@@ -151,7 +151,7 @@ namespace Solocast.UWP.ViewModels
         {
             Title = episode.Title;
             Author = episode.Author;
-            ImageUrl = episode.ImageUrl;
+            ImageUrl = new Uri(episode.ImageUrl);
             Description = episode.Summary;
             Subtitle = episode.Subtitle;
 

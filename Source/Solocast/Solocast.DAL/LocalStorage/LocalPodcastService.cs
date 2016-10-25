@@ -30,6 +30,11 @@ namespace Solocast.DAL
             return entities ?? new List<Podcast>();
         }
 
+        public void Migrate()
+        {
+            // nothing
+        }
+
         public async Task SaveAsync(IEnumerable<Podcast> entities)
         {
             var items = JsonConvert.SerializeObject(entities);

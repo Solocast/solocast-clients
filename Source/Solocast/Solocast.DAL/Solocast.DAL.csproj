@@ -110,11 +110,19 @@
   </PropertyGroup>
   <ItemGroup>
     <!-- A reference to the entire .Net Framework and Windows SDK are automatically included -->
+    <None Include="app.config" />
     <None Include="project.json" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="LocalStorage\LocalPodcastService.cs" />
+    <Compile Include="Migrations\20161024221252_InitialMigration.cs" />
+    <Compile Include="Migrations\20161024221252_InitialMigration.designer.cs">
+      <DependentUpon>20161024221252_InitialMigration.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\PodcastsContextModelSnapshot.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SQLite\PodcastContext.cs" />
+    <Compile Include="SQLite\SQLitePodcastService.cs" />
     <Content Include="Properties\RobertIagar.Podcasts.DAL.rd.xml" />
   </ItemGroup>
   <ItemGroup>

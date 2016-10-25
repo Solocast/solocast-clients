@@ -143,7 +143,7 @@ namespace Solocast.BackgroundTasks
         private void UpdateSystemControls(Episode episode)
         {
             smtc.PlaybackStatus = MediaPlaybackStatus.Playing;
-            smtc.DisplayUpdater.Thumbnail = RandomAccessStreamReference.CreateFromUri(episode.ImageUrl);
+            smtc.DisplayUpdater.Thumbnail = RandomAccessStreamReference.CreateFromUri(new Uri(episode.ImageUrl));
             smtc.DisplayUpdater.Type = MediaPlaybackType.Music;
             smtc.DisplayUpdater.MusicProperties.Artist = episode.Author;
             smtc.DisplayUpdater.MusicProperties.Title = episode.Title;

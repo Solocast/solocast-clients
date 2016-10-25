@@ -48,6 +48,30 @@ namespace Solocast.Tests
         }
 
         [TestMethod]
+        public void TestSQLiteStorage()
+        {
+            var sqliteStorage = new SQLitePodcastService();
+            sqliteStorage.Migrate();
+            var feedParser = new FeedParserService();
+            var podcastService = new PodcastService(feedParser, sqliteStorage, null);
+
+            var podcasts = new List<Podcast>();
+            var podcast = podcastService.GetPodcastAsync("http://monstercat.com/podcast/feed.xml").Result;
+            podcasts.Add(podcast);
+
+            podcastService.SavePodcastAsync(podcast).Wait();
+            podcastService.SavePodcastsAsync(podcasts).Wait();
+
+            var podcastsFromStorage = podcastService.GetPodcastsAsync().Result.ToList();
+            Assert.AreEqual(podcasts.Count, podcastsFromStorage.Count);
+
+            for (int i = 0; i < podcasts.Count; i++)
+            {
+                Assert.AreEqual(true, podcasts[i].Equals(podcastsFromStorage[i]));
+            }
+        }
+
+        [TestMethod]
         public void TestDownload()
         {
             var localStorage = new LocalPodcastService("podcasts.json");

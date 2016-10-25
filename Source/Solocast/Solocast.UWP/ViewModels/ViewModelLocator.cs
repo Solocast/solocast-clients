@@ -30,7 +30,8 @@ namespace Solocast.UWP.ViewModels
             SimpleIoc.Default.Register<IBackgroundMediaPlayerMediator, BackgroundMediaPlayerMediator>();
             SimpleIoc.Default.Register<ILocalStorageService<Podcast>>(() =>
             {
-                return new LocalPodcastService("podcasts.json");
+                //return new LocalPodcastService("podcasts.json");
+                return new SQLitePodcastService();
             });
             SimpleIoc.Default.Register<IPlayService>(() =>
             {
