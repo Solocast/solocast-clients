@@ -29,10 +29,10 @@ namespace Solocast.DAL
 
             using (var db = new PodcastsContext())
             {
-                entities = db.Podcasts.Include(x=>x.Episodes).ToList();
+                entities = await db.Podcasts.Include(x => x.Episodes).ToListAsync();
             }
 
-            return await Task.FromResult(entities ?? new List<Podcast>());
+            return entities ?? new List<Podcast>();
         }
 
         public async Task SaveAsync(IEnumerable<Podcast> entities)
