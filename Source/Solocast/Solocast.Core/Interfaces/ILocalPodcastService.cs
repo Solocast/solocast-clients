@@ -9,6 +9,7 @@ namespace Solocast.Core.Interfaces
 {
     public interface ILocalStorageService<T>
     {
+        void Migrate();
         Task SaveAsync(T entity);
         Task SaveAsync(IEnumerable<T> entities);
         Task<IList<T>> LoadAsync();

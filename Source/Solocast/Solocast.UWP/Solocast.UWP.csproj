@@ -94,6 +94,9 @@
   </PropertyGroup>
   <ItemGroup>
     <!-- A reference to the entire .Net Framework and Windows SDK are automatically included -->
+    <None Include="app.config">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="project.json" />
   </ItemGroup>
   <ItemGroup>
@@ -220,6 +223,10 @@
     <ProjectReference Include="..\Solocast.Core\Solocast.Core.csproj">
       <Project>{77332e38-3252-4595-bb9e-8ae06b679e80}</Project>
       <Name>Solocast.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Solocast.DAL\Solocast.DAL.csproj">
+      <Project>{4797d347-b1fc-4925-82a7-f90b46b22efa}</Project>
+      <Name>Solocast.DAL</Name>
     </ProjectReference>
     <ProjectReference Include="..\Solocast.Services\Solocast.Services.csproj">
       <Project>{febeb45e-96a0-4c03-ba66-858010122fb2}</Project>

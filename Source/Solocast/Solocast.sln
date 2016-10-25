@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.24720.0
+VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Solocast.Core", "Solocast.Core\Solocast.Core.csproj", "{77332E38-3252-4595-BB9E-8AE06B679E80}"
 EndProject
@@ -12,6 +12,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Solocast.Tests", "Solocast.Tests\Solocast.Tests.csproj", "{59171DB4-D228-4314-B0EC-3F12CBA4F681}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Solocast.UWP", "Solocast.UWP\Solocast.UWP.csproj", "{30F0ABA4-A165-4A77-9544-381352CA3DE3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Solocast.DAL", "Solocast.DAL\Solocast.DAL.csproj", "{4797D347-B1FC-4925-82A7-F90B46B22EFA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -113,6 +115,22 @@ Global
 		{30F0ABA4-A165-4A77-9544-381352CA3DE3}.Release|x86.ActiveCfg = Release|x86
 		{30F0ABA4-A165-4A77-9544-381352CA3DE3}.Release|x86.Build.0 = Release|x86
 		{30F0ABA4-A165-4A77-9544-381352CA3DE3}.Release|x86.Deploy.0 = Release|x86
+		{4797D347-B1FC-4925-82A7-F90B46B22EFA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4797D347-B1FC-4925-82A7-F90B46B22EFA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4797D347-B1FC-4925-82A7-F90B46B22EFA}.Debug|ARM.ActiveCfg = Debug|ARM
+		{4797D347-B1FC-4925-82A7-F90B46B22EFA}.Debug|ARM.Build.0 = Debug|ARM
+		{4797D347-B1FC-4925-82A7-F90B46B22EFA}.Debug|x64.ActiveCfg = Debug|x64
+		{4797D347-B1FC-4925-82A7-F90B46B22EFA}.Debug|x64.Build.0 = Debug|x64
+		{4797D347-B1FC-4925-82A7-F90B46B22EFA}.Debug|x86.ActiveCfg = Debug|x86
+		{4797D347-B1FC-4925-82A7-F90B46B22EFA}.Debug|x86.Build.0 = Debug|x86
+		{4797D347-B1FC-4925-82A7-F90B46B22EFA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4797D347-B1FC-4925-82A7-F90B46B22EFA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4797D347-B1FC-4925-82A7-F90B46B22EFA}.Release|ARM.ActiveCfg = Release|ARM
+		{4797D347-B1FC-4925-82A7-F90B46B22EFA}.Release|ARM.Build.0 = Release|ARM
+		{4797D347-B1FC-4925-82A7-F90B46B22EFA}.Release|x64.ActiveCfg = Release|x64
+		{4797D347-B1FC-4925-82A7-F90B46B22EFA}.Release|x64.Build.0 = Release|x64
+		{4797D347-B1FC-4925-82A7-F90B46B22EFA}.Release|x86.ActiveCfg = Release|x86
+		{4797D347-B1FC-4925-82A7-F90B46B22EFA}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

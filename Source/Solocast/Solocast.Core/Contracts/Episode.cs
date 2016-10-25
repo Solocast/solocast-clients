@@ -1,10 +1,13 @@
 ﻿using Newtonsoft.Json;
 using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace Solocast.Core.Contracts
 {
     public class Episode :  IEquatable<Episode>
     {
+        public int EpisodeId { get; set; }
+
         public string Title { get; set; }
         public string Subtitle { get; set; }
         public string Path { get; set; }
@@ -13,11 +16,12 @@ namespace Solocast.Core.Contracts
         public string Summary { get; set; }
         public string Guid { get; set; }
         public DateTime Published { get; set; }
-        public Uri ImageUrl { get; set; }
+        public string ImageUrl { get; set; }
         public bool IsLocal { get { return WebPath != Path; } }
 
         [JsonIgnore]
         public virtual Podcast Podcast { get; set; }
+        public int PodcastId { get; set; }
 
         public Episode(string title,
             string subtitle,
@@ -34,8 +38,9 @@ namespace Solocast.Core.Contracts
             this.Author = author;
             this.Summary = summary;
             this.Published = published.ToDateTime();
-            this.ImageUrl = new Uri(imageUrl);
+            this.ImageUrl = imageUrl;
             this.Guid = guid;
+            this.EpisodeId = 0;
         }
 
         [Obsolete]

@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Windows.Storage;
 
-namespace Solocast.Services
+namespace Solocast.DAL
 {
     public class LocalPodcastService : ILocalStorageService<Podcast>
     {
@@ -28,6 +28,11 @@ namespace Solocast.Services
 
             var entities = JsonConvert.DeserializeObject<IList<Podcast>>(items);
             return entities ?? new List<Podcast>();
+        }
+
+        public void Migrate()
+        {
+            // nothing
         }
 
         public async Task SaveAsync(IEnumerable<Podcast> entities)

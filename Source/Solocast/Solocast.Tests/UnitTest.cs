@@ -3,6 +3,7 @@ using Microsoft.VisualStudio.TestPlatform.UnitTestFramework;
 using Solocast.Services;
 using System.Diagnostics;
 using Solocast.Core.Contracts;
+using Solocast.DAL;
 using System.Collections.Generic;
 using System.Linq;
 using Windows.Storage;
@@ -35,6 +36,30 @@ namespace Solocast.Tests
             var podcast = podcastService.GetPodcastAsync("http://monstercat.com/podcast/feed.xml").Result;
             podcasts.Add(podcast);
 
+            podcastService.SavePodcastsAsync(podcasts).Wait();
+
+            var podcastsFromStorage = podcastService.GetPodcastsAsync().Result.ToList();
+            Assert.AreEqual(podcasts.Count, podcastsFromStorage.Count);
+
+            for (int i = 0; i < podcasts.Count; i++)
+            {
+                Assert.AreEqual(true, podcasts[i].Equals(podcastsFromStorage[i]));
+            }
+        }
+
+        [TestMethod]
+        public void TestSQLiteStorage()
+        {
+            var sqliteStorage = new SQLitePodcastService();
+            sqliteStorage.Migrate();
+            var feedParser = new FeedParserService();
+            var podcastService = new PodcastService(feedParser, sqliteStorage, null);
+
+            var podcasts = new List<Podcast>();
+            var podcast = podcastService.GetPodcastAsync("http://monstercat.com/podcast/feed.xml").Result;
+            podcasts.Add(podcast);
+
+            podcastService.SavePodcastAsync(podcast).Wait();
             podcastService.SavePodcastsAsync(podcasts).Wait();
 
             var podcastsFromStorage = podcastService.GetPodcastsAsync().Result.ToList();

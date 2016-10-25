@@ -4,6 +4,7 @@ using GalaSoft.MvvmLight.Views;
 using Microsoft.Practices.ServiceLocation;
 using Solocast.Core.Contracts;
 using Solocast.Core.Interfaces;
+using Solocast.DAL;
 using Solocast.Services;
 using Solocast.UWP.Infrastructure.Services;
 using Solocast.UWP.Views;
@@ -29,7 +30,8 @@ namespace Solocast.UWP.ViewModels
             SimpleIoc.Default.Register<IBackgroundMediaPlayerMediator, BackgroundMediaPlayerMediator>();
             SimpleIoc.Default.Register<ILocalStorageService<Podcast>>(() =>
             {
-                return new LocalPodcastService("podcasts.json");
+                //return new LocalPodcastService("podcasts.json");
+                return new SQLitePodcastService();
             });
             SimpleIoc.Default.Register<IPlayService>(() =>
             {

@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{FEBEB45E-96A0-4C03-BA66-858010122FB2}</ProjectGuid>
+    <ProjectGuid>{4797D347-B1FC-4925-82A7-F90B46B22EFA}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Solocast.Services</RootNamespace>
-    <AssemblyName>Solocast.Services</AssemblyName>
+    <RootNamespace>Solocast.DAL</RootNamespace>
+    <AssemblyName>Solocast.DAL</AssemblyName>
     <DefaultLanguage>en-US</DefaultLanguage>
     <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>
     <TargetPlatformVersion>10.0.10240.0</TargetPlatformVersion>
@@ -110,18 +110,20 @@
   </PropertyGroup>
   <ItemGroup>
     <!-- A reference to the entire .Net Framework and Windows SDK are automatically included -->
+    <None Include="app.config" />
     <None Include="project.json" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BackgroundMediaPlayerMediator.cs" />
-    <Compile Include="Extensions\StringExtensions.cs" />
-    <Compile Include="Extensions\ValueSetExtensions.cs" />
-    <Compile Include="FeedParserService.cs" />
-    <Compile Include="FileDownloadService.cs" />
-    <Compile Include="PodcastService.cs" />
+    <Compile Include="LocalStorage\LocalPodcastService.cs" />
+    <Compile Include="Migrations\20161024221252_InitialMigration.cs" />
+    <Compile Include="Migrations\20161024221252_InitialMigration.designer.cs">
+      <DependentUpon>20161024221252_InitialMigration.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\PodcastsContextModelSnapshot.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="XmlFeedParserService.cs" />
-    <Content Include="Properties\RobertIagar.Podcasts.Services.rd.xml" />
+    <Compile Include="SQLite\PodcastContext.cs" />
+    <Compile Include="SQLite\SQLitePodcastService.cs" />
+    <Content Include="Properties\RobertIagar.Podcasts.DAL.rd.xml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Solocast.Core\Solocast.Core.csproj">
@@ -129,6 +131,7 @@
       <Name>Solocast.Core</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
   </PropertyGroup>

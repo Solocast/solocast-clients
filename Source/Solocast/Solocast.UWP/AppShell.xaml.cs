@@ -17,6 +17,8 @@ using GalaSoft.MvvmLight.Ioc;
 using Solocast.UWP.Infrastructure.Services;
 using Solocast.UWP.ViewModels;
 using Solocast.Core.Interfaces;
+using Microsoft.Practices.ServiceLocation;
+using Solocast.Core.Contracts;
 
 namespace Solocast.UWP
 {
@@ -60,6 +62,8 @@ namespace Solocast.UWP
         public AppShell()
         {
             this.InitializeComponent();
+
+            ServiceLocator.Current.GetInstance<ILocalStorageService<Podcast>>().Migrate();
 
             this.Loaded += (sender, args) =>
             {
