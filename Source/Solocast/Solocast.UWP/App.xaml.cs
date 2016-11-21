@@ -117,7 +117,7 @@ namespace Solocast.UWP
             var deferral = e.SuspendingOperation.GetDeferral();
             //TODO: Save application state and stop any background activity
             var podcastsVm = ServiceLocator.Current.GetInstance<PodcastsViewModel>();
-            var podcastsService = ServiceLocator.Current.GetInstance<ILocalStorageService<Podcast>>();
+            var podcastsService = ServiceLocator.Current.GetInstance<IPodcastStore<Podcast>>();
 
             await podcastsService.SaveAsync(podcastsVm.Podcasts.Select(p => p.Podcast));
 

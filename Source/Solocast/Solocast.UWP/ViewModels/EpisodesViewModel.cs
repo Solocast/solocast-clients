@@ -8,6 +8,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Windows.UI.Xaml.Controls;
 
 namespace Solocast.UWP.ViewModels
 {
@@ -21,10 +22,10 @@ namespace Solocast.UWP.ViewModels
             this.podcastService = podcastService;
             this.episodes = new ObservableCollection<EpisodeViewModel>();
 
-            MessengerInstance.Register<LoadEpisodesMessage>(this, async message => await LoadEpisodeAsync());
+            MessengerInstance.Register<LoadEpisodesMessage>(this, message => LoadEpisodeAsync());
         }
 
-        private async Task LoadEpisodeAsync()
+        private async void LoadEpisodeAsync()
         {
             episodes.Clear();
             var tempEpisodes = new List<EpisodeViewModel>();
@@ -42,5 +43,12 @@ namespace Solocast.UWP.ViewModels
         }
 
         public IList<EpisodeViewModel> Episodes => episodes;
+
+		public void PlayEpisode(object sender, ItemClickEventArgs parameters)
+		{
+			var episodeVm = parameters.ClickedItem as EpisodeViewModel;
+
+			MessengerInstance.Send(new PlayEpisodeMessage(episodeVm.Episode));
+		}
     }
 }

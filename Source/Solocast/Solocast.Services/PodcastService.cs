@@ -14,10 +14,10 @@ namespace Solocast.Services
     public class PodcastService : IPodcastService
     {
         private IFeedParaseService feedParser;
-        private ILocalStorageService<Podcast> storageService;
+        private IPodcastStore<Podcast> storageService;
         private IFileDownloadService fileDownloadManager;
 
-        public PodcastService(IFeedParaseService feedParser, ILocalStorageService<Podcast> storageService, IFileDownloadService fileDownloadManager)
+        public PodcastService(IFeedParaseService feedParser, IPodcastStore<Podcast> storageService, IFileDownloadService fileDownloadManager)
         {
             this.feedParser = feedParser;
             this.storageService = storageService;

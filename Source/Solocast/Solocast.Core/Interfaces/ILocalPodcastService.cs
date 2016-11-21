@@ -7,9 +7,8 @@ using System.Threading.Tasks;
 
 namespace Solocast.Core.Interfaces
 {
-    public interface ILocalStorageService<T>
+    public interface IPodcastStore<T>
     {
-        void Migrate();
         Task SaveAsync(T entity);
         Task SaveAsync(IEnumerable<T> entities);
         Task<IList<T>> LoadAsync();

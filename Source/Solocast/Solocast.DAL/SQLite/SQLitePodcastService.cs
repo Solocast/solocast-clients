@@ -13,7 +13,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Solocast.DAL
 {
-    public class SQLitePodcastService : ILocalStorageService<Podcast>
+    public class SQLitePodcastService : IPodcastStore<Podcast>, IDatabaseMigrator
     {
         public void Migrate()
         {

@@ -122,23 +122,19 @@ namespace Solocast.UWP.ViewModels
         {
             switch (playService.CurrentState)
             {
-                case Windows.Media.Playback.MediaPlayerState.Closed:
+                case Windows.Media.Playback.MediaPlaybackState.Opening:
                     break;
-                case Windows.Media.Playback.MediaPlayerState.Opening:
+                case Windows.Media.Playback.MediaPlaybackState.Buffering:
                     break;
-                case Windows.Media.Playback.MediaPlayerState.Buffering:
-                    break;
-                case Windows.Media.Playback.MediaPlayerState.Playing:
+                case Windows.Media.Playback.MediaPlaybackState.Playing:
                     PlayPauseIcon = new SymbolIcon(Symbol.Pause);
                     PlayPauseLabel = "Pause";
                     canPlayPause = true;
                     break;
-                case Windows.Media.Playback.MediaPlayerState.Paused:
+                case Windows.Media.Playback.MediaPlaybackState.Paused:
                     PlayPauseIcon = new SymbolIcon(Symbol.Play);
                     PlayPauseLabel = "Resume";
                     canPlayPause = true;
-                    break;
-                case Windows.Media.Playback.MediaPlayerState.Stopped:
                     break;
                 default:
                     break;
@@ -168,19 +164,15 @@ namespace Solocast.UWP.ViewModels
         {
             switch (playService.CurrentState)
             {
-                case Windows.Media.Playback.MediaPlayerState.Closed:
+                case Windows.Media.Playback.MediaPlaybackState.Opening:
                     break;
-                case Windows.Media.Playback.MediaPlayerState.Opening:
+                case Windows.Media.Playback.MediaPlaybackState.Buffering:
                     break;
-                case Windows.Media.Playback.MediaPlayerState.Buffering:
-                    break;
-                case Windows.Media.Playback.MediaPlayerState.Playing:
+                case Windows.Media.Playback.MediaPlaybackState.Playing:
                     playService.Pause();
                     break;
-                case Windows.Media.Playback.MediaPlayerState.Paused:
+                case Windows.Media.Playback.MediaPlaybackState.Paused:
                     playService.Resume();
-                    break;
-                case Windows.Media.Playback.MediaPlayerState.Stopped:
                     break;
                 default:
                     break;
@@ -199,9 +191,10 @@ namespace Solocast.UWP.ViewModels
 
         private void Next()
         {
-            throw new NotImplementedException();
+            //throw new NotImplementedException();
         }
 
+		//TODO: fix this ^ and this
         private bool CanNext()
         {
             try
@@ -213,7 +206,7 @@ namespace Solocast.UWP.ViewModels
                 return false;
             }
 
-            return true;
+            return false;
         }
     }
 }
