@@ -16,60 +16,54 @@ using System.Threading.Tasks;
 
 namespace Solocast.UWP.ViewModels
 {
-    public class ViewModelLocator
-    {
-        public ViewModelLocator()
-        {
-            ServiceLocator.SetLocatorProvider(() => SimpleIoc.Default);
+	public class ViewModelLocator
+	{
+		public ViewModelLocator()
+		{
+			ServiceLocator.SetLocatorProvider(() => SimpleIoc.Default);
 
-            //services
-            SimpleIoc.Default.Register<IPodcastService, PodcastService>();
-            SimpleIoc.Default.Register<IFileDownloadService, FileDownloadService>();
-            SimpleIoc.Default.Register<IFeedParaseService, XmlFeedParserService>();
-            SimpleIoc.Default.Register<IMessageDialogService, MessageDialogService>();
-            SimpleIoc.Default.Register<IBackgroundMediaPlayerMediator, BackgroundMediaPlayerMediator>();
-            SimpleIoc.Default.Register<ILocalStorageService<Podcast>>(() =>
-            {
-                //return new LocalPodcastService("podcasts.json");
-                return new SQLitePodcastService();
-            });
-            SimpleIoc.Default.Register<IPlayService>(() =>
-            {
-                return new PlayService(SimpleIoc.Default.GetInstance<IBackgroundMediaPlayerMediator>());
-            });
+			//services
+			SimpleIoc.Default.Register<IPodcastService, PodcastService>();
+			SimpleIoc.Default.Register<IFileDownloadService, FileDownloadService>();
+			SimpleIoc.Default.Register<IFeedParaseService, XmlFeedParserService>();
+			SimpleIoc.Default.Register<IMessageDialogService, MessageDialogService>();
+			SimpleIoc.Default.Register<IBackgroundMediaPlayerMediator, BackgroundMediaPlayerMediator>();
+			SimpleIoc.Default.Register<IPodcastStore<Podcast>>(() => new SQLitePodcastService());
+			SimpleIoc.Default.Register<IDatabaseMigrator>(() => new SQLitePodcastService());
+			SimpleIoc.Default.Register<IPlayService,PlayService>();
 
-            //navigation service
-            SimpleIoc.Default.Register<INavigationService>(() =>
-            {
-                var navigationService = new AppShellNavigationService();
-                //TODO: add more pages
-                navigationService.Configure(nameof(PodcastsViewModel), typeof(PodcastsPage));
-                navigationService.Configure(nameof(PodcastDetailsViewModel), typeof(PodcastDetailsPage));
-                return navigationService;
-            });
+			//navigation service
+			SimpleIoc.Default.Register<INavigationService>(() =>
+			{
+				var navigationService = new AppShellNavigationService();
+				//TODO: add more pages
+				navigationService.Configure(nameof(PodcastsViewModel), typeof(PodcastsPage));
+				navigationService.Configure(nameof(PodcastDetailsViewModel), typeof(PodcastDetailsPage));
+				return navigationService;
+			});
 
-            //view models
-            SimpleIoc.Default.Register<NowPlayingViewModel>(true);
-            SimpleIoc.Default.Register<PodcastsViewModel>();
-            SimpleIoc.Default.Register<PodcastDetailsViewModel>();
-            SimpleIoc.Default.Register<EpisodesViewModel>();
-        }
+			//view models
+			SimpleIoc.Default.Register<NowPlayingViewModel>(true);
+			SimpleIoc.Default.Register<PodcastsViewModel>();
+			SimpleIoc.Default.Register<PodcastDetailsViewModel>();
+			SimpleIoc.Default.Register<EpisodesViewModel>();
+		}
 
-        public PodcastsViewModel Podcasts
-        {
-            get { return ServiceLocator.Current.GetInstance<PodcastsViewModel>(); }
-        }
+		public PodcastsViewModel Podcasts
+		{
+			get { return ServiceLocator.Current.GetInstance<PodcastsViewModel>(); }
+		}
 
-        public PodcastDetailsViewModel PodcastDetails
-        {
-            get { return ServiceLocator.Current.GetInstance<PodcastDetailsViewModel>(); }
-        }
+		public PodcastDetailsViewModel PodcastDetails
+		{
+			get { return ServiceLocator.Current.GetInstance<PodcastDetailsViewModel>(); }
+		}
 
-        public static NowPlayingViewModel NowPlaying
-        {
-            get { return ServiceLocator.Current.GetInstance<NowPlayingViewModel>(); }
-        }
+		public static NowPlayingViewModel NowPlaying
+		{
+			get { return ServiceLocator.Current.GetInstance<NowPlayingViewModel>(); }
+		}
 
-        public EpisodesViewModel Episodes => SimpleIoc.Default.GetInstance<EpisodesViewModel>();
-    }
+		public EpisodesViewModel Episodes => SimpleIoc.Default.GetInstance<EpisodesViewModel>();
+	}
 }

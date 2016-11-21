@@ -63,7 +63,7 @@ namespace Solocast.UWP
         {
             this.InitializeComponent();
 
-            ServiceLocator.Current.GetInstance<ILocalStorageService<Podcast>>().Migrate();
+            ServiceLocator.Current.GetInstance<IDatabaseMigrator>().Migrate();
 
             this.Loaded += (sender, args) =>
             {

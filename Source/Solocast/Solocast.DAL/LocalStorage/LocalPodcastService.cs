@@ -10,7 +10,7 @@ using Windows.Storage;
 
 namespace Solocast.DAL
 {
-    public class LocalPodcastService : ILocalStorageService<Podcast>
+    public class LocalPodcastService : IPodcastStore<Podcast>
     {
         private string filename;
         private IStorageFolder localFolder;
@@ -28,11 +28,6 @@ namespace Solocast.DAL
 
             var entities = JsonConvert.DeserializeObject<IList<Podcast>>(items);
             return entities ?? new List<Podcast>();
-        }
-
-        public void Migrate()
-        {
-            // nothing
         }
 
         public async Task SaveAsync(IEnumerable<Podcast> entities)

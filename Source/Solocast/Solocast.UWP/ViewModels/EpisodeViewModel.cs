@@ -30,7 +30,7 @@ namespace Solocast.UWP.ViewModels
         {
             this.fileDownloadService = ServiceLocator.Current.GetInstance<IFileDownloadService>();
             this.messageDialogService = ServiceLocator.Current.GetInstance<IMessageDialogService>();
-            this.DownloadCommand = new RelayCommand(async () => await DownloadEpisodeAsync(), CanDownloadEpisode);
+            this.DownloadCommand = new RelayCommand(() => DownloadEpisodeAsync(), CanDownloadEpisode);
 
             this.PlayCommand = new RelayCommand(PlayEpisode, CanPlayEpisode);
             this.Episode = episode;
@@ -62,7 +62,7 @@ namespace Solocast.UWP.ViewModels
         public ICommand PlayCommand { get; }
         public ICommand DeleteCommand { get; }
 
-        private async Task DownloadEpisodeAsync()
+        private async void DownloadEpisodeAsync()
         {
             var file = await fileDownloadService.DownloadFileAsync(
                 "Solocast",

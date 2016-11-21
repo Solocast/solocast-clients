@@ -10,6 +10,7 @@ using Solocast.UWP.Models;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
@@ -34,12 +35,12 @@ namespace Solocast.UWP.ViewModels
             this.navigationService = navigationService;
             this.dialogService = dialogService;
             this.podcasts = new ObservableCollection<PodcastViewModel>();
-            this.AddPodcastCommand = new RelayCommand(async () => await this.AddPodcastAsync(), () => this.CanAddPodcast());
+            this.AddPodcastCommand = new RelayCommand(AddPodcastAsync,CanAddPodcast);
             this.loadedPodcasts = false;
 
-            MessengerInstance.Register<LoadPodcastsMessage>(this, async message => await LoadPodcastsAsync());
-            MessengerInstance.Register<DeletePodcastMessage>(this, async message => await DeletePodcastAsync(message));
-            MessengerInstance.Register<CheckForNewEpsiodesMessage>(this, async message => await CheckForNewEpisodesAsync());
+            MessengerInstance.Register<LoadPodcastsMessage>(this, message => LoadPodcastsAsync());
+            MessengerInstance.Register<DeletePodcastMessage>(this, message => DeletePodcastAsync(message));
+            MessengerInstance.Register<CheckForNewEpsiodesMessage>(this, message => CheckForNewEpisodesAsync());
         }
 
         public IList<PodcastViewModel> Podcasts { get { return podcasts; } }
@@ -57,7 +58,7 @@ namespace Solocast.UWP.ViewModels
         public ICommand AddPodcastCommand { get; private set; }
 
 
-        public async Task AddPodcastAsync()
+        public async void AddPodcastAsync()
         {
             try
             {
@@ -87,7 +88,7 @@ namespace Solocast.UWP.ViewModels
 
                 if ((int)result.Id == 0)
                 {
-                    await AddPodcastAsync();
+                    AddPodcastAsync();
                 }
                 else
                 {
@@ -102,17 +103,19 @@ namespace Solocast.UWP.ViewModels
             return result;
         }
 
-        private async Task LoadPodcastsAsync()
+        private async void LoadPodcastsAsync()
         {
+			Debug.WriteLine("Loading podcasts...");
             if (!loadedPodcasts)
             {
                 var podcasts = await podcastService.GetPodcastsAsync();
                 podcasts.ForEach(p => this.podcasts.Add(new PodcastViewModel(p)));
                 loadedPodcasts = true;
             }
-        }
+			Debug.WriteLine("Loaded podcasts");
+		}
 
-        private async Task DeletePodcastAsync(DeletePodcastMessage message)
+		private async void DeletePodcastAsync(DeletePodcastMessage message)
         {
             var podcastVm = message.PodcastViewModel;
             var podcast = podcastVm.Podcast;
@@ -128,10 +131,12 @@ namespace Solocast.UWP.ViewModels
             }
         }
 
-        private async Task CheckForNewEpisodesAsync()
+        private async void CheckForNewEpisodesAsync()
         {
-            foreach (var podcast in podcasts)
+			Debug.WriteLine("Checking for epiodes...");
+			foreach (var podcast in podcasts)
             {
+				Debug.WriteLine($"Checking episodes for {podcast.Podcast.Title}");
                 try
                 {
                     var newEpisodes = await podcastService.GetNewEpisodesAsync(podcast.Podcast);
@@ -147,6 +152,7 @@ namespace Solocast.UWP.ViewModels
                     //would be a nice idea to log this
                 }
             }
+			Debug.WriteLine("Check for episodes done...");
         }
 
 

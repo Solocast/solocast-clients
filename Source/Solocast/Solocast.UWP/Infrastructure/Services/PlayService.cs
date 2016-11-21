@@ -11,6 +11,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Windows.Media;
+using Windows.Media.Core;
 using Windows.Media.Playback;
 using Windows.Storage;
 using Windows.Storage.Streams;
@@ -19,67 +20,78 @@ using Windows.UI.Xaml.Media;
 
 namespace Solocast.UWP.Infrastructure.Services
 {
-    public interface IPlayService
-    {
-        Task PlayEpisodeAsync(Episode episode);
-        void Pause();
-        void Stop();
-        void Resume();
-        void GoToTime(int seconds);
+	public interface IPlayService
+	{
+		Task PlayEpisodeAsync(Episode episode);
+		void Pause();
+		void Stop();
+		void Resume();
+		void GoToTime(int seconds);
 
-        int Position { get; }
-        int TotalSeconds { get; }
-        MediaPlayerState CurrentState { get; }
-    }
+		int Position { get; }
+		int TotalSeconds { get; }
+		MediaPlaybackState CurrentState { get; }
+	}
 
-    public class PlayService : IPlayService
-    {
-        private IBackgroundMediaPlayerMediator mediator;
+	public class PlayService : IPlayService
+	{
+		private MediaPlayer mediaPlayer;
 
-        public PlayService(IBackgroundMediaPlayerMediator mediator)
-        {
-            this.mediator = mediator;
-            Messenger.Default.Register<PlayEpisodeMessage>(this, async message => await PlayEpisodeAsync(message.Episode));
-        }
+		public PlayService()
+		{
+			mediaPlayer = new MediaPlayer();
+			Messenger.Default.Register<PlayEpisodeMessage>(this, async message => await PlayEpisodeAsync(message.Episode));
+		}
 
-        public void Pause()
-        {
-            mediator.Pause();
-        }
+		public void Pause()
+		{
+			mediaPlayer.Pause();
+		}
 
-        public async Task PlayEpisodeAsync(Episode episode)
-        {
-            await mediator.SendMessageToBackgroundAsync(episode);
-        }
+		public async Task PlayEpisodeAsync(Episode episode)
+		{
+			if (episode.IsLocal)
+			{
+				var file = await StorageFile.GetFileFromPathAsync(episode.Path);
+				mediaPlayer.Source = MediaSource.CreateFromStorageFile(file);
+			}
+			else
+			{
+				mediaPlayer.Source = MediaSource.CreateFromUri(new Uri(episode.Path));
+			}
 
-        public void Stop()
-        {
-            mediator.Stop();
-        }
+			mediaPlayer.Play();
+		}
 
-        public void Resume()
-        {
-            mediator.Resume();
-        }
+		public void Stop()
+		{
+			mediaPlayer.Pause();
+			mediaPlayer.PlaybackSession.Position = TimeSpan.FromSeconds(0);
+		}
 
-        public void GoToTime(int seconds)
-        {
-            mediator.Position = TimeSpan.FromSeconds(seconds);
-        }
+		public void Resume()
+		{
+			mediaPlayer.Play();
+		}
 
-        public int Position
-        {
-            get { return (int)mediator.Position.TotalSeconds; }
-        }
+		public void GoToTime(int seconds)
+		{
+			mediaPlayer.PlaybackSession.Position = TimeSpan.FromSeconds(seconds);
+		}
 
-        public int TotalSeconds
-        {
-            get { return (int)mediator.TotalTime.TotalSeconds; }
-        }
+		public int Position
+		{
+			get { return (int)mediaPlayer.PlaybackSession.Position.TotalSeconds; }
+		}
 
-        public MediaPlayerState CurrentState
-        {
-            get { return mediator.CurrentState; }
-        }
-    }
+		public int TotalSeconds
+		{
+			get { return (int)mediaPlayer.PlaybackSession.NaturalDuration.TotalSeconds; }
+		}
+
+		public MediaPlaybackState CurrentState
+		{
+			get { return mediaPlayer.PlaybackSession.PlaybackState; }
+		}
+	}
 }
