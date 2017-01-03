@@ -8,9 +8,9 @@ using System.Text;
 using System.Threading.Tasks;
 using Windows.Storage;
 
-namespace Solocast.Services
+namespace Solocast.DAL
 {
-    public class LocalPodcastService : ILocalStorageService<Podcast>
+    public class LocalPodcastService : IPodcastStore<Podcast>
     {
         private string filename;
         private IStorageFolder localFolder;

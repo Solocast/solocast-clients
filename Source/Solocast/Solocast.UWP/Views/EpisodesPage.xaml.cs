@@ -1,5 +1,6 @@
 ﻿using GalaSoft.MvvmLight.Messaging;
 using Solocast.UWP.Infrastructure.Messages;
+using Solocast.UWP.ViewModels;
 using System;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
@@ -20,5 +21,5 @@ namespace Solocast.UWP.Views
         {
             Messenger.Default.Send(new LoadEpisodesMessage());
         }
-    }
+	}
 }

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Solocast.Core.Interfaces
 {
-    public interface ILocalStorageService<T>
+    public interface IPodcastStore<T>
     {
         Task SaveAsync(T entity);
         Task SaveAsync(IEnumerable<T> entities);

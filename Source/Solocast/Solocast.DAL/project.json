@@ -1,14 +1,12 @@
 ﻿{
   "dependencies": {
-    "Microsoft.NETCore.UniversalWindowsPlatform": "5.2.2",
-    "MvvmLight": "5.2.0",
-    "NotificationsExtensions.Win10": "10586.0.0",
-    "Win2D.uwp": "1.13.0",
     "Microsoft.EntityFrameworkCore.Sqlite": "1.0.0",
     "Microsoft.EntityFrameworkCore.Tools": {
       "version": "1.0.0-preview2-final",
       "type": "build"
-    }
+    },
+    "Microsoft.NETCore.UniversalWindowsPlatform": "5.2.2",
+    "Newtonsoft.Json": "8.0.2"
   },
   "frameworks": {
     "uap10.0": {}
