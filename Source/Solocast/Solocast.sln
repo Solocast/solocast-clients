@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio 15
+VisualStudioVersion = 15.0.25914.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Solocast.Core", "Solocast.Core\Solocast.Core.csproj", "{77332E38-3252-4595-BB9E-8AE06B679E80}"
 EndProject
@@ -76,6 +76,7 @@ Global
 		{FEBEB45E-96A0-4C03-BA66-858010122FB2}.Release|x86.ActiveCfg = Release|x86
 		{FEBEB45E-96A0-4C03-BA66-858010122FB2}.Release|x86.Build.0 = Release|x86
 		{59171DB4-D228-4314-B0EC-3F12CBA4F681}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{59171DB4-D228-4314-B0EC-3F12CBA4F681}.Debug|Any CPU.Build.0 = Debug|x86
 		{59171DB4-D228-4314-B0EC-3F12CBA4F681}.Debug|ARM.ActiveCfg = Debug|ARM
 		{59171DB4-D228-4314-B0EC-3F12CBA4F681}.Debug|ARM.Build.0 = Debug|ARM
 		{59171DB4-D228-4314-B0EC-3F12CBA4F681}.Debug|ARM.Deploy.0 = Debug|ARM
@@ -96,6 +97,8 @@ Global
 		{59171DB4-D228-4314-B0EC-3F12CBA4F681}.Release|x86.Build.0 = Release|x86
 		{59171DB4-D228-4314-B0EC-3F12CBA4F681}.Release|x86.Deploy.0 = Release|x86
 		{30F0ABA4-A165-4A77-9544-381352CA3DE3}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{30F0ABA4-A165-4A77-9544-381352CA3DE3}.Debug|Any CPU.Build.0 = Debug|x86
+		{30F0ABA4-A165-4A77-9544-381352CA3DE3}.Debug|Any CPU.Deploy.0 = Debug|x86
 		{30F0ABA4-A165-4A77-9544-381352CA3DE3}.Debug|ARM.ActiveCfg = Debug|ARM
 		{30F0ABA4-A165-4A77-9544-381352CA3DE3}.Debug|ARM.Build.0 = Debug|ARM
 		{30F0ABA4-A165-4A77-9544-381352CA3DE3}.Debug|ARM.Deploy.0 = Debug|ARM

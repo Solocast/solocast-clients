@@ -39,6 +39,8 @@ namespace Solocast.UWP.ViewModels
 				//TODO: add more pages
 				navigationService.Configure(nameof(PodcastsViewModel), typeof(PodcastsPage));
 				navigationService.Configure(nameof(PodcastDetailsViewModel), typeof(PodcastDetailsPage));
+				navigationService.Configure(nameof(EpisodesViewModel), typeof(EpisodesPage));
+				navigationService.Configure(nameof(NowPlayingViewModel), typeof(NowPlaying));
 				return navigationService;
 			});
 
