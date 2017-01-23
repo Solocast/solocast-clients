@@ -27,7 +27,6 @@ namespace Solocast.UWP.ViewModels
 			SimpleIoc.Default.Register<IFileDownloadService, FileDownloadService>();
 			SimpleIoc.Default.Register<IFeedParaseService, XmlFeedParserService>();
 			SimpleIoc.Default.Register<IMessageDialogService, MessageDialogService>();
-			SimpleIoc.Default.Register<IBackgroundMediaPlayerMediator, BackgroundMediaPlayerMediator>();
 			SimpleIoc.Default.Register<IPodcastStore<Podcast>>(() => new SQLitePodcastService());
 			SimpleIoc.Default.Register<IDatabaseMigrator>(() => new SQLitePodcastService());
 			SimpleIoc.Default.Register<IPlayService, PlayService>();

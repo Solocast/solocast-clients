@@ -117,7 +117,6 @@
     <Compile Include="Contracts\Podcast.cs" />
     <Compile Include="Contracts\SearchPodcast.cs" />
     <Compile Include="Exceptions\GetPodcastException.cs" />
-    <Compile Include="Interfaces\IBackgroundMediaPlayerMediator.cs" />
     <Compile Include="Interfaces\IDatabaseMigrator.cs" />
     <Compile Include="Interfaces\ISearchService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
