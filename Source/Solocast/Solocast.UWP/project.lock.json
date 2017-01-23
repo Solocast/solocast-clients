@@ -20111,10 +20111,12 @@
       ]
     },
     "NotificationsExtensions.Win10/10586.0.0": {
-      "sha512": "VFafpvnGVJarbKf97AiZeK5B9FnkS4Ds0oHXgrftXPX/LrgJe2oYwFXcQmXnjIuW8D8nAFFLEtH6TvCE8cPoaQ==",
+      "sha512": "MISR3bytM8ZHZtaJbWUU4GxHbnQKqUfjohg5uSAflFUqztKbvhDmKN1fTJYs/oYovhBFrU4P3CoiWfRnT7FTWw==",
       "type": "package",
       "path": "notificationsextensions.win10/10586.0.0",
       "files": [
+        "NotificationsExtensions.Win10.10586.0.0.nupkg.sha512",
+        "NotificationsExtensions.Win10.nuspec",
         "lib/dotnet/NotificationsExtensions.Win10.NETCore.XML",
         "lib/dotnet/NotificationsExtensions.Win10.NETCore.dll",
         "lib/dotnet/NotificationsExtensions.Win10.NETCore.pdb",
@@ -20125,9 +20127,7 @@
         "lib/uap10.0/NotificationsExtensions.pri",
         "lib/uap10.0/NotificationsExtensions.winmd",
         "lib/uap10.0/NotificationsExtensions.winmd.xml",
-        "lib/uap10.0/NotificationsExtensions.xml",
-        "notificationsextensions.win10.10586.0.0.nupkg.sha512",
-        "notificationsextensions.win10.nuspec"
+        "lib/uap10.0/NotificationsExtensions.xml"
       ]
     },
     "Remotion.Linq/2.1.1": {
@@ -26111,9 +26111,69 @@
     ],
     "UAP,Version=v10.0": []
   },
-  "tools": {},
-  "projectFileToolGroups": {},
   "packageFolders": {
-    "C:\\Users\\User1\\.nuget\\packages\\": {}
+    "C:\\Users\\Robert Iagar\\.nuget\\packages\\": {}
+  },
+  "project": {
+    "restore": {
+      "projectUniqueName": "C:\\Users\\Robert Iagar\\Documents\\Visual Studio 2015\\Projects\\Podcasts-WindowsUniversal\\Source\\Solocast\\Solocast.UWP\\Solocast.UWP.csproj",
+      "projectName": "Solocast.UWP",
+      "projectPath": "C:\\Users\\Robert Iagar\\Documents\\Visual Studio 2015\\Projects\\Podcasts-WindowsUniversal\\Source\\Solocast\\Solocast.UWP\\Solocast.UWP.csproj",
+      "projectJsonPath": "C:\\Users\\Robert Iagar\\Documents\\Visual Studio 2015\\Projects\\Podcasts-WindowsUniversal\\Source\\Solocast\\Solocast.UWP\\project.json",
+      "outputType": "UAP",
+      "frameworks": {
+        "uap10.0": {
+          "projectReferences": {
+            "C:\\Users\\Robert Iagar\\Documents\\Visual Studio 2015\\Projects\\Podcasts-WindowsUniversal\\Source\\Solocast\\Solocast.BackgroundTasks\\Solocast.BackgroundTasks.csproj": {
+              "projectPath": "C:\\Users\\Robert Iagar\\Documents\\Visual Studio 2015\\Projects\\Podcasts-WindowsUniversal\\Source\\Solocast\\Solocast.BackgroundTasks\\Solocast.BackgroundTasks.csproj"
+            },
+            "C:\\Users\\Robert Iagar\\Documents\\Visual Studio 2015\\Projects\\Podcasts-WindowsUniversal\\Source\\Solocast\\Solocast.Core\\Solocast.Core.csproj": {
+              "projectPath": "C:\\Users\\Robert Iagar\\Documents\\Visual Studio 2015\\Projects\\Podcasts-WindowsUniversal\\Source\\Solocast\\Solocast.Core\\Solocast.Core.csproj"
+            },
+            "C:\\Users\\Robert Iagar\\Documents\\Visual Studio 2015\\Projects\\Podcasts-WindowsUniversal\\Source\\Solocast\\Solocast.DAL\\Solocast.DAL.csproj": {
+              "projectPath": "C:\\Users\\Robert Iagar\\Documents\\Visual Studio 2015\\Projects\\Podcasts-WindowsUniversal\\Source\\Solocast\\Solocast.DAL\\Solocast.DAL.csproj"
+            },
+            "C:\\Users\\Robert Iagar\\Documents\\Visual Studio 2015\\Projects\\Podcasts-WindowsUniversal\\Source\\Solocast\\Solocast.Services\\Solocast.Services.csproj": {
+              "projectPath": "C:\\Users\\Robert Iagar\\Documents\\Visual Studio 2015\\Projects\\Podcasts-WindowsUniversal\\Source\\Solocast\\Solocast.Services\\Solocast.Services.csproj"
+            }
+          }
+        }
+      }
+    },
+    "dependencies": {
+      "Microsoft.NETCore.UniversalWindowsPlatform": "5.2.2",
+      "MvvmLight": "5.2.0",
+      "NotificationsExtensions.Win10": "10586.0.0",
+      "Win2D.uwp": "1.13.0",
+      "Microsoft.EntityFrameworkCore.Sqlite": "1.0.0",
+      "Microsoft.EntityFrameworkCore.Tools": {
+        "suppressParent": "All",
+        "type": "MainSource,PreprocessComponent",
+        "version": "1.0.0-preview2-final"
+      }
+    },
+    "frameworks": {
+      "uap10.0": {}
+    },
+    "runtimes": {
+      "win10-arm": {
+        "#import": []
+      },
+      "win10-arm-aot": {
+        "#import": []
+      },
+      "win10-x64": {
+        "#import": []
+      },
+      "win10-x64-aot": {
+        "#import": []
+      },
+      "win10-x86": {
+        "#import": []
+      },
+      "win10-x86-aot": {
+        "#import": []
+      }
+    }
   }
 }
