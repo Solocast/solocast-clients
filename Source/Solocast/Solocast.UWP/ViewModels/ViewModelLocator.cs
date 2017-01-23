@@ -30,7 +30,8 @@ namespace Solocast.UWP.ViewModels
 			SimpleIoc.Default.Register<IBackgroundMediaPlayerMediator, BackgroundMediaPlayerMediator>();
 			SimpleIoc.Default.Register<IPodcastStore<Podcast>>(() => new SQLitePodcastService());
 			SimpleIoc.Default.Register<IDatabaseMigrator>(() => new SQLitePodcastService());
-			SimpleIoc.Default.Register<IPlayService,PlayService>();
+			SimpleIoc.Default.Register<IPlayService, PlayService>();
+			SimpleIoc.Default.Register<ISearchService, ItunesSearchService>();
 
 			//navigation service
 			SimpleIoc.Default.Register<INavigationService>(() =>
@@ -41,6 +42,7 @@ namespace Solocast.UWP.ViewModels
 				navigationService.Configure(nameof(PodcastDetailsViewModel), typeof(PodcastDetailsPage));
 				navigationService.Configure(nameof(EpisodesViewModel), typeof(EpisodesPage));
 				navigationService.Configure(nameof(NowPlayingViewModel), typeof(NowPlaying));
+				navigationService.Configure(nameof(SearchViewModel), typeof(SearchPage));
 				return navigationService;
 			});
 
@@ -49,6 +51,7 @@ namespace Solocast.UWP.ViewModels
 			SimpleIoc.Default.Register<PodcastsViewModel>();
 			SimpleIoc.Default.Register<PodcastDetailsViewModel>();
 			SimpleIoc.Default.Register<EpisodesViewModel>();
+			SimpleIoc.Default.Register<SearchViewModel>();
 		}
 
 		public PodcastsViewModel Podcasts
@@ -67,5 +70,7 @@ namespace Solocast.UWP.ViewModels
 		}
 
 		public EpisodesViewModel Episodes => SimpleIoc.Default.GetInstance<EpisodesViewModel>();
+
+		public SearchViewModel Search => SimpleIoc.Default.GetInstance<SearchViewModel>();
 	}
 }

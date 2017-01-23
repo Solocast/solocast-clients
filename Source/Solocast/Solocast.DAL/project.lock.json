@@ -25327,9 +25327,58 @@
     ],
     "UAP,Version=v10.0": []
   },
-  "tools": {},
-  "projectFileToolGroups": {},
   "packageFolders": {
-    "C:\\Users\\User1\\.nuget\\packages\\": {}
+    "C:\\Users\\Robert Iagar\\.nuget\\packages\\": {}
+  },
+  "project": {
+    "restore": {
+      "projectUniqueName": "C:\\Users\\Robert Iagar\\Documents\\Visual Studio 2015\\Projects\\Podcasts-WindowsUniversal\\Source\\Solocast\\Solocast.DAL\\Solocast.DAL.csproj",
+      "projectName": "Solocast.DAL",
+      "projectPath": "C:\\Users\\Robert Iagar\\Documents\\Visual Studio 2015\\Projects\\Podcasts-WindowsUniversal\\Source\\Solocast\\Solocast.DAL\\Solocast.DAL.csproj",
+      "projectJsonPath": "C:\\Users\\Robert Iagar\\Documents\\Visual Studio 2015\\Projects\\Podcasts-WindowsUniversal\\Source\\Solocast\\Solocast.DAL\\project.json",
+      "outputType": "UAP",
+      "frameworks": {
+        "uap10.0": {
+          "projectReferences": {
+            "C:\\Users\\Robert Iagar\\Documents\\Visual Studio 2015\\Projects\\Podcasts-WindowsUniversal\\Source\\Solocast\\Solocast.Core\\Solocast.Core.csproj": {
+              "projectPath": "C:\\Users\\Robert Iagar\\Documents\\Visual Studio 2015\\Projects\\Podcasts-WindowsUniversal\\Source\\Solocast\\Solocast.Core\\Solocast.Core.csproj"
+            }
+          }
+        }
+      }
+    },
+    "dependencies": {
+      "Microsoft.EntityFrameworkCore.Sqlite": "1.0.0",
+      "Microsoft.EntityFrameworkCore.Tools": {
+        "suppressParent": "All",
+        "type": "MainSource,PreprocessComponent",
+        "version": "1.0.0-preview2-final"
+      },
+      "Microsoft.NETCore.UniversalWindowsPlatform": "5.2.2",
+      "Newtonsoft.Json": "8.0.2"
+    },
+    "frameworks": {
+      "uap10.0": {}
+    },
+    "runtimes": {
+      "win10-arm": {
+        "#import": []
+      },
+      "win10-arm-aot": {
+        "#import": []
+      },
+      "win10-x64": {
+        "#import": []
+      },
+      "win10-x64-aot": {
+        "#import": []
+      },
+      "win10-x86": {
+        "#import": []
+      },
+      "win10-x86-aot": {
+        "#import": []
+      }
+    }
   }
 }

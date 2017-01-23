@@ -135,6 +135,7 @@
     <Compile Include="ViewModels\PodcastDetailsViewModel.cs" />
     <Compile Include="ViewModels\PodcastsViewModel.cs" />
     <Compile Include="ViewModels\PodcastViewModel.cs" />
+    <Compile Include="ViewModels\SearchViewModel.cs" />
     <Compile Include="ViewModels\ViewModelLocator.cs" />
     <Compile Include="Views\PodcastDetailsPage.xaml.cs">
       <DependentUpon>PodcastDetailsPage.xaml</DependentUpon>
@@ -147,6 +148,9 @@
     </Compile>
     <Compile Include="Views\NowPlaying.xaml.cs">
       <DependentUpon>NowPlaying.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\SearchPage.xaml.cs">
+      <DependentUpon>SearchPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\SettingsPage.xaml.cs">
       <DependentUpon>SettingsPage.xaml</DependentUpon>
@@ -201,6 +205,10 @@
     <Page Include="Views\NowPlaying.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\SearchPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\SettingsPage.xaml">
       <Generator>MSBuild:Compile</Generator>

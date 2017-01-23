@@ -52,7 +52,13 @@ namespace Solocast.UWP
                     Symbol = Symbol.Play,
                     Label = "Now playing",
                     DestinationPage = typeof(NowPlayingViewModel)
-                }
+                },
+				new NavMenuItem()
+				{
+					Symbol = Symbol.Find,
+					Label = "Search",
+					DestinationPage = typeof(SearchViewModel)
+				}
             });
 
         public static AppShell Current = null;
