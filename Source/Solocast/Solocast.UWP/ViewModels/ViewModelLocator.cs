@@ -40,7 +40,7 @@ namespace Solocast.UWP.ViewModels
 				navigationService.Configure(nameof(PodcastsViewModel), typeof(PodcastsPage));
 				navigationService.Configure(nameof(PodcastDetailsViewModel), typeof(PodcastDetailsPage));
 				navigationService.Configure(nameof(EpisodesViewModel), typeof(EpisodesPage));
-				navigationService.Configure(nameof(NowPlayingViewModel), typeof(NowPlaying));
+				navigationService.Configure(nameof(NowPlayingViewModel), typeof(NowPlayingPage));
 				navigationService.Configure(nameof(SearchViewModel), typeof(SearchPage));
 				return navigationService;
 			});
