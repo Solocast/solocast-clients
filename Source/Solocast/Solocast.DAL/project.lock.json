@@ -25328,20 +25328,20 @@
     "UAP,Version=v10.0": []
   },
   "packageFolders": {
-    "C:\\Users\\Robert Iagar\\.nuget\\packages\\": {}
+    "C:\\Users\\rober\\.nuget\\packages\\": {}
   },
   "project": {
     "restore": {
-      "projectUniqueName": "C:\\Users\\Robert Iagar\\Documents\\Visual Studio 2015\\Projects\\Podcasts-WindowsUniversal\\Source\\Solocast\\Solocast.DAL\\Solocast.DAL.csproj",
+      "projectUniqueName": "C:\\Users\\rober\\Documents\\GitHub\\Podcasts-WindowsUniversal\\Source\\Solocast\\Solocast.DAL\\Solocast.DAL.csproj",
       "projectName": "Solocast.DAL",
-      "projectPath": "C:\\Users\\Robert Iagar\\Documents\\Visual Studio 2015\\Projects\\Podcasts-WindowsUniversal\\Source\\Solocast\\Solocast.DAL\\Solocast.DAL.csproj",
-      "projectJsonPath": "C:\\Users\\Robert Iagar\\Documents\\Visual Studio 2015\\Projects\\Podcasts-WindowsUniversal\\Source\\Solocast\\Solocast.DAL\\project.json",
+      "projectPath": "C:\\Users\\rober\\Documents\\GitHub\\Podcasts-WindowsUniversal\\Source\\Solocast\\Solocast.DAL\\Solocast.DAL.csproj",
+      "projectJsonPath": "C:\\Users\\rober\\Documents\\GitHub\\Podcasts-WindowsUniversal\\Source\\Solocast\\Solocast.DAL\\project.json",
       "outputType": "UAP",
       "frameworks": {
         "uap10.0": {
           "projectReferences": {
-            "C:\\Users\\Robert Iagar\\Documents\\Visual Studio 2015\\Projects\\Podcasts-WindowsUniversal\\Source\\Solocast\\Solocast.Core\\Solocast.Core.csproj": {
-              "projectPath": "C:\\Users\\Robert Iagar\\Documents\\Visual Studio 2015\\Projects\\Podcasts-WindowsUniversal\\Source\\Solocast\\Solocast.Core\\Solocast.Core.csproj"
+            "C:\\Users\\rober\\Documents\\GitHub\\Podcasts-WindowsUniversal\\Source\\Solocast\\Solocast.Core\\Solocast.Core.csproj": {
+              "projectPath": "C:\\Users\\rober\\Documents\\GitHub\\Podcasts-WindowsUniversal\\Source\\Solocast\\Solocast.Core\\Solocast.Core.csproj"
             }
           }
         }

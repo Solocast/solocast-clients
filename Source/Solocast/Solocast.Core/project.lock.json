@@ -22044,14 +22044,14 @@
     "UAP,Version=v10.0": []
   },
   "packageFolders": {
-    "C:\\Users\\Robert Iagar\\.nuget\\packages\\": {}
+    "C:\\Users\\rober\\.nuget\\packages\\": {}
   },
   "project": {
     "restore": {
-      "projectUniqueName": "C:\\Users\\Robert Iagar\\Documents\\Visual Studio 2015\\Projects\\Podcasts-WindowsUniversal\\Source\\Solocast\\Solocast.Core\\Solocast.Core.csproj",
+      "projectUniqueName": "C:\\Users\\rober\\Documents\\GitHub\\Podcasts-WindowsUniversal\\Source\\Solocast\\Solocast.Core\\Solocast.Core.csproj",
       "projectName": "Solocast.Core",
-      "projectPath": "C:\\Users\\Robert Iagar\\Documents\\Visual Studio 2015\\Projects\\Podcasts-WindowsUniversal\\Source\\Solocast\\Solocast.Core\\Solocast.Core.csproj",
-      "projectJsonPath": "C:\\Users\\Robert Iagar\\Documents\\Visual Studio 2015\\Projects\\Podcasts-WindowsUniversal\\Source\\Solocast\\Solocast.Core\\project.json",
+      "projectPath": "C:\\Users\\rober\\Documents\\GitHub\\Podcasts-WindowsUniversal\\Source\\Solocast\\Solocast.Core\\Solocast.Core.csproj",
+      "projectJsonPath": "C:\\Users\\rober\\Documents\\GitHub\\Podcasts-WindowsUniversal\\Source\\Solocast\\Solocast.Core\\project.json",
       "outputType": "UAP"
     },
     "dependencies": {
