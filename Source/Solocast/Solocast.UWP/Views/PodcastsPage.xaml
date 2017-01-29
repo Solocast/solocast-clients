@@ -64,16 +64,6 @@
             </Grid>
         </Flyout>
     </Page.Resources>
-    <Page.Transitions>
-        <TransitionCollection>
-            <NavigationThemeTransition>
-                <NavigationThemeTransition.DefaultNavigationTransitionInfo>
-                    <CommonNavigationTransitionInfo IsStaggeringEnabled="True"/>
-                </NavigationThemeTransition.DefaultNavigationTransitionInfo>
-            </NavigationThemeTransition>
-            <EntranceThemeTransition IsStaggeringEnabled="True"/>
-        </TransitionCollection>
-    </Page.Transitions>
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
           CommonNavigationTransitionInfo.IsStaggerElement="True">
         <GridView ItemsSource="{Binding Podcasts}"
