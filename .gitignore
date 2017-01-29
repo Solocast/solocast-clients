@@ -197,3 +197,4 @@ FakesAssemblies/
 *.opt
 */project.lock.json
 
+Source/Solocast/Solocast.BackgroundTasks/project.lock.json
