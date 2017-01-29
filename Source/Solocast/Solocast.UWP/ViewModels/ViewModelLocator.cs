@@ -53,20 +53,11 @@ namespace Solocast.UWP.ViewModels
 			SimpleIoc.Default.Register<SearchViewModel>();
 		}
 
-		public PodcastsViewModel Podcasts
-		{
-			get { return ServiceLocator.Current.GetInstance<PodcastsViewModel>(); }
-		}
+		public PodcastsViewModel Podcasts => SimpleIoc.Default.GetInstance<PodcastsViewModel>();
 
-		public PodcastDetailsViewModel PodcastDetails
-		{
-			get { return ServiceLocator.Current.GetInstance<PodcastDetailsViewModel>(); }
-		}
+		public PodcastDetailsViewModel PodcastDetails => SimpleIoc.Default.GetInstance<PodcastDetailsViewModel>();
 
-		public static NowPlayingViewModel NowPlaying
-		{
-			get { return ServiceLocator.Current.GetInstance<NowPlayingViewModel>(); }
-		}
+		public NowPlayingViewModel NowPlaying => SimpleIoc.Default.GetInstance<NowPlayingViewModel>();
 
 		public EpisodesViewModel Episodes => SimpleIoc.Default.GetInstance<EpisodesViewModel>();
 

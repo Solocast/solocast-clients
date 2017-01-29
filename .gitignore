@@ -195,5 +195,6 @@ FakesAssemblies/
 
 # Visual Studio 6 workspace options file
 *.opt
-*.lock.json
+*/project.lock.json
 
+Source/Solocast/Solocast.BackgroundTasks/project.lock.json
