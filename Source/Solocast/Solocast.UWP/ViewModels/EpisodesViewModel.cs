@@ -35,7 +35,7 @@ namespace Solocast.UWP.ViewModels
                 var podcastVm = new PodcastViewModel(podcast);
                 tempEpisodes.AddRange(podcastVm.Episodes);
             }
-            tempEpisodes = tempEpisodes.OrderBy(ep => ep.Episode.Published).ToList();
+            tempEpisodes = tempEpisodes.OrderByDescending(ep => ep.Episode.Published).ToList();
             foreach (var episode in tempEpisodes)
             {
                 episodes.Add(episode);

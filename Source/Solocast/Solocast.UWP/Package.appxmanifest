@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Package xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10" xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest" xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10" xmlns:uap3="http://schemas.microsoft.com/appx/manifest/uap/windows10/3" IgnorableNamespaces="uap mp uap3">
-  <Identity Name="19936SolocastAlpha" Publisher="CN=6CCB9305-D571-4AAD-8ADF-FAA43EC84A0F" Version="1.1.0.0" />
+  <Identity Name="19936SolocastAlpha" Publisher="CN=Solocast" Version="1.1.0.0" />
   <mp:PhoneIdentity PhoneProductId="65e76bc7-311c-4a6f-9ffb-16a47baadcc8" PhonePublisherId="00000000-0000-0000-0000-000000000000" />
   <Properties>
     <DisplayName>Solocast Alpha</DisplayName>

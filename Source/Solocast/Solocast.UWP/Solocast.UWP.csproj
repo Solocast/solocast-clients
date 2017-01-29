@@ -17,8 +17,8 @@
     <EnableDotNetNativeCompatibleProfile>true</EnableDotNetNativeCompatibleProfile>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{A5A43C5B-DE2A-4C0C-9213-0A381AF9435A};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
-    <PackageCertificateKeyFile>RobertIagar.Podcasts.UWP_StoreKey.pfx</PackageCertificateKeyFile>
-    <PackageCertificateThumbprint>6230BED47D5159DC43E53FE46B9CB692AE8FCFE5</PackageCertificateThumbprint>
+    <PackageCertificateKeyFile>Solocast.UWP_TemporaryKey.pfx</PackageCertificateKeyFile>
+    <PackageCertificateThumbprint>F72E6EB22437C8A571240C09CB7E074093B53D89</PackageCertificateThumbprint>
     <AppxAutoIncrementPackageRevision>True</AppxAutoIncrementPackageRevision>
     <AppxBundle>Always</AppxBundle>
     <AppxBundlePlatforms>x86|x64|arm</AppxBundlePlatforms>
@@ -98,6 +98,7 @@
       <SubType>Designer</SubType>
     </None>
     <None Include="project.json" />
+    <None Include="Solocast.UWP_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App.xaml.cs">
@@ -135,6 +136,7 @@
     <Compile Include="ViewModels\PodcastDetailsViewModel.cs" />
     <Compile Include="ViewModels\PodcastsViewModel.cs" />
     <Compile Include="ViewModels\PodcastViewModel.cs" />
+    <Compile Include="ViewModels\SearchViewModel.cs" />
     <Compile Include="ViewModels\ViewModelLocator.cs" />
     <Compile Include="Views\PodcastDetailsPage.xaml.cs">
       <DependentUpon>PodcastDetailsPage.xaml</DependentUpon>
@@ -145,8 +147,11 @@
     <Compile Include="Views\EpisodesPage.xaml.cs">
       <DependentUpon>EpisodesPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\NowPlaying.xaml.cs">
-      <DependentUpon>NowPlaying.xaml</DependentUpon>
+    <Compile Include="Views\NowPlayingPage.xaml.cs">
+      <DependentUpon>NowPlayingPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\SearchPage.xaml.cs">
+      <DependentUpon>SearchPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\SettingsPage.xaml.cs">
       <DependentUpon>SettingsPage.xaml</DependentUpon>
@@ -156,11 +161,8 @@
     <AppxManifest Include="Package.appxmanifest">
       <SubType>Designer</SubType>
     </AppxManifest>
-    <None Include="RobertIagar.Podcasts.UWP_StoreKey.pfx" />
-    <None Include="RobertIagar.Podcasts.UWP_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Package.StoreAssociation.xml" />
     <Content Include="Assets\1SplashScreen.scale-200.png" />
     <Content Include="Assets\SplashScreen.scale-200.png" />
     <Content Include="Properties\Default.rd.xml" />
@@ -198,9 +200,13 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Views\NowPlaying.xaml">
+    <Page Include="Views\NowPlayingPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\SearchPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\SettingsPage.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -208,9 +214,6 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <SDKReference Include="BehaviorsXamlSDKManaged, Version=12.0">
-      <Name>Behaviors SDK %28XAML%29</Name>
-    </SDKReference>
     <SDKReference Include="WindowsMobile, Version=10.0.14393.0">
       <Name>Windows Mobile Extensions for the UWP</Name>
     </SDKReference>

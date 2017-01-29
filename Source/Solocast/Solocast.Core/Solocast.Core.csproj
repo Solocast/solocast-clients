@@ -11,7 +11,7 @@
     <AssemblyName>Solocast.Core</AssemblyName>
     <DefaultLanguage>en-US</DefaultLanguage>
     <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>
-    <TargetPlatformVersion>10.0.10240.0</TargetPlatformVersion>
+    <TargetPlatformVersion>10.0.14393.0</TargetPlatformVersion>
     <TargetPlatformMinVersion>10.0.10240.0</TargetPlatformMinVersion>
     <MinimumVisualStudioVersion>14</MinimumVisualStudioVersion>
     <FileAlignment>512</FileAlignment>
@@ -115,9 +115,10 @@
   <ItemGroup>
     <Compile Include="Contracts\Episode.cs" />
     <Compile Include="Contracts\Podcast.cs" />
+    <Compile Include="Contracts\SearchPodcast.cs" />
     <Compile Include="Exceptions\GetPodcastException.cs" />
-    <Compile Include="Interfaces\IBackgroundMediaPlayerMediator.cs" />
     <Compile Include="Interfaces\IDatabaseMigrator.cs" />
+    <Compile Include="Interfaces\ISearchService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Interfaces\IFeedParser.cs" />
     <Compile Include="Interfaces\IFileDownloadManager.cs" />

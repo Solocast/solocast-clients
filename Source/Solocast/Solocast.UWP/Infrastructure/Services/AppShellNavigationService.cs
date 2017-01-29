@@ -11,6 +11,10 @@ namespace Solocast.UWP.Infrastructure.Services
 {
     public class AppShellNavigationService : INavigationService
     {
+		public AppShellNavigationService()
+		{
+			;
+		}
         /// <summary>
         ///     The key that is returned by the <see cref="CurrentPageKey" /> property
         ///     when the current Page is the root page.

@@ -19,6 +19,7 @@ using Solocast.UWP.ViewModels;
 using Solocast.Core.Interfaces;
 using Microsoft.Practices.ServiceLocation;
 using Solocast.Core.Contracts;
+using GalaSoft.MvvmLight.Views;
 
 namespace Solocast.UWP
 {
@@ -28,28 +29,36 @@ namespace Solocast.UWP
     /// </summary>
     public sealed partial class AppShell : Page
     {
-        // Declare the top level nav items
-        private List<NavMenuItem> navlist = new List<NavMenuItem>(
+		private INavigationService navigationService;
+
+		// Declare the top level nav items
+		private List<NavMenuItem> navlist = new List<NavMenuItem>(
             new[]
             {
                 new NavMenuItem()
                 {
                     Symbol = Symbol.Library,
                     Label = "Podcasts",
-                    DestinationPage = typeof(PodcastsPage)
+                    DestinationPage = typeof(PodcastsViewModel)
                 },
                 new NavMenuItem()
                 {
                     Symbol = Symbol.Audio,
                     Label = "Episodes",
-                    DestinationPage = typeof(EpisodesPage)
+                    DestinationPage = typeof(EpisodesViewModel)
                 },
                 new NavMenuItem()
                 {
                     Symbol = Symbol.Play,
                     Label = "Now playing",
-                    DestinationPage = typeof(NowPlaying)
-                }
+                    DestinationPage = typeof(NowPlayingViewModel)
+                },
+				new NavMenuItem()
+				{
+					Symbol = Symbol.Find,
+					Label = "Search",
+					DestinationPage = typeof(SearchViewModel)
+				}
             });
 
         public static AppShell Current = null;
@@ -64,6 +73,8 @@ namespace Solocast.UWP
             this.InitializeComponent();
 
             ServiceLocator.Current.GetInstance<IDatabaseMigrator>().Migrate();
+
+			this.navigationService = ServiceLocator.Current.GetInstance<INavigationService>();
 
             this.Loaded += (sender, args) =>
             {
@@ -205,7 +216,7 @@ namespace Solocast.UWP
                     }
                     else if (item.DestinationPage != this.AppFrame.CurrentSourcePageType)
                     {
-                        this.AppFrame.Navigate(item.DestinationPage, item.Arguments);
+						navigationService.NavigateTo(item.DestinationPage.Name, item.Arguments);
                     }
                 }
             }
