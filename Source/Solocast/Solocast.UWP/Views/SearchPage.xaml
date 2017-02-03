@@ -33,16 +33,24 @@
 						<Grid.RowDefinitions>
 							<RowDefinition Height="Auto"/>
 							<RowDefinition Height="*"/>
+							<RowDefinition Height="Auto"/>
 						</Grid.RowDefinitions>
-						<Image Source="{Binding ArtworkUrl100}"
+						<Image Source="{Binding Podcast.ArtworkUrl100}"
 							   VerticalAlignment="Top"
 							   Height="100"
 							   CommonNavigationTransitionInfo.IsStaggerElement="True"/>
 						<TextBlock Grid.Row="1" 
-								   Text="{Binding Name}" 
+								   Text="{Binding Podcast.Name}" 
 								   Width="128" 
 								   TextWrapping="WrapWholeWords" 
 								   CommonNavigationTransitionInfo.IsStaggerElement="True"/>
+						<Button Grid.Row="2"
+								Command="{Binding SubscribeCommand}">
+							<StackPanel Orientation="Horizontal">
+								<SymbolIcon Symbol="Add"/>
+								<TextBlock Text="Subscribe"/>
+							</StackPanel>
+						</Button>
 					</Grid>
 				</DataTemplate>
 			</GridView.ItemTemplate>

@@ -15,13 +15,13 @@ namespace Solocast.UWP.ViewModels
 	public class SearchViewModel : ViewModelBase
 	{
 		ISearchService searchService;
-		ObservableCollection<SearchPodcast> podcasts;
+		ObservableCollection<SearchItemViewModel> podcasts;
 		string searchTerms;
 
 		public SearchViewModel(ISearchService searchService)
 		{
 			this.searchService = searchService;
-			this.podcasts = new ObservableCollection<SearchPodcast>();
+			this.podcasts = new ObservableCollection<SearchItemViewModel>();
 			this.SearchCommand = new RelayCommand(async () => await this.SearchPodcastAsync(), CanSearchPodcast);
 		}
 
@@ -35,7 +35,7 @@ namespace Solocast.UWP.ViewModels
 			}
 		}
 
-		public IList<SearchPodcast> Podcasts => podcasts;
+		public IList<SearchItemViewModel> Podcasts => podcasts;
 
 		private async Task SearchPodcastAsync()
 		{
@@ -45,7 +45,7 @@ namespace Solocast.UWP.ViewModels
 				podcasts.Clear();
 				foreach (var item in searchResults)
 				{
-					podcasts.Add(item);
+					podcasts.Add(new SearchItemViewModel(item));
 				}
 			}
 		}

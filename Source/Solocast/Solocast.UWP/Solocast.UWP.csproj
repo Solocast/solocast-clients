@@ -136,7 +136,9 @@
     <Compile Include="ViewModels\PodcastDetailsViewModel.cs" />
     <Compile Include="ViewModels\PodcastsViewModel.cs" />
     <Compile Include="ViewModels\PodcastViewModel.cs" />
+    <Compile Include="ViewModels\SearchItemViewModel.cs" />
     <Compile Include="ViewModels\SearchViewModel.cs" />
+    <Compile Include="Infrastructure\Messages\SubscribeToPodcastMessage.cs" />
     <Compile Include="ViewModels\ViewModelLocator.cs" />
     <Compile Include="Views\PodcastDetailsPage.xaml.cs">
       <DependentUpon>PodcastDetailsPage.xaml</DependentUpon>

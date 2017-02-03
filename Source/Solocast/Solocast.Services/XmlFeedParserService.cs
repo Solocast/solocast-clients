@@ -29,8 +29,8 @@ namespace Solocast.Services
             var title = xmlDocument.Element("rss").Element("channel").Element("title").Value;
             XNamespace itunes = "http://www.itunes.com/dtds/podcast-1.0.dtd";
             var items = xmlDocument.Element("rss").Element("channel").Elements("item");
-            var description = xmlDocument.Element("rss").Element("channel").Element("description").Value;
-            var summary = xmlDocument.Element("rss").Element("channel").Element(itunes + "summary").Value;
+            var description = xmlDocument.Element("rss").Element("channel").Element("description")?.Value;
+            var summary = xmlDocument.Element("rss").Element("channel").Element(itunes + "summary")?.Value;
             var imageLink = xmlDocument.Element("rss").Element("channel").Element(itunes + "image").Attribute("href").Value;
             var author = xmlDocument.Element("rss").Element("channel").Element(itunes + "author").Value;
             string podcastDescription = string.Empty;

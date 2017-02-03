@@ -41,6 +41,7 @@ namespace Solocast.UWP.ViewModels
             MessengerInstance.Register<LoadPodcastsMessage>(this, message => LoadPodcastsAsync());
             MessengerInstance.Register<DeletePodcastMessage>(this, message => DeletePodcastAsync(message));
             MessengerInstance.Register<CheckForNewEpsiodesMessage>(this, message => CheckForNewEpisodesAsync());
+			MessengerInstance.Register<SubcribeToPodcastMessage>(this, async message => await SubscribeToPodcastAsync(message.Podcast));
         }
 
         public IList<PodcastViewModel> Podcasts { get { return podcasts; } }
@@ -61,23 +62,13 @@ namespace Solocast.UWP.ViewModels
         public async void AddPodcastAsync()
         {
             try
-            {
-                var corePodcast = await podcastService.GetPodcastAsync(feedUrl);
-                var podcastModel = new PodcastViewModel(corePodcast);
+			{
+				var corePodcast = await podcastService.GetPodcastAsync(feedUrl);
+				await SubscribeToPodcastAsync(corePodcast);
 
-                if (!podcasts.Contains(podcastModel))
-                {
-                    podcasts.Add(podcastModel);
-                    await podcastService.SavePodcastAsync(corePodcast);
-                }
-                else
-                {
-
-                }
-
-                FeedUrl = string.Empty;
-            }
-            catch (GetPodcastException ex)
+				FeedUrl = string.Empty;
+			}
+			catch (GetPodcastException ex)
             {
                 var result = await dialogService.ShowDialogAsync(ex.Message, "Error!", new[]
                 {
@@ -96,7 +87,18 @@ namespace Solocast.UWP.ViewModels
             }
         }
 
-        private bool CanAddPodcast()
+		private async Task SubscribeToPodcastAsync(Core.Contracts.Podcast corePodcast)
+		{
+			var podcastModel = new PodcastViewModel(corePodcast);
+
+			if (!podcasts.Contains(podcastModel))
+			{
+				podcasts.Add(podcastModel);
+				await podcastService.SavePodcastAsync(corePodcast);
+			}
+		}
+
+		private bool CanAddPodcast()
         {
             Uri uriResult;
             bool result = Uri.TryCreate(FeedUrl, UriKind.Absolute, out uriResult);
