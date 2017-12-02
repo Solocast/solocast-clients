@@ -32,11 +32,11 @@ namespace Solocast.Services
 					var podcast = new SearchPodcast
 					{
 						Name = item.trackName,
-						FeedUrl = new Uri(item.feedUrl?.ToString()),
-						ArtworkUrl30 = new Uri(item.artworkUrl30?.ToString()),
-						ArtworkUrl60 = new Uri(item.artworkUrl60?.ToString()),
-						ArtworkUrl100 = new Uri(item.artworkUrl100?.ToString()),
-						ArtworkUrl600 = new Uri(item.artworkUrl600?.ToString())
+						FeedUrl = item.feedUrl?.ToString(),
+						ArtworkUrl30 = item.artworkUrl30?.ToString(),
+						ArtworkUrl60 = item.artworkUrl60?.ToString(),
+						ArtworkUrl100 = item.artworkUrl100?.ToString(),
+						ArtworkUrl600 = item.artworkUrl600?.ToString()
 					};
 
 					list.Add(podcast);

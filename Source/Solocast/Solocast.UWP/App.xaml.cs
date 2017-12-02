@@ -84,15 +84,6 @@ namespace Solocast.UWP
             DispatcherHelper.Initialize();
             var t = CoreApplication.GetCurrentView();
             t.TitleBar.ExtendViewIntoTitleBar = false;
-            try
-            {
-                var s = StatusBar.GetForCurrentView();
-                await s.HideAsync();
-            }
-            catch
-            {
-                //meh no status bar
-            }
         }
 
         /// <summary>

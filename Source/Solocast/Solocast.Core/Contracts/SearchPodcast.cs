@@ -9,10 +9,10 @@ namespace Solocast.Core.Contracts
 	public class SearchPodcast
 	{
 		public string Name { get; set; }
-		public Uri FeedUrl { get; set; }
-		public Uri ArtworkUrl30 { get; set; }
-		public Uri ArtworkUrl60 { get; set; }
-		public Uri ArtworkUrl100 { get; set; }
-		public Uri ArtworkUrl600 { get; set; }
+		public string FeedUrl { get; set; }
+		public string ArtworkUrl30 { get; set; }
+		public string ArtworkUrl60 { get; set; }
+		public string ArtworkUrl100 { get; set; }
+		public string ArtworkUrl600 { get; set; }
 	}
 }
