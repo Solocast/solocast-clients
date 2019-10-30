@@ -13,5 +13,9 @@ jobs:
       uses: actions/setup-dotnet@v1
       with:
         dotnet-version: 3.0.100
+        
+        
+    - name: Restore packages
+      run: dotnet restore Source/Solocast/Solocast.sln
     - name: Build with dotnet
       run: dotnet msbuild Source/Solocast/Solocast.sln
